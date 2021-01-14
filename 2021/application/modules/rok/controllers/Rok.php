@@ -135,7 +135,7 @@ class Rok extends MY_Controller
         }
     }
 
-    public function hapus($id_sub, $bln, $id)
+    public function hapus($id_sub, $bln, $id, $seksi)
     {
         if ($this->session->userdata("id_user") == "") {
             redirect("../");
@@ -147,11 +147,11 @@ class Rok extends MY_Controller
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);
 
-            redirect("../rok/tambahDaftar/" . $id_sub . "/" . $bln);
+            redirect("../rok/tambahDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
         } else {
             $this->session->set_flashdata('gagal', $hasil['msg']);
 
-            redirect("../rok/tambahDaftar/" . $id_sub . "/" . $bln);
+            redirect("../rok/tambahDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
         }
     }
 
