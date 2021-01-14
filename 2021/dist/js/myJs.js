@@ -5,7 +5,7 @@ base_url =
   window.location.origin === "http://sikupat.mi-kes.net"
     ? base_url.split("/")[1] + "/"
     : base_url.split("/")[1] + "/" + base_url.split("/")[2] + "/";
-var url = window.location.origin + "/2021/" + base_url;
+var url = window.location.origin + "/" + base_url;
 
 var dash = $(location).attr("pathname");
 dash.indexOf(1);
