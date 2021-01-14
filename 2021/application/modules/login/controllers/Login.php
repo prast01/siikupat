@@ -34,6 +34,7 @@ class Login extends MY_Controller
             if ($data->sandi == $post['sandi']) {
                 $this->session->set_userdata("id_user", $data->id_user);
                 $this->session->set_userdata("kode_seksi", $data->kode_seksi);
+                $this->session->set_userdata("kode_bidang", $data->kode_bidang);
                 $this->session->set_userdata("nama", $data->nama);
 
                 redirect("../dashboard");

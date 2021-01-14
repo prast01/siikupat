@@ -1,4 +1,5 @@
 <?php $kode_seksi = $this->session->userdata("kode_seksi"); ?>
+<?php $kode_bidang = $this->session->userdata("kode_bidang"); ?>
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
 	<div class="container">
@@ -17,21 +18,26 @@
 				<li class="nav-item">
 					<a href="<?php echo site_url('../'); ?>" class="nav-link">Beranda</a>
 				</li>
-				<?php if ($kode_seksi != "XXXX") : ?>
+				<?php if ($kode_bidang != "XXXX") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">SPJ</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-							<!-- Level two dropdown-->
-							<li>
-								<a tabindex="-1" href="<?php echo site_url('../rok'); ?>" class="dropdown-item">Pendaftaran ROK</a>
-							</li>
-							<li>
-								<a tabindex="-1" href="<?php echo site_url('../spj'); ?>" class="dropdown-item">Pendaftaran SPJ</a>
-							</li>
+							<?php if ($kode_seksi != "XXXX") : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../rok'); ?>" class="dropdown-item">Pendaftaran ROK</a>
+								</li>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../spj'); ?>" class="dropdown-item">Pendaftaran SPJ</a>
+								</li>
+							<?php else : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../verifikasi'); ?>" class="dropdown-item">Verifikasi SPJ</a>
+								</li>
+							<?php endif; ?>
 						</ul>
 					</li>
 				<?php endif; ?>
-				<?php if ($kode_seksi == "DJ001" || $kode_seksi == "XXXX") : ?>
+				<?php if ($kode_seksi == "DJ001" || $kode_bidang == "XXXX") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengaturan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

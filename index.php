@@ -525,21 +525,12 @@
 	</ul>
 
 	<div class="container-fluid p-4">
-		<!-- <div class="row">
-			<div class="col-md-12">
-				<img src="assets/img/header.png" width="600px" class="img-fluid mx-auto d-block" alt="Responsive image">
-			</div>
-		</div> -->
 		<br>
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<div class="row p-3">
 					<div class="col-md-3 col-sm-6 text-center">
-						<!-- <a href="http://sikupat2020.sikdkkjepara.net/" class="element" target="_blank">
-							<img src="assets/logo/keuangan.png" width="100px">
-						</a>
-						<h4 class="text-white mt-3">Tahun 2020</h4> -->
 					</div>
 					<div class="col-md-3 col-sm-6 text-center">
 						<a href="http://sikupat2020.sikdkkjepara.net/" class="element" target="_blank">
@@ -556,7 +547,6 @@
 				</div>
 				<div class="row p-3">
 					<div class="col-md-12 text-center">
-						<!-- <audio src="https://r5.siar.us:8500/stream" preload="auto" controls></audio> -->
 						<audio src="http://masima.rastream.com/masima-pramborsjakarta?" preload="auto" controls></audio>
 
 					</div>
