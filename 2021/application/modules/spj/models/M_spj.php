@@ -109,6 +109,13 @@ class M_spj extends CI_Model
         return $data;
     }
 
+    public function get_verif_by_kode($kode_spj)
+    {
+        $data = $this->db->get_where("tb_riwayat_spj", ["kode_spj" => $kode_spj])->result();
+
+        return $data;
+    }
+
     // CRUD
     public function save($post)
     {
@@ -241,7 +248,7 @@ class M_spj extends CI_Model
             "uraian" => $post["uraian"],
             "nominal" => $post["nominal"],
             "dokumen_spj" => $dokumen_spj,
-            "tgl_daftar" => date("Y-m-d H:i:s"),
+            "status_verif" => 0,
         );
 
         $hasil = $this->db->update('tb_spj', $data, $where);

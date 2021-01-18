@@ -70,6 +70,7 @@ class Spj extends MY_Controller
         $kode_seksi = $this->session->userdata("kode_seksi");
 
         $data["spj"] = $model->get_spj_by_kode($kode_spj);
+        $data["verif"] = $model->get_verif_by_kode($kode_spj);
         $data["sub_kegiatan"] = $model->get_sub_kegiatan_by_id($data["spj"]->id_sub_kegiatan);
         $data["rekening"] = $model->get_rekening_by_id($data["spj"]->id_rekening);
         $data["rok"] = $model->get_rok_by_id($data["spj"]->id_rok);

@@ -34,6 +34,11 @@
 									<a tabindex="-1" href="<?php echo site_url('../verifikasi'); ?>" class="dropdown-item">Verifikasi SPJ</a>
 								</li>
 							<?php endif; ?>
+							<?php if ($kode_bidang == "DK001" && $kode_seksi == "XXXX") : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../transfer'); ?>" class="dropdown-item">Transfer SPJ</a>
+								</li>
+							<?php endif; ?>
 						</ul>
 					</li>
 				<?php endif; ?>

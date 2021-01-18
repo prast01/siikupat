@@ -38,6 +38,10 @@ $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
 
+    $(".textarea").summernote({
+        height: 200
+    });
+
     $('.tanggal').datetimepicker({
             maxDate: new Date(),
             locale:'id',

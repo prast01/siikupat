@@ -34,14 +34,14 @@
                             <h5 class="card-title m-0">DOKUMEN SPJ</h5>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-12 mb-3">
-                                    <a href="<?= site_url("../spj"); ?>" class="btn btn-warning text-white">
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <a href="<?= site_url("../verifikasi"); ?>" class="btn btn-warning text-white">
                                         <span class="fa fa-arrow-left"></span> Kembali
                                     </a>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-lg-6">
                                     <div class="card card-primary">
                                         <div class="card-header">Detail Kegiatan</div>
@@ -115,33 +115,57 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card card-primary">
-                                        <div class="card-header">
-                                            Hasil Verifikasi
+                                </div>
+                            </div>
+                            <form action="<?= site_url("../verifikasi/add/" . $spj->kode_spj); ?>" method="post">
+                                <div class="row mb-3">
+                                    <div class="col-lg-6">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                Verifikasi
+                                            </div>
+                                            <div class="card-body pad">
+                                                <div class="mb-3">
+                                                    <textarea class="textarea" name="verif_spj" placeholder="Place some text here">
+                                                    <?= $spj->verif_spj; ?>
+                                                    </textarea>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer justify-content-between">
+                                                <button type="submit" name="setuju" class="btn btn-success" onclick="return confirm('Yakin SPJ sudah valid?')">Setuju</button>
+                                                <button type="submit" name="tolak" class="btn btn-danger" onclick="return confirm('SPJ akan ditolak ! Apakah Anda yakin?')">Tolak</button>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered datatable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th width="20%">Tanggal Verifikasi</th>
-                                                            <th>Hasil Verifikasi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php foreach ($verif as $row) : ?>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="card card-primary">
+                                            <div class="card-header">
+                                                Hasil Verifikasi
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered datatable">
+                                                        <thead>
                                                             <tr>
-                                                                <td><?= $row->tgl_riwayat; ?></td>
-                                                                <td><?= $row->riwayat_spj; ?></td>
+                                                                <th width="20%">Tanggal Verifikasi</th>
+                                                                <th>Hasil Verifikasi</th>
                                                             </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php foreach ($verif as $row) : ?>
+                                                                <tr>
+                                                                    <td><?= $row->tgl_riwayat; ?></td>
+                                                                    <td><?= $row->riwayat_spj; ?></td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>

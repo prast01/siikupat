@@ -36,3 +36,5 @@
 <!-- InputMask -->
 <script src="<?php echo base_url('plugins/moment/moment.min.js'); ?>"></script>
 <script src="<?php echo base_url('plugins/inputmask/min/jquery.inputmask.bundle.min.js'); ?>"></script>
+<!-- Summernote -->
+<script src="<?php echo base_url('plugins/summernote/summernote-bs4.min.js'); ?>"></script>
