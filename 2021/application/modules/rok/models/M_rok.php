@@ -68,7 +68,7 @@ class M_rok extends CI_Model
         $this->db->select("*");
         $this->db->from("tb_sub_kegiatan");
         $this->db->join("tb_kegiatan", "tb_sub_kegiatan.id_kegiatan = tb_kegiatan.id_kegiatan");
-        $this->db->where("tb_sub_kegiatan.id_kegiatan", $id_sub);
+        $this->db->where("tb_sub_kegiatan.id_sub_kegiatan", $id_sub);
 
         $data = $this->db->get()->row();
 
