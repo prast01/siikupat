@@ -188,20 +188,13 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
                         <td>PPTK</td>
                         <td width="15%"></td>
                     </tr>
-                    <!-- <?php if ($seksi->kode_seksi != "DJ001") : ?>
-                        <tr>
-                            <td align="center">2</td>
-                            <td>Ka. Subbag Renval dan Keuangan</td>
-                            <td></td>
-                        </tr>
-                    <?php endif; ?>
-                    <tr>
-                        <td align="center"><?= ($seksi->kode_seksi != "DJ001") ? "3" : "2"; ?></td>
-                        <td>Ka. Subbag/ Seksi/ UPT ...................</td>
-                        <td></td>
-                    </tr> -->
                     <tr>
                         <td align="center">2</td>
+                        <td>Ka. Subbag Renval dan Keuangan</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td align="center">3</td>
                         <td>Ka. Subbag/ Seksi/ UPT ...................</td>
                         <td></td>
                     </tr>
