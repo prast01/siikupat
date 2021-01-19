@@ -85,6 +85,7 @@ class M_kegiatan extends CI_Model
 
         $hasil = $this->db->insert('tb_sub_kegiatan', $data);
         if ($hasil) {
+            $this->_save_valid($post["kode_seksi"], $post["kode_sub_kegiatan"]);
             return array("res" => 1, "msg" => "Kegiatan Berhasil Disimpan");
         } else {
             return array("res" => 0, "msg" => "Kegiatan Gagal Disimpan");
@@ -170,6 +171,7 @@ class M_kegiatan extends CI_Model
         $hasil = $this->db->update('tb_sub_kegiatan', $data, $where);
 
         if ($hasil) {
+            $this->_update_valid($post["kode_seksi"], $id);
             return array("res" => 1, "msg" => "Sub Kegiatan Berhasil Disimpan");
         } else {
             return array("res" => 0, "msg" => "Sub Kegiatan Gagal Disimpan");
@@ -272,6 +274,7 @@ class M_kegiatan extends CI_Model
         $hasil = $this->db->delete('tb_sub_kegiatan', $where);
 
         if ($hasil) {
+            $this->db->delete("tb_rok_valid", $where);
             return array("res" => 1, "msg" => "Sub Kegiatan Berhasil Dihapus");
         } else {
             return array("res" => 0, "msg" => "Sub Kegiatan Gagal Dihapus");
@@ -324,6 +327,31 @@ class M_kegiatan extends CI_Model
         } else {
             return 0;
         }
+    }
+
+    private function _save_valid($kode_seksi, $kode_sub)
+    {
+        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_sub_kegiatan" => $kode_sub, "kode_seksi" => $kode_seksi])->row();
+
+        $data_r = array(
+            "id_sub_kegiatan" => $data->id_sub_kegiatan,
+            "kode_seksi" => $kode_seksi,
+        );
+
+        $this->db->insert("tb_rok_valid", $data_r);
+    }
+
+    private function _update_valid($kode_seksi, $id_sub)
+    {
+        $where = array(
+            "id_sub_kegiatan" => $id_sub,
+        );
+
+        $data_r = array(
+            "kode_seksi" => $kode_seksi,
+        );
+
+        $this->db->update("tb_rok_valid", $data_r, $where);
     }
 }
 
