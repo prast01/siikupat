@@ -217,6 +217,26 @@ class Rok extends MY_Controller
             redirect("../rok/bulan/" . $id_sub . "/" . $seksi);
         }
     }
+
+    public function batal_bend($id_sub, $bln, $seksi)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_rok;
+        $hasil = $model->batal($id_sub, $bln, $seksi);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../rok/lihatDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../rok/lihatDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
+        }
+    }
 }
 
 /* End of file Rok.php */

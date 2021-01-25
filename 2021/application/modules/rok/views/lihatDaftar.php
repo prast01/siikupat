@@ -59,6 +59,9 @@
                                                 <span class="fa fa-check"></span> Valid Verifikator
                                             </a>
                                         <?php elseif ($valid == 2) : ?>
+                                            <a href="<?= site_url("../rok/batal_bend/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-danger text-white">
+                                                <span class="fa fa-check"></span> Batalkan Valid Verifikator
+                                            </a>
                                             <a href="<?= site_url("../rok/valid/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-success text-white">
                                                 <span class="fa fa-check"></span> Validasi ROK
                                             </a>
