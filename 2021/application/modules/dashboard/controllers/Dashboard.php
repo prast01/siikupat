@@ -26,6 +26,11 @@ class Dashboard extends MY_Controller
         $this->template("dashboard", $data);
         // echo json_encode($data);
     }
+
+    public function error()
+    {
+        $this->template("error");
+    }
 }
 
 /* End of file Dashboard.php */

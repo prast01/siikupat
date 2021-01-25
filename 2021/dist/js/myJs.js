@@ -42,11 +42,11 @@ $(function () {
         height: 200
     });
 
-    $('.tanggal').datetimepicker({
-            maxDate: new Date(),
-            locale:'id',
-            format:'YYYY-MM-DD'
-    });
+    // $('.tanggal').datetimepicker({
+    //         maxDate: new Date(),
+    //         locale:'id',
+    //         format:'YYYY-MM-DD'
+    // });
     
     var barChartOptions = {
         responsive              : true,

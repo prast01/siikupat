@@ -35,7 +35,7 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12 mb-3">
+                                <!-- <div class="col-lg-12 mb-3">
                                     <div class="card">
                                         <div class="card-header p-0 pt-1 border-bottom-0">
                                             <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
@@ -52,13 +52,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg-12 mb-3">
                                     <a href="<?= site_url("../spj/tambahGu"); ?>" class="btn btn-primary">
                                         <span class="fa fa-plus"></span> Tambah GU
                                     </a>
                                     <a href="<?= site_url("../spj/tambahLs"); ?>" class="btn btn-success">
                                         <span class="fa fa-plus"></span> Tambah LS
+                                    </a>
+                                    <a href="<?= site_url("../spj/a21"); ?>" class="btn btn-warning text-white" target="_blank">
+                                        <span class="fa fa-plus"></span> Buat A2.1
                                     </a>
                                 </div>
                                 <div class="col-lg-12">

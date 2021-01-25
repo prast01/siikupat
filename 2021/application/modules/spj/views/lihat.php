@@ -48,7 +48,7 @@
                                         <div class="card-body">
                                             <div class="form-group">
                                                 <label>Tanggal Kegiatan</label>
-                                                <input readonly type="date" name="tgl_kegiatan" class="form-control tanggal" placeholder="Tanggal Kegiatan" value="<?= $spj->tgl_kegiatan; ?>">
+                                                <input readonly type="date" name="tgl_kegiatan" class="form-control" placeholder="Tanggal Kegiatan" value="<?= $spj->tgl_kegiatan; ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label>Sub Kegiatan</label>
