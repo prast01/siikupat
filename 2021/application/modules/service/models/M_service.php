@@ -58,14 +58,53 @@ class M_service extends CI_Model
     {
         $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln' AND id_rok NOT IN (SELECT id_rok FROM tb_spj)")->result();
 
+        $hsl = array();
+        $no = 0;
+        foreach ($data as $row) {
+            $hsl[$no++] = array(
+                "id_rok" => $row->id_rok,
+                "uraian" => $row->uraian,
+                "nominal" => "Rp" . number_format($row->nominal, 0, ",", "."),
+                "valid" => $this->cek_rok_valid($row->id_sub_kegiatan, $row->bulan),
+            );
+        }
+
+        $data_old = $this->get_rok_old($id_sub, $id_rekening, $bln);
+        foreach ($data_old as $row) {
+            $hsl[$no++] = array(
+                "id_rok" => $row->id_rok,
+                "uraian" => $row->uraian,
+                "nominal" => "Rp" . number_format($row->nominal, 0, ",", "."),
+                "valid" => $this->cek_rok_valid($row->id_sub_kegiatan, $row->bulan),
+            );
+        }
+
+        return $hsl;
+    }
+
+    public function get_rok_old($id_sub, $id_rekening, $bln)
+    {
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan<'$bln' AND id_rok NOT IN (SELECT id_rok FROM tb_spj)")->result();
+
         return $data;
     }
 
     public function get_rok_a21($id_sub, $id_rekening, $bln)
     {
-        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln'")->result();
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan <= '$bln'")->result();
 
-        return $data;
+        $hsl = array();
+        $no = 0;
+        foreach ($data as $row) {
+            $hsl[$no++] = array(
+                "id_rok" => $row->id_rok,
+                "uraian" => $row->uraian,
+                "nominal" => "Rp" . number_format($row->nominal, 0, ",", "."),
+                "valid" => $this->cek_rok_valid($row->id_sub_kegiatan, $row->bulan),
+            );
+        }
+
+        return $hsl;
     }
 
     public function cek_rok_valid($id_sub, $bln)

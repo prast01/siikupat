@@ -11,7 +11,21 @@ class M_spj extends CI_Model
 
         $min = $data->nilai_pengaturan . " " . $data->satuan_pengaturan;
 
-        return $min;
+        $hari = date("N", strtotime($min));
+
+        if ($hari == 5) {
+            $min_fix = $data->nilai_pengaturan - 2;
+        } elseif ($hari == 6) {
+            $min_fix = $data->nilai_pengaturan - 2;
+        } elseif ($hari == 7) {
+            $min_fix = $data->nilai_pengaturan - 2;
+        } elseif ($hari == 4) {
+            $min_fix = $data->nilai_pengaturan - 1;
+        } else {
+            $min_fix = $data->nilai_pengaturan;
+        }
+
+        return $min_fix . " " . $data->satuan_pengaturan;
     }
 
     public function get_sub_kegiatan($kode_seksi)
