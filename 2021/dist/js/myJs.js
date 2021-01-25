@@ -193,6 +193,36 @@ function get_rok(id){
     });
 }
 
+function get_rok_a21(id){
+    var tgl = $("#tgl_kegiatan").val();
+    var id_sub = $("#id_sub_kegiatan").val();
+    var origin = url + "service/get_rok_21/" + id_sub + "/" + id + "/" + tgl;
+    $.ajax({
+        type: "POST",
+        url: origin,
+        dataType: "json",
+        success: function (data) {
+            console.log(data)
+            var html = '';
+            var i;
+            html += '<option value="" selected disabled>Pilih</option>';
+            if(data.valid == "1" && data.count != 0){
+                for(i=0; i<data.rok.length; i++){
+                    html += '<option value=' + data.rok[i].id_rok + '>' + data.rok[i].nominal + ' - ' + data.rok[i].uraian + '</option>';
+                }
+            }
+            $('#id_rok').html(html);
+            $("#uraian").val("")
+            $("#nominal").val("")
+        },
+        error: function () {
+            var html = '';
+            html += '<option value="" selected disabled>Pilih</option>';
+            $('#id_rok').html(html);
+        }
+    });
+}
+
 function get_rok_ubah(id){
     var id_rok = $("#rok_hidden").val();
     var id_rek = $("#rek_hidden").val();
