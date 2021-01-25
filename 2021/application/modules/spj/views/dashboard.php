@@ -53,7 +53,7 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div class="col-lg-12 mb-3">
+                                <div class="col-lg-5 mb-3">
                                     <a href="<?= site_url("../spj/tambahGu"); ?>" class="btn btn-primary">
                                         <span class="fa fa-plus"></span> Tambah GU
                                     </a>
@@ -63,6 +63,9 @@
                                     <a href="<?= site_url("../spj/a21"); ?>" class="btn btn-warning text-white" target="_blank">
                                         <span class="fa fa-plus"></span> Buat A2.1
                                     </a>
+                                </div>
+                                <div class="col-lg-7">
+                                    <!-- x -->
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
