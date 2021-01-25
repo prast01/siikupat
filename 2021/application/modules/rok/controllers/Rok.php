@@ -70,6 +70,7 @@ class Rok extends MY_Controller
         $data["bln"] = $bulan;
         $data["kode_seksi"] = $seksi;
         $data["rok"] = $model->get_rok($id_sub, $bulan, $seksi);
+        $data["valid"] = $model->get_valid_bend($id_sub, $seksi, $bulan);
 
         $this->template("lihatDaftar", $data);
         // echo json_encode($data["rok"]);
@@ -166,12 +167,34 @@ class Rok extends MY_Controller
 
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+        }
 
+        if ($this->session->userdata("kode_seksi") == "XXXX") {
+            redirect("../rok/lihatDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
+        } else {
             redirect("../rok/bulan/" . $id_sub . "/" . $seksi);
+        }
+    }
+
+    public function valid_bend($id_sub, $bln, $seksi)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_rok;
+        $hasil = $model->valid_bend($id_sub, $bln, $seksi);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../rok/lihatDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
         } else {
             $this->session->set_flashdata('gagal', $hasil['msg']);
 
-            redirect("../rok/bulan/" . $id_sub . "/" . $seksi);
+            redirect("../rok/lihatDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
         }
     }
 

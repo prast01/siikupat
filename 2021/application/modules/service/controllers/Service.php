@@ -126,6 +126,32 @@ class Service extends MY_Controller
         echo json_encode($hsl);
     }
 
+    public function get_rok_a21($id_sub, $id_rekening, $tgl)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_service;
+
+        $bln = date("m", strtotime($tgl));
+        $valid = $model->cek_rok_valid($id_sub, $bln);
+        $data = $model->get_rok_a21($id_sub, $id_rekening, $bln);
+
+        $no = 0;
+        $hsl["valid"] = $valid;
+        $hsl["count"] = count($data);
+        foreach ($data as $row) {
+            $hsl["rok"][$no++] = array(
+                "id_rok" => $row->id_rok,
+                "uraian" => $row->uraian,
+                "nominal" => "Rp" . number_format($row->nominal, 0, ",", "."),
+            );
+        }
+
+        echo json_encode($hsl);
+    }
+
     public function get_rok_ubah($id_sub, $id_rekening, $tgl)
     {
         if ($this->session->userdata("id_user") == "") {

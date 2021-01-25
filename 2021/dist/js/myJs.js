@@ -196,7 +196,7 @@ function get_rok(id){
 function get_rok_a21(id){
     var tgl = $("#tgl_kegiatan").val();
     var id_sub = $("#id_sub_kegiatan").val();
-    var origin = url + "service/get_rok_21/" + id_sub + "/" + id + "/" + tgl;
+    var origin = url + "service/get_rok_a21/" + id_sub + "/" + id + "/" + tgl;
     $.ajax({
         type: "POST",
         url: origin,

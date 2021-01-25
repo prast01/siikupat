@@ -61,6 +61,13 @@ class M_service extends CI_Model
         return $data;
     }
 
+    public function get_rok_a21($id_sub, $id_rekening, $bln)
+    {
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln'")->result();
+
+        return $data;
+    }
+
     public function cek_rok_valid($id_sub, $bln)
     {
         $tbl = "b" . $bln;

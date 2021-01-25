@@ -74,7 +74,7 @@
                                                                 <?php endif; ?>
 
 
-                                                                <?php if ($kode_seksi == "DJ001" && $val["valid"] == "0") : ?>
+                                                                <?php if ($kode_seksi == "DJ001" && ($val["valid"] == "0" || $val["valid"] == "2")) : ?>
                                                                     <a href="<?= site_url("../rok/valid/" . $id . "/" . $val["kode_bulan"] . "/" . $seksi); ?>" class="btn btn-success btn-sm btn-flat" onclick="return confirm('Yakin Validasi?')">
                                                                         <span class="fa fa-check"></span>
                                                                     </a>

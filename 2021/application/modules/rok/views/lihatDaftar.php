@@ -36,14 +36,36 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12 mb-3">
-                                    <a href="<?= site_url("../rok/bulan/" . $id . "/" . $kode_seksi); ?>" class="btn btn-warning text-white">
-                                        <span class="fa fa-arrow-left"></span> Kembali
-                                    </a>
-                                    <a href="<?= site_url("../rok/cetak/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-success text-white" target="_blank">
-                                        <span class="fa fa-print"></span> Cetak ROK
-                                    </a>
-                                </div>
+                                <?php if ($this->session->userdata("kode_seksi") != "XXXX") : ?>
+                                    <div class="col-lg-12 mb-3">
+                                        <a href="<?= site_url("../rok/bulan/" . $id . "/" . $kode_seksi); ?>" class="btn btn-warning text-white">
+                                            <span class="fa fa-arrow-left"></span> Kembali
+                                        </a>
+                                        <?php if ($valid > 0) : ?>
+                                            <a href="<?= site_url("../rok/cetak/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-success text-white" target="_blank">
+                                                <span class="fa fa-print"></span> Cetak ROK
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="col-lg-12 mb-3">
+                                        <!-- <a href="<?= site_url("../realisasi-rok"); ?>" class="btn btn-warning text-white">
+                                            <span class="fa fa-arrow-left"></span> Kembali
+                                        </a> -->
+                                        <button class="btn btn-danger" onclick="window.close()">
+                                            <span class="fa fa-times"></span> tutup
+                                        </button>
+                                        <?php if ($valid == 0) : ?>
+                                            <a href="<?= site_url("../rok/valid_bend/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-warning text-white">
+                                                <span class="fa fa-check"></span> Valid Verifikator
+                                            </a>
+                                        <?php elseif ($valid == 2) : ?>
+                                            <a href="<?= site_url("../rok/valid/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-success text-white">
+                                                <span class="fa fa-check"></span> Validasi ROK
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered">

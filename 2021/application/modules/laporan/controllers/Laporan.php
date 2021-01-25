@@ -43,6 +43,7 @@ class Laporan extends MY_Controller
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($bln);
 
         $this->template("realisasiRok", $data);
+        // echo json_encode($data["sub_kegiatan"]);
     }
 }
 

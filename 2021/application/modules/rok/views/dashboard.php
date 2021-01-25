@@ -56,15 +56,6 @@
                                                         <td><?= $row->nama_sub_kegiatan; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <!-- <?php if ($kode_seksi != "DJ001") : ?>
-                                                                    <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan); ?>" class="btn btn-primary btn-sm btn-flat">
-                                                                        <span class="fa fa-align-justify"></span>
-                                                                    </a>
-                                                                <?php else : ?>
-                                                                    <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan . "/" . $row->kode_seksi); ?>" class="btn btn-primary btn-sm btn-flat">
-                                                                        <span class="fa fa-align-justify"></span>
-                                                                    </a>
-                                                                <?php endif; ?> -->
                                                                 <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan . "/" . $row->kode_seksi); ?>" class="btn btn-primary btn-sm btn-flat">
                                                                     <span class="fa fa-align-justify"></span>
                                                                 </a>

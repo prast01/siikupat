@@ -42,7 +42,7 @@
 						</ul>
 					</li>
 				<?php endif; ?>
-				<?php if ($kode_seksi == "DJ001" || $kode_bidang == "XXXX") : ?>
+				<?php if ($kode_seksi == "XXXX") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

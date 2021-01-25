@@ -49,7 +49,7 @@
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label>Tanggal A2.1</label>
-                                                    <input type="date" name="tgl_kegiatan" class="form-control tanggal" placeholder="Tanggal Kegiatan" value="<?= date("Y-m-d"); ?>">
+                                                    <input type="date" name="tgl_kegiatan" id="tgl_kegiatan" class="form-control" placeholder="Tanggal Kegiatan">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Sub Kegiatan</label>

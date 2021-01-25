@@ -82,6 +82,14 @@ class M_rok extends CI_Model
         return $data;
     }
 
+    public function get_valid_bend($id_sub_kegiatan, $kode_seksi, $bln)
+    {
+        $bulan = "b" . $bln;
+        $data = $this->db->get_where("tb_rok_valid", ["id_sub_kegiatan" => $id_sub_kegiatan, "kode_seksi" => $kode_seksi])->row();
+
+        return $data->$bulan;
+    }
+
     // PRIVATE
     private function get_nom_realisasi($id_sub, $bulan)
     {
@@ -239,6 +247,18 @@ class M_rok extends CI_Model
     {
         $tbl = "b" . $bulan;
         $hasil = $this->db->query("UPDATE tb_rok_valid SET $tbl='1' WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'");
+
+        if ($hasil) {
+            return array("res" => 1, "msg" => "Data ROK Berhasil Divalidasi");
+        } else {
+            return array("res" => 0, "msg" => "Data ROK Gagal Divalidasi");
+        }
+    }
+
+    public function valid_bend($id_sub, $bulan, $kode_seksi)
+    {
+        $tbl = "b" . $bulan;
+        $hasil = $this->db->query("UPDATE tb_rok_valid SET $tbl='2' WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'");
 
         if ($hasil) {
             return array("res" => 1, "msg" => "Data ROK Berhasil Divalidasi");

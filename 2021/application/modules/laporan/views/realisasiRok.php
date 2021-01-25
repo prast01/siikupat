@@ -62,6 +62,7 @@
                                                     <th rowspan="2">Pelaksana</th>
                                                     <th rowspan="2" width="10%">Sisa Realisasi</th>
                                                     <th colspan="2">Bulan</th>
+                                                    <th rowspan="2">Aksi</th>
                                                 </tr>
                                                 <tr>
                                                     <th width="10%">ROK</th>
@@ -78,6 +79,13 @@
                                                         <td align="right"><?= $val["sisa"]; ?></td>
                                                         <td align="right"><?= $val["rok"]; ?></td>
                                                         <td align="right"><?= $val["realisasi"]; ?></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a target="_blank" href="<?= site_url("../rok/lihatDaftar/" . $val["id_sub_kegiatan"] . "/" . $bulan . "/" . $val["kode_seksi"]); ?>" class="btn btn-primary btn-sm btn-flat">
+                                                                    <span class="fa fa-eye"></span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

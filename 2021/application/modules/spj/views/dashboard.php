@@ -70,11 +70,11 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No SPJ</th>
+                                                    <th width="10%">Tgl Kegiatan</th>
                                                     <th>Uraian Kegiatan</th>
                                                     <th width="15%">Nominal</th>
                                                     <th>Pelaksana</th>
                                                     <th width="5%">Status</th>
-                                                    <th width="5%">Tanggal</th>
                                                     <th>Catatan</th>
                                                     <th width="5%">Aksi</th>
                                                 </tr>
@@ -84,7 +84,8 @@
                                                 <?php foreach ($spj as $row => $val) : ?>
                                                     <?php $bg = ($val["status_spj"] == "3") ? "bg-red" : ""; ?>
                                                     <tr class="<?= $bg; ?>">
-                                                        <td><?= $val["no_spj"]; ?></td>
+                                                        <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td>
+                                                        <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
                                                         <td>
@@ -94,8 +95,7 @@
                                                                 <?php endforeach; ?>
                                                             </ol>
                                                         </td>
-                                                        <td><?= $val["nama_status"]; ?></td>
-                                                        <td><?= $val["tanggal"]; ?></td>
+                                                        <td><?= $val["nama_status"]; ?><br><?= $val["tanggal"]; ?></td>
                                                         <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">

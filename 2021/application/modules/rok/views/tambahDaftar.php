@@ -43,9 +43,9 @@
                                     <button class="btn btn-primary" onclick="modalDefault('Tambah ROK', 'addRok', '<?= $id . '/' . $bulan . '/' . $kode_seksi; ?>')">
                                         <span class="fa fa-plus"></span> Tambah ROK
                                     </button>
-                                    <a href="<?= site_url("../rok/cetak/" . $id . "/" . $bulan . "/" . $kode_seksi); ?>" class="btn btn-success text-white" target="_blank">
+                                    <!-- <a href="<?= site_url("../rok/cetak/" . $id . "/" . $bulan . "/" . $kode_seksi); ?>" class="btn btn-success text-white" target="_blank">
                                         <span class="fa fa-print"></span> Cetak ROK
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">

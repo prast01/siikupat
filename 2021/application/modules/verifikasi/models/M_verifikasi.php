@@ -8,12 +8,12 @@ class M_verifikasi extends CI_Model
 
     public function get_spj($kode_bidang, $status)
     {
-        $this->db->order_by("tgl_daftar", "DESC");
-        if ($status) {
-            $data = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_verif" => 0, "status_spj" => 3])->result();
-        } else {
-            $data = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_verif" => 0, "status_spj" => 1])->result();
-        }
+        $this->db->from("view_spj_verif_bidang");
+        $this->db->where("kode_bidang", $kode_bidang);
+        $this->db->where("status_verif", 0);
+        $this->db->order_by("nomor_spj", "ASC");
+        $this->db->limit(1);
+        $data = $this->db->get()->result();
 
         // sprintf("%05s", $id)
         $no = 0;
@@ -42,7 +42,9 @@ class M_verifikasi extends CI_Model
 
             $hsl[$no++] = array(
                 "no_spj" => $jenis . sprintf("%05s", $row->id_spj),
+                "no_seksi" => $jenis . sprintf("%05s", $row->nomor_spj),
                 "kode_spj" => $row->kode_spj,
+                "tgl_kegiatan" => $row->tgl_kegiatan,
                 "uraian" => $row->uraian,
                 "nominal" => number_format($row->nominal, 0, ",", "."),
                 "pelaksana" => $this->get_pelaksana($row->kode_spj),

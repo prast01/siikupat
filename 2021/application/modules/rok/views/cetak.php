@@ -185,16 +185,21 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
                     </tr>
                     <tr>
                         <td align="center">1</td>
-                        <td>PPTK</td>
+                        <td>Sekretaris Dinas</td>
                         <td width="15%"></td>
                     </tr>
                     <tr>
                         <td align="center">2</td>
-                        <td>Ka. Subbag Renval dan Keuangan</td>
-                        <td></td>
+                        <td>PPTK</td>
+                        <td width="15%"></td>
                     </tr>
                     <tr>
                         <td align="center">3</td>
+                        <td>PPK</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td align="center">4</td>
                         <td>Ka. Subbag/ Seksi/ UPT ...................</td>
                         <td></td>
                     </tr>

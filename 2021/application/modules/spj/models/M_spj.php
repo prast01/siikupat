@@ -67,7 +67,9 @@ class M_spj extends CI_Model
 
             $hsl[$no++] = array(
                 "no_spj" => $jenis . sprintf("%05s", $row->id_spj),
+                "no_seksi" => $jenis . sprintf("%05s", $row->nomor_spj),
                 "kode_spj" => $row->kode_spj,
+                "tgl_kegiatan" => $row->tgl_kegiatan,
                 "uraian" => $row->uraian,
                 "nominal" => number_format($row->nominal, 0, ",", "."),
                 "pelaksana" => $this->get_pelaksana($row->kode_spj),
@@ -164,6 +166,7 @@ class M_spj extends CI_Model
         $kode_seksi = $this->session->userdata("kode_seksi");
         $data = array(
             "kode_spj" => $post["id_unik"],
+            "nomor_spj" => $this->get_last_no_seksi(),
             "id_sub_kegiatan" => $post["id_sub_kegiatan"],
             "id_rekening" => $post["id_rekening"],
             "id_rok" => $post["id_rok"],
@@ -355,6 +358,18 @@ class M_spj extends CI_Model
                 $this->db->insert("tb_spj_detail", $data);
             }
         }
+    }
+
+    private function get_last_no_seksi()
+    {
+        $kode_bidang = $this->session->userdata("kode_bidang");
+        $this->db->select("MAX(nomor_spj) as nomor");
+        $this->db->from("tb_spj");
+        $this->db->join("tb_user", "tb_spj.kode_seksi = tb_user.kode_seksi");
+        $this->db->where("tb_user.kode_bidang", $kode_bidang);
+        $data = $this->db->get()->row();
+
+        return $data->nomor + 1;
     }
 
     public function get_pelaksana($kode_spj)

@@ -112,9 +112,9 @@ class Spj extends MY_Controller
         $data["min_tgl"] = date('Y-m-d', strtotime($min));
         $data["id_unik"] = uniqid();
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
-        // $this->template("a21", $data);
+        $this->template("a21", $data);
 
-        echo date('N', strtotime($min));
+        // echo date('N', strtotime($min));
     }
 
     // CRUD
@@ -199,8 +199,8 @@ class Spj extends MY_Controller
         // perdin 5.1.02.04.01.0001 dan 5.1.02.04.01.0003
         $model = $this->M_spj;
         $post = $this->input->post();
-        $data["sub_kegiatan"] = $model->get_sub_kegiatan_by_id($post[""]);
-        $data["rekening"] = $model->get_rekening_by_id($post[""]);
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan_by_id($post["id_sub_kegiatan"]);
+        $data["rekening"] = $model->get_rekening_by_id($post["id_rekening"]);
 
         $this->load->view('cetak_a21', $data);
     }
