@@ -78,7 +78,7 @@ function Terbilang($x)
 </head>
 <!-- window.print() -->
 
-<body onload="">
+<body onload="window.print()">
     <div style="text-align: right;">
         <p id="potong">A2-1</p>
     </div>
@@ -217,8 +217,6 @@ function Terbilang($x)
             </td>
         </tr>
     </table>
-    <p id="potong3">No. daftar: <?php //echo $nomor; 
-                                ?></p>
     <div id="garis">
         <p id="potong">Potong Disini</p>
     </div>
