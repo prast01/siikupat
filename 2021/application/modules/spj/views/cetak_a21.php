@@ -78,9 +78,9 @@ function Terbilang($x)
 </head>
 <!-- window.print() -->
 
-<!-- <body onload="window.print()"> -->
+<body onload="window.print()">
 
-<body onload="">
+    <!-- <body onload=""> -->
     <div style="text-align: right;">
         <p id="potong">A2-1</p>
     </div>
@@ -221,7 +221,7 @@ function Terbilang($x)
         </tr>
     </table>
     <br>
-    <table border="1" style="border-collapse: collapse; width: 25%;">
+    <table border="1" style="border-collapse: collapse; width: 40%;">
         <tr>
             <td colspan="3">
                 No. Pendaftaran : <br><br><br>
@@ -229,8 +229,8 @@ function Terbilang($x)
         </tr>
         <tr>
             <td align="center">Diverifikasi</td>
-            <td align="center">Dibukukan</td>
-            <td align="center">Dibayar</td>
+            <td align="center" style="width: 33%;">Dibukukan</td>
+            <td align="center" style="width: 33%;">Dibayar</td>
         </tr>
         <tr>
             <td><br><br><br></td>
