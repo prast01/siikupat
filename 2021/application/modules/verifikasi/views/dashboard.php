@@ -127,8 +127,7 @@
                                                         <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <!-- <?= site_url("../verifikasi/pembukuan/" . $val["kode_spj"]); ?> -->
-                                                                <a href="#" class="btn btn-success btn-sm" onclick="return alert('Fitur Belum Tersedia')">
+                                                                <a href="<?= site_url("../verifikasi/pembukuan/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm" onclick="return confirm('Bukukan SPJ?')">
                                                                     <span class="fa fa-book"></span>
                                                                 </a>
                                                             </div>

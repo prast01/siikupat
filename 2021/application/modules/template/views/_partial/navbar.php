@@ -38,6 +38,9 @@
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../transfer'); ?>" class="dropdown-item">Transfer SPJ</a>
 								</li>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../pembukuan'); ?>" class="dropdown-item">Pembukuan SPJ</a>
+								</li>
 							<?php endif; ?>
 						</ul>
 					</li>

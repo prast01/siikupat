@@ -54,7 +54,7 @@
                                                 <?php $no = 1; ?>
                                                 <?php foreach ($spj as $row => $val) : ?>
                                                     <tr>
-                                                        <td><?= $val["no_spj"]; ?></td>
+                                                        <td><?= $val["no_seksi"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
                                                         <td>
@@ -69,7 +69,7 @@
                                                         <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../transfer/add/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm" onclick="return confirm('Yakin transfer?')">
+                                                                <a href="<?= site_url("../transfer/pembukuan/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm">
                                                                     <span class="fa fa-check"></span>
                                                                 </a>
                                                             </div>

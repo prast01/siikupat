@@ -74,6 +74,14 @@ class M_transfer extends CI_Model
         return $data;
     }
 
+    public function get_spj_by_kode($kode_spj)
+    {
+        $data = $this->db->get_where("tb_spj", ["kode_spj" => $kode_spj])->row();
+
+        return $data;
+    }
+
+    // CRUD
     public function save($kode_spj)
     {
         $tgl = date("Y-m-d H:i:s");
@@ -101,6 +109,41 @@ class M_transfer extends CI_Model
         } else {
             return array("res" => 0, "msg" => "Transfer Gagal");
         }
+    }
+
+    public function save_buku($kode_spj, $post)
+    {
+        $tgl = date("Y-m-d H:i:s");
+        $where = array(
+            "kode_spj" => $kode_spj
+        );
+
+        $data_spj = array(
+            "tgl_transfer" => $tgl,
+            "status_spj" => 4,
+        );
+
+        $data = array(
+            "ntpn_ppn" => $post["ntpn_ppn"],
+            "ntpn_pph21" => $post["ntpn_pph21"],
+            "ntpn_pph22" => $post["ntpn_pph22"],
+            "ntpn_pph23" => $post["ntpn_pph23"],
+            "ntpn_pph_final" => $post["ntpn_pph_final"],
+        );
+
+
+        $hasil = $this->db->update("tb_buku", $data, $where);
+        if ($hasil) {
+            $this->_update_spj($data_spj, $where);
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
+    private function _update_spj($data, $where)
+    {
+        $this->db->update("tb_spj", $data, $where);
     }
 }
 

@@ -45,6 +45,18 @@ class Verifikasi extends MY_Controller
         $this->template("lihat", $data);
     }
 
+    public function pembukuan($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_verifikasi;
+
+        $data["spj"] = $model->get_spj_by_kode($kode_spj);
+        $this->template("buku", $data);
+    }
+
     public function add($kode_spj)
     {
         if ($this->session->userdata("id_user") == "") {
@@ -70,6 +82,28 @@ class Verifikasi extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
 
             redirect("../verifikasi/lihat/" . $kode_spj);
+        }
+    }
+
+    public function add_buku($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_verifikasi;
+        $post = $this->input->post();
+
+        $hasil = $model->save_buku($kode_spj, $post);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../verifikasi");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../verifikasi/pembukuan/" . $kode_spj);
         }
     }
 }

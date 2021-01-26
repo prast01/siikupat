@@ -167,6 +167,60 @@ class M_verifikasi extends CI_Model
         }
     }
 
+    public function save_buku($kode_spj, $post)
+    {
+        $tgl = date("Y-m-d H:i:s");
+        $where = array(
+            "kode_spj" => $kode_spj
+        );
+
+        $data_spj = array(
+            "tgl_buku" => $tgl,
+            "status_spj" => 5,
+        );
+
+        if ($post["ppn"] == "") {
+            return array("res" => 0, "msg" => "PPN harus terisi");
+        }
+
+        if ($post["pph21"] == "") {
+            return array("res" => 0, "msg" => "PPh Ps. 21 harus terisi");
+        }
+
+        if ($post["pph22"] == "") {
+            return array("res" => 0, "msg" => "PPh Ps. 22 harus terisi");
+        }
+
+        if ($post["pph23"] == "") {
+            return array("res" => 0, "msg" => "PPh Ps. 23 harus terisi");
+        }
+
+        if ($post["pph_final"] == "") {
+            return array("res" => 0, "msg" => "PPh Final harus terisi");
+        }
+
+        $data = array(
+            "kode_spj" => $kode_spj,
+            "tgl_buku" => $tgl,
+            "uraian" => $post["uraian"],
+            "nominal" => $post["nominal"],
+            "ppn" => $post["ppn"],
+            "pph21" => $post["pph21"],
+            "pph22" => $post["pph22"],
+            "pph23" => $post["pph23"],
+            "pph_final" => $post["pph_final"],
+        );
+
+
+        $hasil = $this->db->insert("tb_buku", $data);
+        if ($hasil) {
+            $this->_update_spj($data_spj, $where);
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
     private function _update_spj($data, $where)
     {
         $this->db->update("tb_spj", $data, $where);

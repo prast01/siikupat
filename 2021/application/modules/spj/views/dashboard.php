@@ -106,7 +106,7 @@
                                                                 <a href="<?= site_url("../spj/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
                                                                     <span class="fa fa-eye"></span>
                                                                 </a>
-                                                                <?php if ($val["status_spj"] != "3" && $val["status_spj"] != "4") : ?>
+                                                                <?php if ($val["status_spj"] <= "2") : ?>
                                                                     <a href="<?= site_url("../spj/ubah/" . $val["kode_spj"]); ?>" class="btn btn-warning text-white btn-sm">
                                                                         <span class="fa fa-edit"></span>
                                                                     </a>
