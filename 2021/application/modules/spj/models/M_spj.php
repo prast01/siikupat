@@ -52,7 +52,7 @@ class M_spj extends CI_Model
     public function get_spj($kode_seksi)
     {
         $this->db->order_by("tgl_daftar", "DESC");
-        $data = $this->db->get_where("tb_spj", ["kode_seksi" => $kode_seksi])->result();
+        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_seksi" => $kode_seksi])->result();
 
         // sprintf("%05s", $id)
         $no = 0;
@@ -81,10 +81,20 @@ class M_spj extends CI_Model
                 $jenis = "LS";
             }
 
+            if ($row->kode_bidang == "DK001") {
+                $bd = "1-";
+            } elseif ($row->kode_bidang == "DK002") {
+                $bd = "2-";
+            } elseif ($row->kode_bidang == "DK003") {
+                $bd = "3-";
+            } elseif ($row->kode_bidang == "DK004") {
+                $bd = "4-";
+            }
+
 
             $hsl[$no++] = array(
                 "no_spj" => $jenis . sprintf("%05s", $row->id_spj),
-                "no_seksi" => $jenis . sprintf("%05s", $row->nomor_spj),
+                "no_seksi" => $bd . $jenis . sprintf("%05s", $row->nomor_spj),
                 "kode_spj" => $row->kode_spj,
                 "tgl_kegiatan" => $row->tgl_kegiatan,
                 "uraian" => $row->uraian,

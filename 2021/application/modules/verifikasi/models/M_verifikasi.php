@@ -19,7 +19,9 @@ class M_verifikasi extends CI_Model
 
         $this->db->where("status_verif", 0);
         $this->db->order_by("nomor_spj", "ASC");
-        $this->db->limit(1);
+        if ($st == 1) {
+            $this->db->limit(1);
+        }
         $data = $this->db->get()->result();
 
         // sprintf("%05s", $id)
@@ -49,10 +51,19 @@ class M_verifikasi extends CI_Model
                 $jenis = "LS";
             }
 
+            if ($row->kode_bidang == "DK001") {
+                $bd = "1-";
+            } elseif ($row->kode_bidang == "DK002") {
+                $bd = "2-";
+            } elseif ($row->kode_bidang == "DK003") {
+                $bd = "3-";
+            } elseif ($row->kode_bidang == "DK004") {
+                $bd = "4-";
+            }
 
             $hsl[$no++] = array(
                 "no_spj" => $jenis . sprintf("%05s", $row->id_spj),
-                "no_seksi" => $jenis . sprintf("%05s", $row->nomor_spj),
+                "no_seksi" => $bd . $jenis . sprintf("%05s", $row->nomor_spj),
                 "kode_spj" => $row->kode_spj,
                 "tgl_kegiatan" => $row->tgl_kegiatan,
                 "uraian" => $row->uraian,

@@ -53,8 +53,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 <?php foreach ($spj as $row => $val) : ?>
-                                                    <?php $bg = ($val["status_spj"] == "3") ? "bg-red" : ""; ?>
-                                                    <tr class="<?= $bg; ?>">
+                                                    <tr>
                                                         <td><?= $val["no_spj"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>

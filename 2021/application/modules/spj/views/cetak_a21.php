@@ -78,7 +78,9 @@ function Terbilang($x)
 </head>
 <!-- window.print() -->
 
-<body onload="window.print()">
+<!-- <body onload="window.print()"> -->
+
+<body onload="">
     <div style="text-align: right;">
         <p id="potong">A2-1</p>
     </div>
@@ -216,6 +218,24 @@ function Terbilang($x)
                 <p id="potong3" style="text-decoration: underline;">YUDHI DARMANSYAH</p>
                 <p id="potong3">NIP. 19830415 201001 1 025</p>
             </td>
+        </tr>
+    </table>
+    <br>
+    <table border="1" style="border-collapse: collapse; width: 25%;">
+        <tr>
+            <td colspan="3">
+                No. Pendaftaran : <br><br><br>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">Diverifikasi</td>
+            <td align="center">Dibukukan</td>
+            <td align="center">Dibayar</td>
+        </tr>
+        <tr>
+            <td><br><br><br></td>
+            <td><br><br><br></td>
+            <td><br><br><br></td>
         </tr>
     </table>
     <div id="garis">
