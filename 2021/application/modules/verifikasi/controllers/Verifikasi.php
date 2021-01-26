@@ -23,8 +23,8 @@ class Verifikasi extends MY_Controller
 
         $model = $this->M_verifikasi;
         $kode_bidang = $this->session->userdata("kode_bidang");
-        $data["spj"] = $model->get_spj($kode_bidang, 0);
-        $data["revisi"] = $model->get_spj($kode_bidang, 1);
+        $data["spj"] = $model->get_spj($kode_bidang, 1);
+        $data["acc"] = $model->get_spj($kode_bidang, 2);
         $this->template("dashboard", $data);
     }
 

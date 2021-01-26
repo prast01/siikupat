@@ -47,10 +47,10 @@
                                         <div class="card card-primary">
                                             <div class="card-header">Detail Kegiatan</div>
                                             <div class="card-body">
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <label>Tanggal A2.1</label>
                                                     <input type="date" name="tgl_kegiatan" id="tgl_kegiatan" class="form-control" placeholder="Tanggal Kegiatan">
-                                                </div>
+                                                </div> -->
                                                 <div class="form-group">
                                                     <label>Sub Kegiatan</label>
                                                     <select name="id_sub_kegiatan" id="id_sub_kegiatan" class="form-control select2" style="width: 100%;" onchange="get_rekening(this.value)">

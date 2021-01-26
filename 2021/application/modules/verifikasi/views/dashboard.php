@@ -28,10 +28,10 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12 mb-5">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar Pengajuan SPJ</h5>
+                            <h5 class="card-title m-0">DAFTAR PENGAJUAN SPJ</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -54,7 +54,8 @@
                                                 <?php $no = 1; ?>
                                                 <?php foreach ($spj as $row => $val) : ?>
                                                     <tr>
-                                                        <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td>
+                                                        <!-- <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td> -->
+                                                        <td><?= $val["no_seksi"]; ?></td>
                                                         <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
@@ -84,10 +85,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-lg-6">
+                <div class="col-lg-12 mt-5">
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar SPJ Revisi</h5>
+                            <h5 class="card-title m-0">DAFTAR PEMBUKUAN SPJ</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -97,20 +98,22 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No SPJ</th>
+                                                    <th width="10%">Tgl Kegiatan</th>
                                                     <th>Uraian Kegiatan</th>
                                                     <th width="15%">Nominal</th>
                                                     <th>Pelaksana</th>
                                                     <th width="5%">Status</th>
-                                                    <th width="5%">Tanggal</th>
                                                     <th>Catatan</th>
                                                     <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($revisi as $row => $val) : ?>
+                                                <?php foreach ($acc as $row => $val) : ?>
                                                     <tr>
-                                                        <td><?= $val["no_spj"]; ?></td>
+                                                        <!-- <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td> -->
+                                                        <td><?= $val["no_seksi"]; ?></td>
+                                                        <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
                                                         <td>
@@ -120,13 +123,13 @@
                                                                 <?php endforeach; ?>
                                                             </ol>
                                                         </td>
-                                                        <td><?= $val["nama_status"]; ?></td>
-                                                        <td><?= $val["tanggal"]; ?></td>
+                                                        <td><?= $val["nama_status"]; ?><br><?= $val["tanggal"]; ?></td>
                                                         <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../verifikasi/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
-                                                                    <span class="fa fa-eye"></span>
+                                                                <!-- <?= site_url("../verifikasi/pembukuan/" . $val["kode_spj"]); ?> -->
+                                                                <a href="#" class="btn btn-success btn-sm" onclick="return alert('Fitur Belum Tersedia')">
+                                                                    <span class="fa fa-book"></span>
                                                                 </a>
                                                             </div>
                                                         </td>
@@ -139,7 +142,7 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

@@ -30,6 +30,7 @@ class M_laporan extends CI_Model
                 "sisa" => $this->_get_sisa_bulan_lalu($row->id_sub_kegiatan, $bln_sblm, $row->kode_seksi),
                 "rok" => $this->_get_rok($row->id_sub_kegiatan, $bulan, $row->kode_seksi),
                 "realisasi" => $this->_get_real($row->id_sub_kegiatan, $bulan, $row->kode_seksi),
+                "valid" => $this->_get_valid($row->id_sub_kegiatan, $bulan, $row->kode_seksi),
             );
         }
 
@@ -93,6 +94,14 @@ class M_laporan extends CI_Model
         }
 
         return $c;
+    }
+
+    private function _get_valid($id_sub, $bln)
+    {
+        $tbl = "b" . $bln;
+        $data = $this->db->query("SELECT $tbl FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub'")->row();
+
+        return $data->$tbl;
     }
 }
 

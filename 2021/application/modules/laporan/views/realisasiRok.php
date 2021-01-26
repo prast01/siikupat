@@ -72,6 +72,7 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 <?php foreach ($sub_kegiatan as $row => $val) : ?>
+                                                    <?php $btn = ($val["valid"] == "0") ? "btn-primary" : "btn-success"; ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
@@ -81,7 +82,7 @@
                                                         <td align="right"><?= $val["realisasi"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a target="_blank" href="<?= site_url("../rok/lihatDaftar/" . $val["id_sub_kegiatan"] . "/" . $bulan . "/" . $val["kode_seksi"]); ?>" class="btn btn-primary btn-sm btn-flat">
+                                                                <a target="_blank" href="<?= site_url("../rok/lihatDaftar/" . $val["id_sub_kegiatan"] . "/" . $bulan . "/" . $val["kode_seksi"]); ?>" class="btn <?= $btn; ?> btn-sm btn-flat">
                                                                     <span class="fa fa-eye"></span>
                                                                 </a>
                                                             </div>

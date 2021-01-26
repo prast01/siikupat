@@ -62,14 +62,17 @@ class M_spj extends CI_Model
                 $nama_status = "BARU";
                 $tgl = $row->tgl_daftar;
             } elseif ($row->status_spj == "2") {
-                $nama_status = "ACC";
-                $tgl = $row->tgl_acc;
-            } elseif ($row->status_spj == "3") {
                 $nama_status = "REVISI";
                 $tgl = $row->tgl_tolak;
+            } elseif ($row->status_spj == "3") {
+                $nama_status = "ACC";
+                $tgl = $row->tgl_acc;
             } elseif ($row->status_spj == "4") {
                 $nama_status = "TRANSFER";
                 $tgl = $row->tgl_transfer;
+            } elseif ($row->status_spj == "5") {
+                $nama_status = "DIBUKUKAN";
+                $tgl = $row->tgl_buku;
             }
 
             if ($row->jenis_spj == "0") {

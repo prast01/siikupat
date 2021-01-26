@@ -165,7 +165,7 @@ function Terbilang($x)
             </td>
             <td width="1%">&nbsp;</td>
             <td>
-                <p id="potong2">Jepara, <?= date("d-m-Y", strtotime($_POST["tgl_kegiatan"])); ?></p>
+                <p id="potong2">Jepara, <?= //date("d-m-Y", strtotime($_POST["tgl_kegiatan"])); ?></p>
                 <p id="potong2">Yang berhak menerima</p>
                 <table border="0" width="100%">
                     <tr>

@@ -87,7 +87,8 @@
                                                 <?php foreach ($spj as $row => $val) : ?>
                                                     <?php $bg = ($val["status_spj"] == "3") ? "bg-red" : ""; ?>
                                                     <tr class="<?= $bg; ?>">
-                                                        <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td>
+                                                        <!-- <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td> -->
+                                                        <td><?= $val["no_seksi"]; ?></td>
                                                         <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
