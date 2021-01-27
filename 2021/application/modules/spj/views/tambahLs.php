@@ -51,7 +51,7 @@
                                                     <label>Tanggal Kegiatan</label>
                                                     <input type="hidden" name="id_unik" id="id_unik" value="<?= $id_unik; ?>">
                                                     <input type="hidden" name="jenis_spj" value="1">
-                                                    <input type="date" name="tgl_kegiatan" class="form-control tanggal" placeholder="Tanggal Kegiatan" min="<?= $min_tgl; ?>">
+                                                    <input type="date" name="tgl_kegiatan" id="tgl_kegiatan" class="form-control tanggal" placeholder="Tanggal Kegiatan" min="<?= $min_tgl; ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Sub Kegiatan</label>
