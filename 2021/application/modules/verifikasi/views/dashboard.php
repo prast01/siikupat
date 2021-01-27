@@ -127,10 +127,7 @@
                                                         <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../verifikasi/batal/" . $val["kode_spj"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Batalkan ACC SPJ?')">
-                                                                    <span class="fa fa-times"></span>
-                                                                </a>
-                                                                <a href="<?= site_url("../verifikasi/lihatDulu/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
+                                                                <a href="<?= site_url("../verifikasi/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
                                                                     <span class="fa fa-eye"></span>
                                                                 </a>
                                                                 <a href="<?= site_url("../verifikasi/pembukuan/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm" onclick="return confirm('Bukukan SPJ?')">

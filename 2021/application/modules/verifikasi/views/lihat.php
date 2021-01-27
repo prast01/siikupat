@@ -106,7 +106,13 @@
                                                     <tbody>
                                                         <?php foreach ($pelaksana as $row) : ?>
                                                             <tr>
-                                                                <td><?= $row->nama_pegawai; ?></td>
+                                                                <td>
+                                                                    <?php if ($row->pihak_ketiga == "") : ?>
+                                                                        <?= $row->nama_pegawai; ?>
+                                                                    <?php else : ?>
+                                                                        <?= $row->pihak_ketiga; ?>
+                                                                    <?php endif; ?>
+                                                                </td>
                                                                 <td><?= number_format($row->nominal, 0, ",", "."); ?></td>
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -132,7 +138,13 @@
                                                 </div>
                                             </div>
                                             <div class="card-footer justify-content-between">
-                                                <button type="submit" name="setuju" class="btn btn-success" onclick="return confirm('Yakin SPJ sudah valid?')">Setuju</button>
+                                                <?php if ($spj->status_spj <= "2") : ?>
+                                                    <button type="submit" name="setuju" class="btn btn-success" onclick="return confirm('Yakin SPJ sudah valid?')">Setuju</button>
+                                                <?php else : ?>
+                                                    <a href="<?= site_url("../verifikasi/pembukuan/" . $spj->kode_spj); ?>" class="btn btn-success" onclick="return confirm('Bukukan SPJ?')">
+                                                        <span class="fa fa-book"></span> Bukukan
+                                                    </a>
+                                                <?php endif; ?>
                                                 <button type="submit" name="tolak" class="btn btn-danger" onclick="return confirm('SPJ akan ditolak ! Apakah Anda yakin?')">Tolak</button>
                                             </div>
                                         </div>

@@ -130,7 +130,13 @@
                                                         <tbody>
                                                             <?php foreach ($pelaksana as $row) : ?>
                                                                 <tr id="<?= $row->id_spj_detail; ?>">
-                                                                    <td><?= $row->nama_pegawai; ?></td>
+                                                                    <td>
+                                                                        <?php if ($row->pihak_ketiga == "") : ?>
+                                                                            <?= $row->nama_pegawai; ?>
+                                                                        <?php else : ?>
+                                                                            <?= $row->pihak_ketiga; ?>
+                                                                        <?php endif; ?>
+                                                                    </td>
                                                                     <td><?= number_format($row->nominal, 0, ",", "."); ?></td>
                                                                     <td>
                                                                         <input type="hidden" name="id_pelaksana[]" value="<?= $row->id_pegawai; ?>">

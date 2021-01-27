@@ -147,7 +147,7 @@ class M_verifikasi extends CI_Model
         } else {
             $data_spj = array(
                 "tgl_tolak" => $tgl,
-                "status_spj" => 1,
+                "status_spj" => 2,
                 "status_verif" => 1,
                 "verif_spj" => $post["verif_spj"],
             );
@@ -224,15 +224,6 @@ class M_verifikasi extends CI_Model
     private function _update_spj($data, $where)
     {
         $this->db->update("tb_spj", $data, $where);
-    }
-
-    public function batal($kode_spj)
-    {
-        $data_spj = array(
-            "status_spj" => 2,
-            "status_verif" => 0,
-            // "verif_spj" => $post["verif_spj"],
-        );
     }
 }
 

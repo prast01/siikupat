@@ -106,7 +106,13 @@
                                                     <tbody>
                                                         <?php foreach ($pelaksana as $row) : ?>
                                                             <tr>
-                                                                <td><?= $row->nama_pegawai; ?></td>
+                                                                <td>
+                                                                    <?php if ($row->pihak_ketiga == "") : ?>
+                                                                        <?= $row->nama_pegawai; ?>
+                                                                    <?php else : ?>
+                                                                        <?= $row->pihak_ketiga; ?>
+                                                                    <?php endif; ?>
+                                                                </td>
                                                                 <td><?= number_format($row->nominal, 0, ",", "."); ?></td>
                                                             </tr>
                                                         <?php endforeach; ?>
