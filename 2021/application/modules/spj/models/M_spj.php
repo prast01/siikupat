@@ -227,7 +227,7 @@ class M_spj extends CI_Model
             return array("res" => 0, "msg" => "Cek Nama Pelaksana. Nama Pelaksana duplikat");
         }
 
-        $cek_pelaksana = $this->cek_pelaksana($post["id_pelaksana"], $post["id_rekening"], $post["tgl_kegiatan"]);
+        $cek_pelaksana = $this->cek_pelaksana($post["id_pelaksana"], $post["id_rekening"], $post["tgl_kegiatan"], $kode_spj);
         if ($cek_pelaksana) {
             return array("res" => 0, "msg" => "Cek Nama Pelaksana. Nama Pelaksana Sudah digunakan pada tanggal " . $post["tgl_kegiatan"]);
         }
@@ -332,7 +332,7 @@ class M_spj extends CI_Model
         return unlink("./assets/upload/" . $name);
     }
 
-    private function cek_pelaksana($pelaksana, $id_rekening, $tgl_kegiatan)
+    private function cek_pelaksana($pelaksana, $id_rekening, $tgl_kegiatan, $kode_spj = "")
     {
         $data = $this->db->get_where("tb_rekening", ["id_rekening" => $id_rekening])->row();
 
@@ -341,8 +341,19 @@ class M_spj extends CI_Model
             foreach ($pelaksana as $key => $val) {
                 $data2 = $this->db->get_where("view_spj_rekening", ["id_pegawai" => $val, "kode_rekening" => $kode_rekening, "tgl_kegiatan" => $tgl_kegiatan]);
                 if ($data2->num_rows() > 0) {
-                    return 1;
-                    break;
+                    $dt = $data2->row();
+                    if ($kode_spj != "") {
+                        if ($dt->kode_spj != $kode_spj) {
+                            return 1;
+                            break;
+                        } else {
+                            return 0;
+                            continue;
+                        }
+                    } else {
+                        return 0;
+                        continue;
+                    }
                 } else {
                     return 0;
                     continue;
