@@ -51,12 +51,16 @@
                                         <!-- <a href="<?= site_url("../realisasi-rok"); ?>" class="btn btn-warning text-white">
                                             <span class="fa fa-arrow-left"></span> Kembali
                                         </a> -->
-                                        <button class="btn btn-danger" onclick="window.close()">
+                                        <!-- <button class="btn btn-danger" onclick="CloseOpenerWindow()">
                                             <span class="fa fa-times"></span> tutup
-                                        </button>
+                                        </button> -->
                                         <?php if ($valid == 0) : ?>
                                             <a href="<?= site_url("../rok/valid_bend/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-warning text-white">
                                                 <span class="fa fa-check"></span> Valid Verifikator
+                                            </a>
+                                        <?php elseif ($valid == 1) : ?>
+                                            <a href="<?= site_url("../rok/batal/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-danger text-white">
+                                                <span class="fa fa-check"></span> Batalkan ROK
                                             </a>
                                         <?php elseif ($valid == 2) : ?>
                                             <a href="<?= site_url("../rok/batal_bend/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-danger text-white">

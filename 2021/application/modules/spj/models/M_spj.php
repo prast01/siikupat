@@ -190,6 +190,10 @@ class M_spj extends CI_Model
             }
         }
 
+        if ($post["id_rok"] == "") {
+            return array("res" => 0, "msg" => "ROK Belum dipilih");
+        }
+
         $kode_seksi = $this->session->userdata("kode_seksi");
         $data = array(
             "kode_spj" => $post["id_unik"],
@@ -262,6 +266,10 @@ class M_spj extends CI_Model
             }
         } else {
             $dokumen_spj = $post["dokumen_old"];
+        }
+
+        if ($post["id_rok"] == "") {
+            return array("res" => 0, "msg" => "ROK Belum dipilih");
         }
 
         $kode_seksi = $this->session->userdata("kode_seksi");

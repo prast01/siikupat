@@ -106,6 +106,27 @@ class Verifikasi extends MY_Controller
             redirect("../verifikasi/pembukuan/" . $kode_spj);
         }
     }
+
+    public function batal($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_verifikasi;
+
+        $hasil = $model->batal($kode_spj);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../verifikasi");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../verifikasi");
+        }
+    }
 }
 
 /* End of file Verifikasi.php */

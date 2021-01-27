@@ -72,7 +72,16 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 <?php foreach ($sub_kegiatan as $row => $val) : ?>
-                                                    <?php $btn = ($val["valid"] == "0") ? "btn-primary" : "btn-success"; ?>
+                                                    <?php
+                                                    if ($val["valid"] == "0") {
+                                                        $btn = "btn-primary";
+                                                    } elseif ($val["valid"] == "2") {
+                                                        $btn = "btn-success";
+                                                    } elseif ($val["valid"] == "1") {
+                                                        $btn = "btn-warning";
+                                                    }
+
+                                                    ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>

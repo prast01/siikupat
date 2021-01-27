@@ -225,6 +225,15 @@ class M_verifikasi extends CI_Model
     {
         $this->db->update("tb_spj", $data, $where);
     }
+
+    public function batal($kode_spj)
+    {
+        $data_spj = array(
+            "status_spj" => 2,
+            "status_verif" => 0,
+            // "verif_spj" => $post["verif_spj"],
+        );
+    }
 }
 
 /* End of file M_verifikasi.php */
