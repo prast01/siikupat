@@ -243,9 +243,11 @@ function get_rok_ubah(id){
             var html = '';
             var i;
             html += '<option value="" selected disabled>Pilih</option>';
-            if(data.valid == "1" && data.count != 0){
-                for(i=0; i<data.rok.length; i++){
-                    html += '<option value=' + data.rok[i].id_rok + '>' + data.rok[i].nominal + ' - ' + data.rok[i].uraian + '</option>';
+            if(data.length != 0){
+                for(i=0; i<data.length; i++){
+                    if (data[i].valid == 1) {
+                        html += '<option value=' + data[i].id_rok + '>' + data[i].nominal + ' - ' + data[i].uraian + '</option>';
+                    }
                 }
             }
             $('#id_rok').html(html);

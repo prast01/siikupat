@@ -139,32 +139,9 @@ class Service extends MY_Controller
         $id_rek = $_POST["id_rek"];
 
         $bln = date("m", strtotime($tgl));
-        $valid = $model->cek_rok_valid($id_sub, $bln);
-        $data = $model->get_rok($id_sub, $id_rekening, $bln);
-        $rok = $model->get_uraian($id_rok);
+        $data = $model->get_rok_ubah($id_sub, $id_rekening, $bln, $id_rek, $id_rok);
 
-        $no = 0;
-        $hsl["valid"] = $valid;
-        if ($id_rek == $id_rekening) {
-            $hsl["count"] = count($data) + 1;
-            $hsl["rok"][$no++] = array(
-                "id_rok" => $rok->id_rok,
-                "uraian" => $rok->uraian,
-                "nominal" => "Rp" . number_format($rok->nominal, 0, ",", "."),
-            );
-        } else {
-            $hsl["count"] = count($data);
-        }
-
-        foreach ($data as $row) {
-            $hsl["rok"][$no++] = array(
-                "id_rok" => $row->id_rok,
-                "uraian" => $row->uraian,
-                "nominal" => "Rp" . number_format($row->nominal, 0, ",", "."),
-            );
-        }
-
-        echo json_encode($hsl);
+        echo json_encode($data);
     }
 
     public function get_uraian($id_rok)
