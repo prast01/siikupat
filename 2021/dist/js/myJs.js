@@ -88,6 +88,15 @@ $(function () {
     if (dash === "dashboard") {
         GetChartData();
     }
+
+    if (dash === "spj") {
+        getAntrian(1000);
+    }
+
+    if (dash === "verifikasi") {
+        getAntrianVerif(1000);
+    }
+
     $(".file-upload").change(function(){
         var file = this.files[0];
         if (file.type.match('application/pdf')) {
@@ -321,4 +330,75 @@ function add_pelaksana() {
 
 function remove_pelaksana(id) {
     $("#" + id).remove();
+}
+
+function get_seksi(id){
+    var origin = url + "service/get_seksi/" + id;
+    $.ajax({
+        type: "POST",
+        url: origin,
+        dataType: "json",
+        success: function (data) {
+            console.log(data)
+            var html = '';
+            var i;
+            html += '<option value="" selected>Semua</option>';
+            if(data.length != 0){
+                for(i=0; i<data.length; i++){
+                    html += '<option value=' + data[i].kode_seksi + '>' + data[i].nama + '</option>';
+                }
+            }
+            $('#kode_seksi').html(html);
+        },
+        error: function () {
+            var html = '';
+            html += '<option value="" selected>Semua</option>';
+            $('#kode_seksi').html(html);
+        }
+    });
+}
+
+function getAntrian(waktu) {
+    var origin = url + "service/get_antrian";
+    setTimeout(function(){
+        $.ajax({
+            type: "POST",
+            url: origin,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                $('#antrian').html(data.no_spj);
+                $('#total').html(data.total);
+                getAntrian(30000)
+            },
+            error: function () {
+                $('#antrian').html("XXXX");
+                $('#total').html("XX");
+            }
+        });
+    }, waktu);
+}
+
+function getAntrianVerif(waktu) {
+    var status = $("#status_spj").val();
+    var origin = url + "service/get_antrian_verif/" + status;
+    setTimeout(function(){
+        $.ajax({
+            type: "POST",
+            url: origin,
+            dataType: "json",
+            success: function (data) {
+                console.log(data)
+                $('#baru').html(data.baru);
+                $('#revisi').html(data.revisi);
+                $('#acc').html(data.acc);
+                getAntrianVerif(30000)
+            },
+            error: function () {
+                $('#baru').html("XX");
+                $('#revisi').html("XX");
+                $('#acc').html("XX");
+            }
+        });
+    }, waktu);
 }

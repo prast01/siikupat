@@ -67,6 +67,7 @@ class M_verifikasi extends CI_Model
                 "kode_spj" => $row->kode_spj,
                 "tgl_kegiatan" => $row->tgl_kegiatan,
                 "uraian" => $row->uraian,
+                "nominal_real" => $row->nominal,
                 "nominal" => number_format($row->nominal, 0, ",", "."),
                 "pelaksana" => $this->get_pelaksana($row->kode_spj),
                 "status_spj" => $row->status_spj,
@@ -117,6 +118,17 @@ class M_verifikasi extends CI_Model
     public function get_verif_by_kode($kode_spj)
     {
         $data = $this->db->get_where("tb_riwayat_spj", ["kode_spj" => $kode_spj])->result();
+
+        return $data;
+    }
+
+    public function get_antrian($kode_bidang)
+    {
+        $data = array(
+            "baru" => $this->_get_antrian_spj($kode_bidang, 1),
+            "revisi" => $this->_get_antrian_spj($kode_bidang, 2),
+            "acc" => $this->_get_antrian_spj($kode_bidang, 3),
+        );
 
         return $data;
     }
@@ -221,9 +233,17 @@ class M_verifikasi extends CI_Model
         }
     }
 
+    // PRIVATE
     private function _update_spj($data, $where)
     {
         $this->db->update("tb_spj", $data, $where);
+    }
+
+    private function _get_antrian_spj($kode_bidang, $status)
+    {
+        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_spj" => $status])->num_rows();
+
+        return $data;
     }
 }
 

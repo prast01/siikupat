@@ -24,7 +24,21 @@ class Laporan extends MY_Controller
 
         $bln = (isset($_POST["lihat"])) ? $_POST["bulan"] : date("m");
 
+        if (isset($_POST["kode_bidang"])) {
+            $kode_bidang = $_POST["kode_bidang"];
+        } else {
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+        }
+        if (isset($_POST["kode_seksi"])) {
+            $kode_seksi = $_POST["kode_seksi"];
+        } else {
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+        }
+
+
         $data["bulan"] = $bln;
+        $data["kode_bidang"] = $kode_bidang;
+        $data["kode_seksi"] = $kode_seksi;
         $data["bln"] = array(
             "01" => "Januari",
             "02" => "Februari",
@@ -40,7 +54,9 @@ class Laporan extends MY_Controller
             "12" => "Desember"
         );
 
-        $data["sub_kegiatan"] = $model->get_sub_kegiatan($bln);
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan($bln, $kode_bidang, $kode_seksi);
+        $data["bidang"] = $model->get_bidang();
+        $data["seksi"] = $model->get_seksi($kode_bidang);
 
         $this->template("realisasiRok", $data);
         // echo json_encode($data["sub_kegiatan"]);

@@ -175,6 +175,30 @@ class Service extends MY_Controller
 
         echo json_encode($hsl);
     }
+
+    public function get_seksi($kode_bidang = "")
+    {
+        $model = $this->M_service;
+        $data = $model->get_seksi($kode_bidang);
+
+        echo json_encode($data);
+    }
+
+    public function get_antrian()
+    {
+        $model = $this->M_service;
+        $data = $model->get_antrian();
+
+        echo json_encode($data);
+    }
+
+    public function get_antrian_verif($status)
+    {
+        $model = $this->M_service;
+        $data = $model->get_antrian_verif($status);
+
+        echo json_encode($data);
+    }
 }
 
 /* End of file Service.php */

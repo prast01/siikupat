@@ -5,12 +5,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_laporan extends CI_Model
 {
 
-    public function get_sub_kegiatan($bulan)
+    public function get_sub_kegiatan($bulan, $kode_bidang, $kode_seksi)
     {
-        $kode_bidang = $this->session->userdata("kode_bidang");
         $this->db->from("tb_sub_kegiatan");
         $this->db->join("tb_user", "tb_sub_kegiatan.kode_seksi = tb_user.kode_seksi");
-        $this->db->where("tb_user.kode_bidang", $kode_bidang);
+        if ($kode_bidang != "") {
+            $this->db->where("tb_user.kode_bidang", $kode_bidang);
+        }
+        if ($kode_seksi != "") {
+            $this->db->where("tb_user.kode_seksi", $kode_seksi);
+        }
         $data_sub = $this->db->get()->result();
 
         if ($bulan > 1) {
@@ -37,6 +41,24 @@ class M_laporan extends CI_Model
         $sort = $this->array_multi_subsort($hsl, 'rok');
 
         return $sort;
+    }
+
+    public function get_bidang()
+    {
+        $data = $this->db->get("tb_bidang")->result();
+
+        return $data;
+    }
+
+    public function get_seksi($kode_bidang)
+    {
+        if ($kode_bidang == "") {
+            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
+        } else {
+            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang" => $kode_bidang])->result();
+        }
+
+        return $data;
     }
 
     // PRIVATE

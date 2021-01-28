@@ -28,6 +28,20 @@
                         </div>
                     <?php endif; ?>
                 </div>
+                <div class="col-lg-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">
+                                <h3>Antrian SPJ Saat Ini :</h3>
+                            </span>
+                            <span class="info-box-number">
+                                No SPJ. <i id="antrian" style="font-size: 22px; color: red;">XXXXX</i> <br>
+                                dari <i id="total" style="font-size: 22px; color: red;">XX</i> SPJ Menunggu
+                            </span>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">

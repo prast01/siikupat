@@ -38,15 +38,31 @@
                                 <div class="col-lg-6 mb-3">
                                     <form action="" method="post">
                                         <div class="form-group row">
-                                            <label class="col-form-label col-lg-2">Pilih Bulan</label>
-                                            <div class="col-lg-4">
+                                            <label class="col-form-label col-lg-1">Filter</label>
+                                            <div class="col-lg-3">
                                                 <select name="bulan" class="form-control select2" style="width: 100%;">
                                                     <?php foreach ($bln as $key => $val) : ?>
                                                         <option <?= ($key == $bulan) ? "selected" : ""; ?> value="<?= $key; ?>"><?= $val; ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
-                                            <div class="col-lg-2">
+                                            <div class="col-lg-3">
+                                                <select name="kode_bidang" class="form-control select2" style="width: 100%;" onchange="get_seksi(this.value)">
+                                                    <option <?= ($kode_bidang == "") ? "selected" : ""; ?> value="">Semua</option>
+                                                    <?php foreach ($bidang as $key) : ?>
+                                                        <option <?= ($key->kode_bidang == $kode_bidang) ? "selected" : ""; ?> value="<?= $key->kode_bidang; ?>"><?= $key->nama_bidang; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <select name="kode_seksi" id="kode_seksi" class="form-control select2" style="width: 100%;">
+                                                    <option <?= ($kode_bidang == "") ? "selected" : ""; ?> value="">Semua</option>
+                                                    <?php foreach ($seksi as $key) : ?>
+                                                        <option <?= ($key->kode_seksi == $kode_seksi) ? "selected" : ""; ?> value="<?= $key->kode_seksi; ?>"><?= $key->nama; ?></option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-1">
                                                 <button class="btn btn-success" name="lihat">Lihat</button>
                                             </div>
                                         </div>
@@ -62,7 +78,8 @@
                                                     <th rowspan="2">Pelaksana</th>
                                                     <th rowspan="2" width="10%">Sisa Realisasi</th>
                                                     <th colspan="2">Bulan</th>
-                                                    <th rowspan="2">Aksi</th>
+                                                    <th rowspan="2" width="5%">Status</th>
+                                                    <th rowspan="2" width="5%">Aksi</th>
                                                 </tr>
                                                 <tr>
                                                     <th width="10%">ROK</th>
@@ -75,10 +92,13 @@
                                                     <?php
                                                     if ($val["valid"] == "0") {
                                                         $btn = "btn-primary";
+                                                        $st = "";
                                                     } elseif ($val["valid"] == "2") {
                                                         $btn = "btn-success";
+                                                        $st = "ACC";
                                                     } elseif ($val["valid"] == "1") {
                                                         $btn = "btn-warning";
+                                                        $st = "OK";
                                                     }
 
                                                     ?>
@@ -89,6 +109,7 @@
                                                         <td align="right"><?= $val["sisa"]; ?></td>
                                                         <td align="right"><?= $val["rok"]; ?></td>
                                                         <td align="right"><?= $val["realisasi"]; ?></td>
+                                                        <td><?= $st; ?></td>
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a target="_blank" href="<?= site_url("../rok/lihatDaftar/" . $val["id_sub_kegiatan"] . "/" . $bulan . "/" . $val["kode_seksi"]); ?>" class="btn <?= $btn; ?> btn-sm btn-flat">

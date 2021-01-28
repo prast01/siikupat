@@ -25,7 +25,9 @@ class Verifikasi extends MY_Controller
         $kode_bidang = $this->session->userdata("kode_bidang");
         $data["spj"] = $model->get_spj($kode_bidang, 1);
         $data["acc"] = $model->get_spj($kode_bidang, 2);
+        $data["antrian"] = $model->get_antrian($kode_bidang);
         $this->template("dashboard", $data);
+        // echo json_encode($data["antrian"]);
     }
 
     public function lihat($kode_spj)

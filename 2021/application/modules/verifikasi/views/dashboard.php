@@ -1,7 +1,18 @@
+<?php
+$st = 0;
+if (isset($spj[0]["status_spj"])) {
+    $st = $spj[0]["status_spj"];
+    if ($spj[0]["status_spj"] == "1") {
+        $antrian["baru"] = $antrian["baru"] - 1;
+    } else {
+        $antrian["revisi"] = $antrian["revisi"] - 1;
+    }
+}
+?>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container">
-            <div class="row mb-2">
+            <div class="row">
                 <div class="col-sm-6">
                     <!-- <h1 class="m-0 text-dark"></h1> -->
                 </div>
@@ -28,6 +39,48 @@
                         </div>
                     <?php endif; ?>
                 </div>
+                <?php if ($this->session->userdata("kode_bidang") != "XXXX") : ?>
+                    <input type="hidden" id="status_spj" value="<?= $st; ?>">
+                    <div class="col-lg-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">
+                                    <h3>Antrian SPJ Baru</h3>
+                                </span>
+                                <span class="info-box-number">
+                                    <i id="baru" style="color: red; font-size: 25px;"><?= $antrian["baru"]; ?></i> SPJ
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger"><i class="fa fa-book"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">
+                                    <h3>Antrian SPJ Revisi</h3>
+                                </span>
+                                <span class="info-box-number">
+                                    <i id="revisi" style="color: red; font-size: 25px;"><?= $antrian["revisi"]; ?></i> SPJ
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-book"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">
+                                    <h3>Antrian SPJ ACC</h3>
+                                </span>
+                                <span class="info-box-number">
+                                    <i id="acc" style="color: red; font-size: 25px;"><?= $antrian["acc"]; ?></i> SPJ
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
                 <div class="col-lg-12 mb-5">
                     <div class="card card-primary">
                         <div class="card-header">
@@ -52,7 +105,9 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
+                                                <?php $total = 0; ?>
                                                 <?php foreach ($spj as $row => $val) : ?>
+                                                    <?php $total = $total + $val["nominal_real"]; ?>
                                                     <tr>
                                                         <!-- <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td> -->
                                                         <td><?= $val["no_seksi"]; ?></td>
@@ -78,6 +133,13 @@
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th align="right" colspan="3">Total</th>
+                                                    <th><?= number_format($total, 0, ",", "."); ?></th>
+                                                    <th colspan="4"></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -109,7 +171,9 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
+                                                <?php $total_2 = 0; ?>
                                                 <?php foreach ($acc as $row => $val) : ?>
+                                                    <?php $total_2 = $total_2 + $val["nominal_real"]; ?>
                                                     <tr>
                                                         <!-- <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td> -->
                                                         <td><?= $val["no_seksi"]; ?></td>
@@ -138,6 +202,13 @@
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th align="right" colspan="3">Total</th>
+                                                    <th><?= number_format($total_2, 0, ",", "."); ?></th>
+                                                    <th colspan="4"></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

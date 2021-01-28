@@ -167,6 +167,87 @@ class M_service extends CI_Model
 
         return $data;
     }
+
+    public function get_seksi($kode_bidang)
+    {
+        if ($kode_bidang == "") {
+            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
+        } else {
+            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang" => $kode_bidang])->result();
+        }
+
+        return $data;
+    }
+
+    public function get_antrian()
+    {
+        $kode_bidang = $this->session->userdata("kode_bidang");
+
+        $this->db->from("view_spj_verif_bidang");
+        $this->db->where("kode_bidang", $kode_bidang);
+        $this->db->where("status_spj <=", 2);
+        $this->db->where("status_verif", 0);
+        $this->db->order_by("nomor_spj", "ASC");
+        $this->db->limit(1);
+        $data = $this->db->get()->row();
+
+
+        if ($data->jenis_spj == "0") {
+            $jenis = "GU";
+        } else {
+            $jenis = "LS";
+        }
+
+        if ($data->kode_bidang == "DK001") {
+            $bd = "1-";
+        } elseif ($data->kode_bidang == "DK002") {
+            $bd = "2-";
+        } elseif ($data->kode_bidang == "DK003") {
+            $bd = "3-";
+        } elseif ($data->kode_bidang == "DK004") {
+            $bd = "4-";
+        }
+
+        $dt = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_spj <=" => 2, "status_verif" => 0])->num_rows();
+
+        $hsl = array(
+            "no_spj" => $bd . $jenis . sprintf("%05s", $data->nomor_spj),
+            "total" => $dt - 1
+        );
+
+        return $hsl;
+    }
+
+    public function get_antrian_verif($status)
+    {
+        $kode_bidang = $this->session->userdata("kode_bidang");
+
+        $baru = $this->_get_antrian_spj($kode_bidang, 1);
+        $revisi = $this->_get_antrian_spj($kode_bidang, 2);
+        $acc = $this->_get_antrian_spj($kode_bidang, 3);
+
+        if ($status == "1") {
+            $baru = $baru - 1;
+        } else {
+            $revisi = $revisi - 1;
+        }
+
+        $hsl = array(
+            "baru" => $baru,
+            "revisi" => $revisi,
+            "acc" => $acc,
+        );
+
+        return $hsl;
+    }
+
+
+    private function _get_antrian_spj($kode_bidang, $status)
+    {
+        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_spj" => $status])->num_rows();
+
+        return $data;
+    }
 }
 
 /* End of file M_service.php */
