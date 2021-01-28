@@ -63,8 +63,8 @@
                                                         <td>
                                                             <div class="btn-group">
                                                                 <button type="button" onclick="modalDefault('Ubah Pengaturan', 'ubahPengaturan', '<?= $row->id_pengaturan; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
-                                                                <a href="<?= site_url("../lain/hapus/" . $row->id_pengaturan); ?>" onclick="return confirm('Yakin Hapus?')" class="btn btn-danger text-white btn-sm btn-flat"><i class="fas fa-trash"></i></a>
-                                                                <button type="button" onclick="modalDefault('Status Pengaturan', 'statusPengaturan', '<?= $row->id_pengaturan; ?>')" class="btn btn-warning text-white btn-sm btn-flat"><i class="fas fa-user"></i></button>
+                                                                <!-- <a href="<?= site_url("../lain/hapus/" . $row->id_pengaturan); ?>" onclick="return confirm('Yakin Hapus?')" class="btn btn-danger text-white btn-sm btn-flat"><i class="fas fa-trash"></i></a>
+                                                                <button type="button" onclick="modalDefault('Status Pengaturan', 'statusPengaturan', '<?= $row->id_pengaturan; ?>')" class="btn btn-warning text-white btn-sm btn-flat"><i class="fas fa-user"></i></button> -->
                                                             </div>
                                                         </td>
                                                     </tr>

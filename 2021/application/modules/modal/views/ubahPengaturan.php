@@ -2,7 +2,7 @@
     <div class="modal-body">
         <div class="form-group">
             <label>Nama Pengaturan</label>
-            <input type="text" name="nama_pengaturan" class="form-control" placeholder="Nama Pengaturan" value="<?= $pengaturan->nama_pengaturan; ?>">
+            <input readonly type="text" name="nama_pengaturan" class="form-control" placeholder="Nama Pengaturan" value="<?= $pengaturan->nama_pengaturan; ?>">
         </div>
         <div class="form-group">
             <label>Nilai</label>
@@ -10,7 +10,7 @@
         </div>
         <div class="form-group">
             <label>Satuan</label>
-            <input type="text" name="satuan_pengaturan" class="form-control" placeholder="Satuan" value="<?= $pengaturan->satuan_pengaturan; ?>">
+            <input readonly type="text" name="satuan_pengaturan" class="form-control" placeholder="Satuan" value="<?= $pengaturan->satuan_pengaturan; ?>">
         </div>
     </div>
     <div class="modal-footer justify-content-between">

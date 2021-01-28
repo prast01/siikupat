@@ -56,7 +56,13 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
+                                                <?php $total_p = 0; ?>
+                                                <?php $total_r = 0; ?>
+                                                <?php $total_s = 0; ?>
                                                 <?php foreach ($seksi as $row) : ?>
+                                                    <?php $total_p = $total_p + $row->pagu_anggaran; ?>
+                                                    <?php $total_r = $total_r + $row->real_anggaran; ?>
+                                                    <?php $total_s = $total_s + $row->sisa_anggaran; ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $row->nama; ?></td>
@@ -64,10 +70,23 @@
                                                         <td align="right"><?= number_format($row->real_anggaran, 0, ",", "."); ?></td>
                                                         <td align="right"><?= number_format($row->sisa_anggaran, 0, ",", "."); ?></td>
                                                         <td><?= $row->persen_anggaran; ?></td>
-                                                        <td></td>
+                                                        <td>
+                                                            <a class="btn btn-primary btn-sm" href="<?= site_url("../realisasi/" . $row->kode_seksi); ?>">
+                                                                <span class="fa fa-book"></span> Lihat Detail
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="2" align="right">Total</td>
+                                                    <td align="right"><?= number_format($total_p, 0, ",", "."); ?></td>
+                                                    <td align="right"><?= number_format($total_r, 0, ",", "."); ?></td>
+                                                    <td align="right"><?= number_format($total_s, 0, ",", "."); ?></td>
+                                                    <td colspan="2"></td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
