@@ -40,6 +40,14 @@ class M_service extends CI_Model
 
     public function get_realisasi()
     {
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $kode_bidang = $this->session->userdata("kode_bidang");
+        if ($kode_bidang == "DK005") {
+            $this->db->where("kode_seksi", $kode_seksi);
+        } elseif ($kode_seksi != "XXXX" && $kode_bidang != "DK005") {
+            $this->db->not_like("nama", "PKM");
+        }
+
         $this->db->order_by("persen_anggaran", "DESC");
         $data = $this->db->get("tb_realisasi_seksi")->result();
 

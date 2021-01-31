@@ -54,18 +54,18 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($kegiatan as $row) : ?>
+                                                <?php foreach ($kegiatan as $row => $val) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $row->kode_kegiatan; ?></td>
-                                                        <td><?= $row->nama_kegiatan; ?></td>
-                                                        <td><?= $row->pagu_anggaran; ?></td>
+                                                        <td><?= $val["kode_kegiatan"]; ?></td>
+                                                        <td><?= $val["nama_kegiatan"]; ?></td>
+                                                        <td><?= number_format($val["pagu_anggaran"], 0, ",", "."); ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <button type="button" onclick="modalDefault('Ubah Kegiatan', 'ubahKegiatan', '<?= $row->id_kegiatan; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
-                                                                <a href="<?= site_url("../kegiatan/hapus/" . $row->id_kegiatan); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
+                                                                <button type="button" onclick="modalDefault('Ubah Kegiatan', 'ubahKegiatan', '<?= $val['id_kegiatan']; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
+                                                                <a href="<?= site_url("../kegiatan/hapus/" . $val["id_kegiatan"]); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
                                                                 </a>
-                                                                <a href="<?= site_url("../kegiatan/sub/" . $row->id_kegiatan); ?>" class="btn btn-success btn-sm btn-flat"><i class="fas fa-align-justify"></i>
+                                                                <a href="<?= site_url("../kegiatan/sub/" . $val["id_kegiatan"]); ?>" class="btn btn-success btn-sm btn-flat"><i class="fas fa-align-justify"></i>
                                                                 </a>
                                                             </div>
                                                         </td>

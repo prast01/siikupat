@@ -23,24 +23,24 @@
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">SPJ</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-							<?php if ($kode_seksi != "XXXX") : ?>
+							<?php if ($kode_seksi != "XXXX" && $kode_bidang != "DK005") : ?>
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../rok'); ?>" class="dropdown-item">Pendaftaran ROK</a>
 								</li>
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../spj'); ?>" class="dropdown-item">Pendaftaran SPJ</a>
 								</li>
-							<?php else : ?>
+							<?php elseif ($kode_bidang != "DK005") : ?>
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../verifikasi'); ?>" class="dropdown-item">Verifikasi SPJ</a>
 								</li>
 							<?php endif; ?>
 							<?php if ($kode_bidang == "DK001" && $kode_seksi == "XXXX") : ?>
 								<li>
-									<a tabindex="-1" href="<?php echo site_url('../transfer'); ?>" class="dropdown-item">Transfer SPJ</a>
+									<a tabindex="-1" href="<?php echo site_url('../pembukuan'); ?>" class="dropdown-item">Pembukuan SPJ</a>
 								</li>
 								<li>
-									<a tabindex="-1" href="<?php echo site_url('../pembukuan'); ?>" class="dropdown-item">Pembukuan SPJ</a>
+									<a tabindex="-1" href="<?php echo site_url('../transfer'); ?>" class="dropdown-item">Transfer SPJ</a>
 								</li>
 							<?php endif; ?>
 						</ul>
@@ -69,6 +69,17 @@
 									</ul>
 								</li>
 							<?php endif; ?>
+							<li class="dropdown-submenu dropdown-hover">
+								<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Buku Kas</a>
+								<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+									<li>
+										<a tabindex="-1" href="<?php echo site_url('../bk-1'); ?>" class="dropdown-item">Per Sub Kegiatan</a>
+									</li>
+									<li>
+										<a tabindex="-1" href="<?php echo site_url('../bk-2'); ?>" class="dropdown-item">Per Rekening</a>
+									</li>
+								</ul>
+							</li>
 						</ul>
 					</li>
 				<?php endif; ?>

@@ -24,7 +24,7 @@ class Transfer extends MY_Controller
         $this->template("dashboard", $data);
     }
 
-    public function pembukuan($kode_spj)
+    public function lihat($kode_spj)
     {
         if ($this->session->userdata("id_user") == "") {
             redirect("../");
@@ -33,6 +33,12 @@ class Transfer extends MY_Controller
         $model = $this->M_transfer;
 
         $data["spj"] = $model->get_spj_by_kode($kode_spj);
+        $data["verif"] = $model->get_verif_by_kode($kode_spj);
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan_by_id($data["spj"]->id_sub_kegiatan);
+        $data["rekening"] = $model->get_rekening_by_id($data["spj"]->id_rekening);
+        $data["rok"] = $model->get_rok_by_id($data["spj"]->id_rok);
+        $data["pelaksana"] = $model->get_pelaksana($kode_spj);
+        $data["buku"] = $model->get_buku_by_kode($kode_spj);
         $this->template("buku", $data);
     }
 

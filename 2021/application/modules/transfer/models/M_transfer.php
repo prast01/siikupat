@@ -9,7 +9,7 @@ class M_transfer extends CI_Model
     public function get_spj()
     {
         $this->db->order_by("tgl_daftar", "DESC");
-        $data = $this->db->get_where("view_spj_verif_bidang", ["status_spj" => 5])->result();
+        $data = $this->db->get_where("view_spj_verif_bidang", ["status_spj" => 4])->result();
 
         // sprintf("%05s", $id)
         $no = 0;
@@ -81,6 +81,41 @@ class M_transfer extends CI_Model
         return $data;
     }
 
+    public function get_sub_kegiatan_by_id($id_sub_kegiatan)
+    {
+        $data = $this->db->get_where("tb_sub_kegiatan", ["id_sub_kegiatan" => $id_sub_kegiatan])->row();
+
+        return $data;
+    }
+
+    public function get_rekening_by_id($id_rekening)
+    {
+        $data = $this->db->get_where("tb_rekening", ["id_rekening" => $id_rekening])->row();
+
+        return $data;
+    }
+
+    public function get_rok_by_id($id_rok)
+    {
+        $data = $this->db->get_where("tb_rok", ["id_rok" => $id_rok])->row();
+
+        return $data;
+    }
+
+    public function get_verif_by_kode($kode_spj)
+    {
+        $data = $this->db->get_where("tb_riwayat_spj", ["kode_spj" => $kode_spj])->result();
+
+        return $data;
+    }
+
+    public function get_buku_by_kode($kode_spj)
+    {
+        $data = $this->db->get_where("tb_buku", ["kode_spj" => $kode_spj])->row();
+
+        return $data;
+    }
+
     // CRUD
     public function save($kode_spj)
     {
@@ -124,6 +159,11 @@ class M_transfer extends CI_Model
         );
 
         $data = array(
+            "ppn" => $post["ppn"],
+            "pph21" => $post["pph21"],
+            "pph22" => $post["pph22"],
+            "pph23" => $post["pph23"],
+            "pph_final" => $post["pph_final"],
             "ntpn_ppn" => $post["ntpn_ppn"],
             "ntpn_pph21" => $post["ntpn_pph21"],
             "ntpn_pph22" => $post["ntpn_pph22"],

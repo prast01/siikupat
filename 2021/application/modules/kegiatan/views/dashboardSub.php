@@ -56,19 +56,19 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($sub_kegiatan as $row) : ?>
+                                                <?php foreach ($sub_kegiatan as $row => $val) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $row->kode_sub_kegiatan; ?></td>
-                                                        <td><?= $row->nama_sub_kegiatan; ?></td>
-                                                        <td><?= $row->nama; ?></td>
-                                                        <td><?= number_format($row->pagu_anggaran, 0, ",", "."); ?></td>
+                                                        <td><?= $val["kode_sub_kegiatan"]; ?></td>
+                                                        <td><?= $val["nama_sub_kegiatan"]; ?></td>
+                                                        <td><?= $val["nama"]; ?></td>
+                                                        <td><?= number_format($val["pagu_anggaran"], 0, ",", "."); ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <button type="button" onclick="modalDefault('Ubah Sub Kegiatan', 'ubahSubKegiatan', '<?= $row->id_sub_kegiatan; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
-                                                                <a href="<?= site_url("../kegiatan/hapusSub/" . $row->id_kegiatan . "/" . $row->id_sub_kegiatan); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
+                                                                <button type="button" onclick="modalDefault('Ubah Sub Kegiatan', 'ubahSubKegiatan', '<?= $val['id_sub_kegiatan']; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
+                                                                <a href="<?= site_url("../kegiatan/hapusSub/" . $val["id_kegiatan"] . "/" . $val["id_sub_kegiatan"]); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
                                                                 </a>
-                                                                <a href="<?= site_url("../kegiatan/rekening/" . $row->id_kegiatan . "/" . $row->id_sub_kegiatan); ?>" class="btn btn-success btn-sm btn-flat"><i class="fas fa-align-justify"></i>
+                                                                <a href="<?= site_url("../kegiatan/rekening/" . $val["id_kegiatan"] . "/" . $val["id_sub_kegiatan"]); ?>" class="btn btn-success btn-sm btn-flat"><i class="fas fa-align-justify"></i>
                                                                 </a>
                                                             </div>
                                                         </td>

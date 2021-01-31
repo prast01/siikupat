@@ -185,6 +185,77 @@ class M_laporan extends CI_Model
         return $data;
     }
 
+    public function get_all_sub()
+    {
+        $data = $this->db->get("tb_sub_kegiatan")->result();
+
+        return $data;
+    }
+
+    public function get_bk_1($id_sub_kegiatan, $dari, $sampai)
+    {
+        $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub_kegiatan])->result();
+
+        $no = 0;
+        $hsl = array();
+
+        foreach ($data as $key) {
+            $realisasi_sblm = $this->_get_real_sblm($key->id_rekening, $dari);
+            $gu = $this->_get_gu($key->id_rekening, $dari, $sampai);
+            $ls = $this->_get_ls($key->id_rekening, $dari, $sampai);
+            $total = $realisasi_sblm + $gu + $ls;
+            $sisa = $key->pagu_rekening - $total;
+            $hsl[$no++] = array(
+                "id_rekening" => $key->id_rekening,
+                "kode_rekening" => $key->kode_rekening,
+                "nama_rekening" => $key->nama_rekening,
+                "pagu_rekening" => $key->pagu_rekening,
+                "realisasi_sblm" => $realisasi_sblm,
+                "gu" => $gu,
+                "ls" => $ls,
+                "total" => $total,
+                "sisa" => $sisa,
+            );
+        }
+
+        return $hsl;
+    }
+
+    public function get_rek_by_id($id_sub_kegiatan)
+    {
+        $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub_kegiatan])->result();
+
+        return $data;
+    }
+
+    public function get_bk_2($id_rekening, $dari, $sampai)
+    {
+        $data = $this->db->query("SELECT * FROM tb_spj WHERE id_rekening='$id_rekening' AND status_spj='4' AND tgl_transfer >= '$dari' AND tgl_transfer <= '$sampai'")->result();
+
+        $no = 0;
+        $hsl = array();
+        foreach ($data as $key) {
+            if ($key->jenis_spj == 0) {
+                $gu = $key->nominal;
+                $ls = 0;
+            } else {
+                $gu = 0;
+                $ls = $key->nominal;
+            }
+
+            $hsl[$no++] = array(
+                "tgl_kegiatan" => date("d-m-Y", strtotime($key->tgl_kegiatan)),
+                "tgl_transfer" => date("d-m-Y", strtotime($key->tgl_transfer)),
+                "uraian" => $key->uraian,
+                "pelaksana" => $this->get_pelaksana($key->kode_spj),
+                "gu" => $gu,
+                "ls" => $ls,
+            );
+        }
+
+        return $hsl;
+    }
+
     // PRIVATE
     private function _get_sisa_bulan_lalu($id_sub, $bln_sblm, $kode_seksi)
     {
@@ -248,6 +319,33 @@ class M_laporan extends CI_Model
         $data = $this->db->query("SELECT $tbl FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub'")->row();
 
         return $data->$tbl;
+    }
+
+    private function _get_real_sblm($id_rekening, $dari)
+    {
+        $data = $this->db->query("SELECT SUM(nominal) as total FROM tb_spj WHERE id_rekening='$id_rekening' AND status_spj='4' AND tgl_transfer < '$dari'")->row();
+
+        $total = 0;
+        $total = $total + $data->total;
+        return $total;
+    }
+
+    private function _get_gu($id_rekening, $dari, $sampai)
+    {
+        $data = $this->db->query("SELECT SUM(nominal) as total FROM tb_spj WHERE id_rekening='$id_rekening' AND status_spj='4' AND tgl_transfer >= '$dari' AND tgl_transfer <= '$sampai' AND jenis_spj='0'")->row();
+
+        $total = 0;
+        $total = $total + $data->total;
+        return $total;
+    }
+
+    private function _get_ls($id_rekening, $dari, $sampai)
+    {
+        $data = $this->db->query("SELECT SUM(nominal) as total FROM tb_spj WHERE id_rekening='$id_rekening' AND status_spj='4' AND tgl_transfer >= '$dari' AND tgl_transfer <= '$sampai' AND jenis_spj='1'")->row();
+
+        $total = 0;
+        $total = $total + $data->total;
+        return $total;
     }
 }
 

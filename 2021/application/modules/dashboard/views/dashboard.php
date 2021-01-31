@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered datatable">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>

@@ -217,6 +217,86 @@ class Laporan extends MY_Controller
         $data["pelaksana"] = $model->get_pelaksana($kode_spj);
         $this->template("lihat", $data);
     }
+
+    public function bk_1()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_laporan;
+
+        $id_sub_kegiatan = (isset($_POST["id_sub_kegiatan"])) ? $_POST["id_sub_kegiatan"] : "";
+        $hide = (isset($_POST["id_sub_kegiatan"])) ? 1 : 0;
+        $dari = (isset($_POST["dari"])) ? $_POST["dari"] : date('Y-m-01');
+        $sampai = (isset($_POST["sampai"])) ? $_POST["sampai"] : date("Y-m-t");
+
+        $data = array(
+            "hide" => $hide,
+            "id_sub_kegiatan" => $id_sub_kegiatan,
+            "dari" => $dari,
+            "sampai" => $sampai,
+            "sub_kegiatan" => $model->get_all_sub(),
+            "bk1" => $model->get_bk_1($id_sub_kegiatan, $dari, $sampai),
+        );
+
+        $this->template("bk_1", $data);
+    }
+
+    public function bk_2()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_laporan;
+
+        $data = array(
+            "hide" => 0,
+            "id_sub_kegiatan" => "",
+            "id_rekening" => "",
+            "dari" => date("Y-m-01"),
+            "sampai" => date("Y-m-t"),
+            "sub_kegiatan" => $model->get_all_sub(),
+        );
+
+        if (isset($_POST["id_sub_kegiatan"])) {
+            $id_sub_kegiatan = (isset($_POST["id_sub_kegiatan"])) ? $_POST["id_sub_kegiatan"] : "";
+            $id_rekening = (isset($_POST["id_rekening"])) ? $_POST["id_rekening"] : "";
+            $dari = (isset($_POST["dari"])) ? $_POST["dari"] : date('Y-m-01');
+            $sampai = (isset($_POST["sampai"])) ? $_POST["sampai"] : date("Y-m-t");
+            redirect("../bk-2/" . $id_sub_kegiatan . "/" . $id_rekening . "/" . $dari . "/" . $sampai);
+        } else {
+            $this->template("bk_2", $data);
+        }
+    }
+
+    public function bk_2_2($id_sub_kegiatan, $id_rekening, $dari, $sampai)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_laporan;
+
+        $data = array(
+            "hide" => 1,
+            "id_sub_kegiatan" => $id_sub_kegiatan,
+            "id_rekening" => $id_rekening,
+            "dari" => $dari,
+            "sampai" => $sampai,
+            "sub_kegiatan" => $model->get_all_sub(),
+            "rekening" => $model->get_rek_by_id($id_sub_kegiatan),
+            "bk2" => $model->get_bk_2($id_rekening, $dari, $sampai),
+        );
+
+        if (isset($_POST["id_sub_kegiatan"])) {
+            $id_sub_kegiatan = (isset($_POST["id_sub_kegiatan"])) ? $_POST["id_sub_kegiatan"] : "";
+            $id_rekening = (isset($_POST["id_rekening"])) ? $_POST["id_rekening"] : "";
+            $dari = (isset($_POST["dari"])) ? $_POST["dari"] : date('Y-m-01');
+            $sampai = (isset($_POST["sampai"])) ? $_POST["sampai"] : date("Y-m-t");
+            redirect("../bk-2/" . $id_sub_kegiatan . "/" . $id_rekening . "/" . $dari . "/" . $sampai);
+        } else {
+            $this->template("bk_2", $data);
+        }
+    }
 }
 
 /* End of file Laporan.php */

@@ -9,7 +9,7 @@ class M_pembukuan extends CI_Model
     public function get_spj()
     {
         $this->db->order_by("tgl_daftar", "DESC");
-        $data = $this->db->get_where("view_spj_verif_bidang", ["status_spj" => 4])->result();
+        $data = $this->db->get_where("view_spj_verif_bidang", ["status_spj" => 5])->result();
 
         // sprintf("%05s", $id)
         $no = 0;
@@ -86,6 +86,48 @@ class M_pembukuan extends CI_Model
         $data = $this->db->get_where("tb_buku", ["kode_spj" => $kode_spj])->row();
 
         return $data;
+    }
+
+    // CRUD
+    public function save_buku($kode_spj, $post)
+    {
+        $tgl = date("Y-m-d H:i:s");
+        $where = array(
+            "kode_spj" => $kode_spj
+        );
+
+        $data_spj = array(
+            "tgl_transfer" => $tgl,
+            "status_spj" => 4,
+        );
+
+        $data = array(
+            "ppn" => $post["ppn"],
+            "pph21" => $post["pph21"],
+            "pph22" => $post["pph22"],
+            "pph23" => $post["pph23"],
+            "pph_final" => $post["pph_final"],
+            "ntpn_ppn" => $post["ntpn_ppn"],
+            "ntpn_pph21" => $post["ntpn_pph21"],
+            "ntpn_pph22" => $post["ntpn_pph22"],
+            "ntpn_pph23" => $post["ntpn_pph23"],
+            "ntpn_pph_final" => $post["ntpn_pph_final"],
+        );
+
+
+        $hasil = $this->db->update("tb_buku", $data, $where);
+        if ($hasil) {
+            $this->_update_spj($data_spj, $where);
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
+    // PRIVATE
+    private function _update_spj($data, $where)
+    {
+        $this->db->update("tb_spj", $data, $where);
     }
 }
 

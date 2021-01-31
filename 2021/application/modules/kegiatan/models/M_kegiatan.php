@@ -8,26 +8,49 @@ class M_kegiatan extends CI_Model
 
     public function get_kegiatan()
     {
-        // $data = $this->db->get('tb_kegiatan')->result();
+        $data = $this->db->get('tb_kegiatan')->result();
 
-        $data = $this->db->get_where("view_kegiatan")->result();
+        // $data = $this->db->get_where("view_kegiatan")->result();
+        $hsl = array();
+        $no = 0;
+        foreach ($data as $key) {
+            $hsl[$no++] = array(
+                "id_kegiatan" => $key->id_kegiatan,
+                "kode_kegiatan" => $key->kode_kegiatan,
+                "nama_kegiatan" => $key->nama_kegiatan,
+                "pagu_anggaran" => $this->_get_pagu_keg($key->id_kegiatan),
+            );
+        }
 
-        return $data;
+        return $hsl;
     }
 
     public function get_sub_kegiatan($id)
     {
-        // $this->db->select("*");
-        // $this->db->from('tb_sub_kegiatan');
-        // $this->db->join('tb_kegiatan', 'tb_kegiatan.id_kegiatan = tb_sub_kegiatan.id_kegiatan');
-        // $this->db->join('tb_user', 'tb_user.kode_seksi = tb_sub_kegiatan.kode_seksi');
-        // $this->db->where('tb_sub_kegiatan.id_kegiatan', $id);
+        $this->db->select("*");
+        $this->db->from('tb_sub_kegiatan');
+        $this->db->join('tb_kegiatan', 'tb_kegiatan.id_kegiatan = tb_sub_kegiatan.id_kegiatan');
+        $this->db->join('tb_user', 'tb_user.kode_seksi = tb_sub_kegiatan.kode_seksi');
+        $this->db->where('tb_sub_kegiatan.id_kegiatan', $id);
 
-        // $data = $this->db->get()->result();
+        $data = $this->db->get()->result();
 
-        $data = $this->db->get_where("view_sub_kegiatan", ["id_kegiatan" => $id])->result();
+        // $data = $this->db->get_where("view_sub_kegiatan", ["id_kegiatan" => $id])->result();
 
-        return $data;
+        $hsl = array();
+        $no = 0;
+        foreach ($data as $key) {
+            $hsl[$no++] = array(
+                "id_kegiatan" => $key->id_kegiatan,
+                "id_sub_kegiatan" => $key->id_sub_kegiatan,
+                "kode_sub_kegiatan" => $key->kode_sub_kegiatan,
+                "nama_sub_kegiatan" => $key->nama_sub_kegiatan,
+                "nama" => $key->nama,
+                "pagu_anggaran" => $this->_get_pagu_sub_keg($key->id_sub_kegiatan),
+            );
+        }
+
+        return $hsl;
     }
 
     public function get_rekening($id)
@@ -42,6 +65,7 @@ class M_kegiatan extends CI_Model
         return $data;
     }
 
+    // CRUD
     public function save($post)
     {
         $data = array(
@@ -296,6 +320,8 @@ class M_kegiatan extends CI_Model
         }
     }
 
+
+    // PRIVATE
     private function cek_sub($id)
     {
         $data = $this->db->get_where("tb_sub_kegiatan", ["id_kegiatan" => $id])->num_rows();
@@ -352,6 +378,29 @@ class M_kegiatan extends CI_Model
         );
 
         $this->db->update("tb_rok_valid", $data_r, $where);
+    }
+
+    private function _get_pagu_keg($id_kegiatan)
+    {
+        $data = $this->get_sub_kegiatan($id_kegiatan);
+        $total = 0;
+        foreach ($data as $key) {
+            $id_sub = $key->id_sub_kegiatan;
+            $dt = $this->db->query("SELECT SUM(pagu_rekening) as total FROM tb_rekening WHERE id_sub_kegiatan='$id_sub'")->row();
+
+            $total = $total + $dt->total;
+        }
+
+        return $total;
+    }
+
+    private function _get_pagu_sub_keg($id_sub_kegiatan)
+    {
+        $total = 0;
+        $dt = $this->db->query("SELECT SUM(pagu_rekening) as total FROM tb_rekening WHERE id_sub_kegiatan='$id_sub_kegiatan'")->row();
+
+        $total = $total + $dt->total;
+        return $total;
     }
 }
 

@@ -68,13 +68,6 @@ class Service extends MY_Controller
 
         $data = $model->get_realisasi();
 
-        $no = 0;
-        foreach ($data as $row) {
-            $label[$no++] = $row->nama;
-        };
-
-        $hsl["label"] = $label;
-
         echo json_encode($data);
     }
 

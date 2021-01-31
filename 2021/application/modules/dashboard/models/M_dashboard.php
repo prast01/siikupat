@@ -8,6 +8,13 @@ class M_dashboard extends CI_Model
     public function get_seksi()
     {
         $this->update();
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $kode_bidang = $this->session->userdata("kode_bidang");
+        if ($kode_bidang == "DK005") {
+            $this->db->where("kode_seksi", $kode_seksi);
+        } elseif ($kode_seksi != "XXXX" && $kode_bidang != "DK005") {
+            $this->db->not_like("nama", "PKM");
+        }
 
         $this->db->order_by("persen_anggaran", "DESC");
         $data = $this->db->get("tb_realisasi_seksi")->result();
@@ -142,13 +149,16 @@ class M_dashboard extends CI_Model
     {
         $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
 
-        $this->db->truncate('tb_realisasi_seksi');
+        // $this->db->truncate('tb_realisasi_seksi');
         foreach ($data as $row) {
             $pagu_anggaran = $this->get_pagu($row->kode_seksi);
             $real_anggaran = $this->get_real($row->kode_seksi);
             $sisa_anggaran = $this->get_sisa($pagu_anggaran, $real_anggaran);
             $persen_anggaran = $this->get_persen($pagu_anggaran, $real_anggaran);
 
+            $where = array(
+                "kode_seksi" => $row->kode_seksi,
+            );
             $data = array(
                 "kode_seksi" => $row->kode_seksi,
                 "nama" => $row->nama,
@@ -158,15 +168,28 @@ class M_dashboard extends CI_Model
                 "persen_anggaran" => number_format($persen_anggaran, 2, ".", ","),
             );
 
-            $this->db->insert("tb_realisasi_seksi", $data);
+            $cek = $this->db->get_where("tb_realisasi_seksi", $where)->num_rows();
+            if ($cek > 0) {
+                $this->db->update("tb_realisasi_seksi", $data, $where);
+            } else {
+                $this->db->insert("tb_realisasi_seksi", $data);
+            }
         }
     }
 
     private function get_pagu($kode_seksi)
     {
-        $data = $this->db->query("SELECT SUM(pagu_anggaran) AS pagu FROM view_sub_kegiatan WHERE kode_seksi='$kode_seksi' GROUP BY kode_seksi")->row();
+        // $data = $this->db->query("SELECT SUM(pagu_anggaran) AS pagu FROM view_sub_kegiatan WHERE kode_seksi='$kode_seksi' GROUP BY kode_seksi")->row();
+        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
 
-        return $data->pagu;
+        $total = 0;
+        foreach ($data as $key) {
+            $dt = $this->_get_pagu_sub_keg($key->id_sub_kegiatan);
+
+            $total = $total + $dt;
+        }
+
+        return $total;
     }
 
     private function get_real($kode_seksi)
@@ -218,8 +241,21 @@ class M_dashboard extends CI_Model
 
     private function get_persen($pagu, $real)
     {
-        $hsl = ($real / $pagu) * 100;
+        $hsl = 0;
+        if ($pagu > 0) {
+            $hsl = ($real / $pagu) * 100;
+        }
+
         return $hsl;
+    }
+
+    private function _get_pagu_sub_keg($id_sub_kegiatan)
+    {
+        $total = 0;
+        $dt = $this->db->query("SELECT SUM(pagu_rekening) as total FROM tb_rekening WHERE id_sub_kegiatan='$id_sub_kegiatan'")->row();
+
+        $total = $total + $dt->total;
+        return $total;
     }
 }
 

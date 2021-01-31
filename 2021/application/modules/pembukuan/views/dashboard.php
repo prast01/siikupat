@@ -69,7 +69,7 @@
                                                         <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../pembukuan/lihat/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm">
+                                                                <a href="<?= site_url("../pembukuan/tambah/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm">
                                                                     <span class="fa fa-book"></span>
                                                                 </a>
                                                             </div>
