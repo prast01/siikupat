@@ -107,7 +107,7 @@ class Service extends MY_Controller
         echo json_encode($data);
     }
 
-    public function get_rok_a21($id_sub, $id_rekening, $tgl)
+    public function get_rok_a21($id_sub, $id_rekening)
     {
         if ($this->session->userdata("id_user") == "") {
             redirect("../");
@@ -115,7 +115,7 @@ class Service extends MY_Controller
 
         $model = $this->M_service;
 
-        $bln = date("m", strtotime($tgl));
+        $bln = date("m");
         $data = $model->get_rok_a21($id_sub, $id_rekening, $bln);
 
         echo json_encode($data);
