@@ -382,7 +382,7 @@ class M_kegiatan extends CI_Model
 
     private function _get_pagu_keg($id_kegiatan)
     {
-        $data = $this->get_sub_kegiatan($id_kegiatan);
+        $data = $this->db->get_where("tb_sub_kegiatan", ["id_kegiatan" => $id_kegiatan])->result();
         $total = 0;
         foreach ($data as $key) {
             $id_sub = $key->id_sub_kegiatan;
