@@ -7,11 +7,11 @@ class M_rok extends CI_Model
 
     public function get_sub_kegiatan($kode_seksi)
     {
-        if ($kode_seksi != "DJ001") {
-            $data = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
-        } else {
-            $data = $this->db->get_where("tb_sub_kegiatan")->result();
-        }
+        // if ($kode_seksi != "DJ001") {
+        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
+        // } else {
+        //     $data = $this->db->get_where("tb_sub_kegiatan")->result();
+        // }
 
         return $data;
     }

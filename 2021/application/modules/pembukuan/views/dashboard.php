@@ -41,12 +41,12 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No SPJ</th>
+                                                    <th width="10%">Tgl Kegiatan</th>
                                                     <th>Uraian Kegiatan</th>
                                                     <th width="15%">Nominal</th>
                                                     <th>Pelaksana</th>
                                                     <th width="5%">Status</th>
-                                                    <th width="5%">Tanggal</th>
-                                                    <th>Catatan</th>
+                                                    <!-- <th>Catatan</th> -->
                                                     <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -55,22 +55,28 @@
                                                 <?php foreach ($spj as $row => $val) : ?>
                                                     <tr>
                                                         <td><?= $val["no_seksi"]; ?></td>
+                                                        <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
                                                         <td>
                                                             <ol>
                                                                 <?php foreach ($val["pelaksana"] as $row) : ?>
-                                                                    <li class="my-0"><?= $row->nama_pegawai; ?></li>
+                                                                    <li class="my-0">
+                                                                        <?php if ($row->pihak_ketiga == "") : ?>
+                                                                            <?= $row->nama_pegawai; ?>
+                                                                        <?php else : ?>
+                                                                            <?= $row->pihak_ketiga; ?>
+                                                                        <?php endif; ?>
+                                                                    </li>
                                                                 <?php endforeach; ?>
                                                             </ol>
                                                         </td>
-                                                        <td><?= $val["nama_status"]; ?></td>
-                                                        <td><?= $val["tanggal"]; ?></td>
-                                                        <td><?= $val["verif_spj"]; ?></td>
+                                                        <td><?= $val["nama_status"] . "<br>" . $val["tanggal"]; ?></td>
+                                                        <!-- <td><?= $val["verif_spj"]; ?></td> -->
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a href="<?= site_url("../pembukuan/tambah/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm">
-                                                                    <span class="fa fa-book"></span>
+                                                                    <span class="fa fa-check"></span>
                                                                 </a>
                                                             </div>
                                                         </td>

@@ -65,7 +65,7 @@ class M_verifikasi extends CI_Model
                 "no_spj" => $jenis . sprintf("%05s", $row->id_spj),
                 "no_seksi" => $bd . $jenis . sprintf("%05s", $row->nomor_spj),
                 "kode_spj" => $row->kode_spj,
-                "tgl_kegiatan" => $row->tgl_kegiatan,
+                "tgl_kegiatan" => date("d-m-Y", strtotime($row->tgl_kegiatan)),
                 "uraian" => $row->uraian,
                 "nominal_real" => $row->nominal,
                 "nominal" => number_format($row->nominal, 0, ",", "."),
