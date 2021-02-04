@@ -4,7 +4,7 @@ if (isset($spj[0]["status_spj"])) {
     $st = $spj[0]["status_spj"];
     if ($spj[0]["status_spj"] == "1") {
         $antrian["baru"] = $antrian["baru"] - 1;
-    } else {
+    } elseif ($spj[0]["status_spj"] == "2") {
         $antrian["revisi"] = $antrian["revisi"] - 1;
     }
 }

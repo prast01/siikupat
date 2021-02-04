@@ -237,7 +237,7 @@ class M_service extends CI_Model
 
         if ($status == "1") {
             $baru = $baru - 1;
-        } else {
+        } elseif ($status == "2") {
             $revisi = $revisi - 1;
         }
 
