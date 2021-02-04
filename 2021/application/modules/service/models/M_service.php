@@ -255,17 +255,20 @@ class M_service extends CI_Model
     {
         if ($status == 1) {
             $where = array(
+                "kode_bidang" => $kode_bidang,
                 "status_spj" => $status,
                 "status_verif" => 0,
                 "hapus" => 0,
             );
         } elseif ($status == 2) {
             $where = array(
+                "kode_bidang" => $kode_bidang,
                 "status_spj" => $status,
                 "hapus" => 0,
             );
         } elseif ($status == 3) {
             $where = array(
+                "kode_bidang" => $kode_bidang,
                 "status_spj" => $status,
                 "status_verif" => 0,
                 "hapus" => 0,
