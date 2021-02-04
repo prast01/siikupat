@@ -8,7 +8,12 @@ class M_kegiatan extends CI_Model
 
     public function get_kegiatan()
     {
-        $data = $this->db->get('tb_kegiatan')->result();
+        if ($this->session->userdata("kode_bidang") == "DK005") {
+            $kode_seksi = $this->session->userdata("kode_seksi");
+            $data = $this->db->query("SELECT * FROM tb_kegiatan WHERE id_kegiatan IN (SELECT id_kegiatan FROM tb_sub_kegiatan WHERE kode_seksi='$kode_seksi')")->result();
+        } else {
+            $data = $this->db->get('tb_kegiatan')->result();
+        }
 
         // $data = $this->db->get_where("view_kegiatan")->result();
         $hsl = array();
@@ -32,6 +37,11 @@ class M_kegiatan extends CI_Model
         $this->db->join('tb_kegiatan', 'tb_kegiatan.id_kegiatan = tb_sub_kegiatan.id_kegiatan');
         $this->db->join('tb_user', 'tb_user.kode_seksi = tb_sub_kegiatan.kode_seksi');
         $this->db->where('tb_sub_kegiatan.id_kegiatan', $id);
+
+        if ($this->session->userdata("kode_bidang") == "DK005") {
+            $kode_seksi = $this->session->userdata("kode_seksi");
+            $this->db->where('tb_sub_kegiatan.kode_seksi', $kode_seksi);
+        }
 
         $data = $this->db->get()->result();
 
@@ -382,7 +392,12 @@ class M_kegiatan extends CI_Model
 
     private function _get_pagu_keg($id_kegiatan)
     {
-        $data = $this->db->get_where("tb_sub_kegiatan", ["id_kegiatan" => $id_kegiatan])->result();
+        if ($this->session->userdata("kode_bidang") == "DK005") {
+            $kode_seksi = $this->session->userdata("kode_seksi");
+            $data = $this->db->get_where("tb_sub_kegiatan", ["id_kegiatan" => $id_kegiatan, "kode_seksi" => $kode_seksi])->result();
+        } else {
+            $data = $this->db->get_where("tb_sub_kegiatan", ["id_kegiatan" => $id_kegiatan])->result();
+        }
         $total = 0;
         foreach ($data as $key) {
             $id_sub = $key->id_sub_kegiatan;

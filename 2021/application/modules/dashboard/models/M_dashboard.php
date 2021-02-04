@@ -8,6 +8,7 @@ class M_dashboard extends CI_Model
     public function get_seksi()
     {
         $this->update();
+        $this->cek_spj_revisi();
         $kode_seksi = $this->session->userdata("kode_seksi");
         $kode_bidang = $this->session->userdata("kode_bidang");
         if ($kode_bidang == "DK005") {
@@ -144,7 +145,50 @@ class M_dashboard extends CI_Model
         return $data;
     }
 
+    public function cek_spj_revisi()
+    {
+        $min = $this->get_min_tgl();
+        $tgl_min = date("Y-m-d H:i:s", strtotime($min));
+
+        $where = array(
+            "tgl_tolak <" => $tgl_min,
+            "status_verif" => 1,
+            "hapus" => 0,
+            "pulih" => 0,
+        );
+        $data = array(
+            "hapus" => 1,
+        );
+
+        $hasil = $this->db->update("tb_spj", $data, $where);
+
+        return $hasil;
+    }
+
     // PRIVATE
+    public function get_min_tgl()
+    {
+        $data = $this->db->get_where("tb_pengaturan", ["nama_pengaturan" => "revisi"])->row();
+
+        $min = $data->nilai_pengaturan . " " . $data->satuan_pengaturan;
+
+        $hari = date("N", strtotime($min));
+
+        if ($hari == 5) {
+            $min_fix = $data->nilai_pengaturan - 2;
+        } elseif ($hari == 6) {
+            $min_fix = $data->nilai_pengaturan - 2;
+        } elseif ($hari == 7) {
+            $min_fix = $data->nilai_pengaturan - 2;
+        } elseif ($hari == 4) {
+            $min_fix = $data->nilai_pengaturan - 1;
+        } else {
+            $min_fix = $data->nilai_pengaturan;
+        }
+
+        return $min_fix . " " . $data->satuan_pengaturan;
+    }
+
     private function update()
     {
         $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();

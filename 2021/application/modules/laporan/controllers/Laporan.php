@@ -297,6 +297,28 @@ class Laporan extends MY_Controller
             $this->template("bk_2", $data);
         }
     }
+
+    public function bk_0()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_laporan;
+
+        $hide = (isset($_POST["dari"])) ? 1 : 0;
+        $dari = (isset($_POST["dari"])) ? $_POST["dari"] : date('Y-m-01');
+        $sampai = (isset($_POST["sampai"])) ? $_POST["sampai"] : date("Y-m-t");
+
+        $data = array(
+            "hide" => $hide,
+            "dari" => $dari,
+            "sampai" => $sampai,
+            "sub_kegiatan" => $model->get_all_sub(),
+            "bk0" => $model->get_bk_0($dari, $sampai),
+        );
+
+        $this->template("bk_0", $data);
+    }
 }
 
 /* End of file Laporan.php */

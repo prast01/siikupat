@@ -25,6 +25,17 @@ class Lain extends MY_Controller
         $this->template("dashboard", $data);
     }
 
+    public function pulih()
+    {
+        if ($this->session->userdata('id_user') == '') {
+            redirect('../', 'refresh');
+        }
+
+        $model = $this->M_lain;
+        $data['spj'] = $model->get_spj();
+
+        $this->template("pulih", $data);
+    }
 
     // CRUD
     public function add()
@@ -110,6 +121,26 @@ class Lain extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
 
             redirect("../lain");
+        }
+    }
+
+    public function pulihkan($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_lain;
+        $hasil = $model->pulihkan($kode_spj);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../pulihkan-spj");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../pulihkan-spj");
         }
     }
 }

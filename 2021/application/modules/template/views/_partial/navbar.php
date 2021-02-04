@@ -19,6 +19,7 @@
 				<li class="nav-item">
 					<a href="<?php echo site_url('../'); ?>" class="nav-link">Beranda</a>
 				</li>
+				<!-- SPJ -->
 				<?php if ($kode_bidang != "XXXX") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">SPJ</a>
@@ -34,6 +35,10 @@
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../verifikasi'); ?>" class="dropdown-item">Verifikasi SPJ</a>
 								</li>
+							<?php elseif ($kode_bidang == "DK005") : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../spj'); ?>" class="dropdown-item">Pencatatan SPJ</a>
+								</li>
 							<?php endif; ?>
 							<?php if ($kode_bidang == "DK001" && $kode_seksi == "XXXX") : ?>
 								<li>
@@ -42,10 +47,14 @@
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../transfer'); ?>" class="dropdown-item">Transfer SPJ</a>
 								</li>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../up'); ?>" class="dropdown-item">Uang Persediaan</a>
+								</li>
 							<?php endif; ?>
 						</ul>
 					</li>
 				<?php endif; ?>
+				<!-- LAPORAN -->
 				<?php if ($kode_seksi == "XXXX") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
@@ -73,6 +82,9 @@
 								<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Buku Kas</a>
 								<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
 									<li>
+										<a tabindex="-1" href="<?php echo site_url('../bk-0'); ?>" class="dropdown-item">Umum Standar</a>
+									</li>
+									<li>
 										<a tabindex="-1" href="<?php echo site_url('../bk-1'); ?>" class="dropdown-item">Per Sub Kegiatan</a>
 									</li>
 									<li>
@@ -83,14 +95,22 @@
 						</ul>
 					</li>
 				<?php endif; ?>
-				<?php if ($kode_seksi == "DJ001" || $kode_bidang == "XXXX") : ?>
+				<!-- PENGATURAN -->
+				<?php if ($nama == "super" || $kode_seksi == "DJ001" || $kode_bidang == "DK005") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengaturan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 							<!-- Level two dropdown-->
-							<li>
-								<a tabindex="-1" href="<?php echo site_url('../user'); ?>" class="dropdown-item">Pengguna</a>
-							</li>
+							<?php if ($kode_seksi == "DJ001" || $nama == "super") : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../user'); ?>" class="dropdown-item">Pengguna</a>
+								</li>
+							<?php endif; ?>
+							<?php if ($kode_bidang == "DK005") : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../kegiatan'); ?>" class="dropdown-item">Kegiatan</a>
+								</li>
+							<?php endif; ?>
 							<?php if ($kode_seksi == "XXXX") : ?>
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../kegiatan'); ?>" class="dropdown-item">Kegiatan</a>
@@ -100,6 +120,9 @@
 								</li>
 								<?php if ($nama == "super") : ?>
 									<li>
+										<a tabindex="-1" href="<?php echo site_url('../pulihkan-spj'); ?>" class="dropdown-item">Pulihkan SPJ</a>
+									</li>
+									<li>
 										<a tabindex="-1" href="<?php echo site_url('../lain'); ?>" class="dropdown-item">Lain-lain</a>
 									</li>
 								<?php endif; ?>
@@ -107,6 +130,8 @@
 						</ul>
 					</li>
 				<?php endif; ?>
+
+				<!-- CONTOH -->
 				<!-- <li class="nav-item dropdown">
 					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
 					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

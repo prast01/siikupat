@@ -63,3 +63,5 @@ $route['detail-rekening/(:any)/(:any)/(:any)'] = "dashboard/detail_rekening/$1/$
 $route['bk-1'] = "laporan/bk_1";
 $route['bk-2'] = "laporan/bk_2";
 $route['bk-2/(:any)/(:any)/(:any)/(:any)'] = "laporan/bk_2_2/$1/$2/$3/$4";
+$route['pulihkan-spj'] = "lain/pulih";
+$route['bk-0'] = "laporan/bk_0";

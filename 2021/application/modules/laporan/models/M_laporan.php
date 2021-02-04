@@ -15,6 +15,7 @@ class M_laporan extends CI_Model
         if ($kode_seksi != "") {
             $this->db->where("tb_user.kode_seksi", $kode_seksi);
         }
+        $this->db->where("tb_user.kode_bidang !=", "DK005");
         $data_sub = $this->db->get()->result();
 
         if ($bulan > 1) {
@@ -53,7 +54,7 @@ class M_laporan extends CI_Model
     public function get_seksi($kode_bidang)
     {
         if ($kode_bidang == "") {
-            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
+            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang !=" => "DK005"])->result();
         } else {
             $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang" => $kode_bidang])->result();
         }
@@ -71,7 +72,7 @@ class M_laporan extends CI_Model
         if ($kode_seksi != "") {
             $this->db->where("kode_seksi", $kode_seksi);
         }
-        if ($bln != "00") {
+        if ($bln != "00" && $st != 3) {
             $this->db->where("MONTH(tgl_kegiatan)", $bln);
         }
 
@@ -80,6 +81,9 @@ class M_laporan extends CI_Model
         } elseif ($st == 2) {
             $this->db->where("status_spj", 5);
         } elseif ($st == 3) {
+            if ($bln != "00") {
+                $this->db->where("MONTH(tgl_transfer)", $bln);
+            }
             $this->db->where("status_spj", 4);
         }
 
@@ -98,7 +102,7 @@ class M_laporan extends CI_Model
                 $nama_status = "REVISI";
                 $tgl = $row->tgl_tolak;
             } elseif ($row->status_spj == "3") {
-                $nama_status = "ACC";
+                $nama_status = "REKOM VERIFIKATOR";
                 $tgl = $row->tgl_acc;
             } elseif ($row->status_spj == "5") {
                 $nama_status = "DIBUKUKAN";
@@ -256,6 +260,58 @@ class M_laporan extends CI_Model
         return $hsl;
     }
 
+    public function get_bk_0($dari, $sampai)
+    {
+        $no = 0;
+        $hsl = array();
+
+        // SALDO TERAKHIR
+        $hsl[$no++] = array(
+            "tanggal" => "-",
+            "uraian" => "<b>Saldo Awal</b>",
+            "debet" => $this->_get_saldo_akhir($dari),
+            "kredit" => 0,
+        );
+        while (strtotime($dari) <= strtotime($sampai)) {
+            $debet = 0;
+            $kredit = 0;
+
+            // UP
+            $up = $this->db->get_where("tb_up", ["aktif" => 1, "tgl_up" => $dari]);
+            if ($up->num_rows() > 0) {
+                $x = $up->row();
+                $debet = $x->nominal;
+                $kredit = 0;
+                $hsl[$no++] = array(
+                    "tanggal" => date("d-m-Y", strtotime($dari)),
+                    "uraian" => "Pengajuan Uang Persediaan",
+                    "debet" => $debet,
+                    "kredit" => $kredit,
+                );
+            }
+
+            // REALISASI
+            $real = $this->db->get_where("tb_spj", ["status_spj" => 4, "tgl_transfer" => $dari]);
+            if ($real->num_rows() > 0) {
+                $x = $real->result();
+                foreach ($x as $key) {
+                    $debet = 0;
+                    $kredit = $key->nominal;
+                    $hsl[$no++] = array(
+                        "tanggal" => date("d-m-Y", strtotime($dari)),
+                        "uraian" => $key->uraian,
+                        "debet" => $debet,
+                        "kredit" => $kredit,
+                    );
+                }
+            }
+
+
+            $dari = date("Y-m-d", strtotime("+1 day", strtotime($dari))); //looping tambah 1 date
+        }
+
+        return $hsl;
+    }
     // PRIVATE
     private function _get_sisa_bulan_lalu($id_sub, $bln_sblm, $kode_seksi)
     {
@@ -346,6 +402,16 @@ class M_laporan extends CI_Model
         $total = 0;
         $total = $total + $data->total;
         return $total;
+    }
+
+    private function _get_saldo_akhir($dari)
+    {
+        $up = $this->db->query("SELECT SUM(nominal) as nominal FROM tb_up WHERE tgl_up < '$dari'")->row();
+        $real = $this->db->query("SELECT SUM(nominal) as nominal FROM tb_spj WHERE tgl_transfer < '$dari' AND status_spj='4'")->row();
+
+        $saldo = $up->nominal - $real->nominal;
+
+        return $saldo;
     }
 }
 

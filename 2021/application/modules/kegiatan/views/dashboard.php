@@ -35,11 +35,13 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12 mb-3">
-                                    <button class="btn btn-primary" onclick="modalDefault('Tambah Kegiatan', 'addKegiatan')">
-                                        <span class="fa fa-plus"></span> Tambah Kegiatan
-                                    </button>
-                                </div>
+                                <?php if ($kode_bidang != "DK005") : ?>
+                                    <div class="col-lg-12 mb-3">
+                                        <button class="btn btn-primary" onclick="modalDefault('Tambah Kegiatan', 'addKegiatan')">
+                                            <span class="fa fa-plus"></span> Tambah Kegiatan
+                                        </button>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered datatable">
@@ -62,9 +64,11 @@
                                                         <td><?= number_format($val["pagu_anggaran"], 0, ",", "."); ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <button type="button" onclick="modalDefault('Ubah Kegiatan', 'ubahKegiatan', '<?= $val['id_kegiatan']; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
-                                                                <a href="<?= site_url("../kegiatan/hapus/" . $val["id_kegiatan"]); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
-                                                                </a>
+                                                                <?php if ($kode_bidang != "DK005") : ?>
+                                                                    <button type="button" onclick="modalDefault('Ubah Kegiatan', 'ubahKegiatan', '<?= $val['id_kegiatan']; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
+                                                                    <a href="<?= site_url("../kegiatan/hapus/" . $val["id_kegiatan"]); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
+                                                                    </a>
+                                                                <?php endif; ?>
                                                                 <a href="<?= site_url("../kegiatan/sub/" . $val["id_kegiatan"]); ?>" class="btn btn-success btn-sm btn-flat"><i class="fas fa-align-justify"></i>
                                                                 </a>
                                                             </div>

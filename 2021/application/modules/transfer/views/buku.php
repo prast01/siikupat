@@ -162,7 +162,10 @@
                                                     <input readonly type="number" name="ppn" class="form-control" placeholder="Masukkan PPN" value="<?= $buku->ppn; ?>">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input readonly value="<?= $buku->ntpn_ppn; ?>" type="text" name="ntpn_ppn" class="form-control" placeholder="Masukkan NTPN PPN">
+                                                    <input readonly value="<?= $buku->ntpn_ppn; ?>" type="text" name="ntpn_ppn" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6 mt-1">
+                                                    <input readonly value="<?= $buku->bill_ppn; ?>" type="text" name="ntpn_ppn" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -171,7 +174,10 @@
                                                     <input readonly type="number" name="pph21" class="form-control" placeholder="Masukkan PPh Ps. 21" value="<?= $buku->pph21; ?>">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input readonly value="<?= $buku->ntpn_pph21; ?>" type="text" name="ntpn_pph21" class="form-control" placeholder="Masukkan NTPN PPh Ps. 21">
+                                                    <input readonly value="<?= $buku->ntpn_pph21; ?>" type="text" name="ntpn_pph21" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6 mt-1">
+                                                    <input readonly value="<?= $buku->bill_pph21; ?>" type="text" name="ntpn_ppn" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -180,7 +186,10 @@
                                                     <input readonly type="number" name="pph22" class="form-control" placeholder="Masukkan PPh Ps. 22" value="<?= $buku->pph22; ?>">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input readonly value="<?= $buku->ntpn_pph22; ?>" type="text" name="ntpn_pph22" class="form-control" placeholder="Masukkan NTPN PPh Ps. 22">
+                                                    <input readonly value="<?= $buku->ntpn_pph22; ?>" type="text" name="ntpn_pph22" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6 mt-1">
+                                                    <input readonly value="<?= $buku->bill_pph22; ?>" type="text" name="ntpn_ppn" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -189,7 +198,10 @@
                                                     <input readonly type="number" name="pph23" class="form-control" placeholder="Masukkan PPh Ps. 23" value="<?= $buku->pph23; ?>">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input readonly value="<?= $buku->ntpn_pph23; ?>" type="text" name="ntpn_pph23" class="form-control" placeholder="Masukkan NTPN PPh Ps. 23">
+                                                    <input readonly value="<?= $buku->ntpn_pph23; ?>" type="text" name="ntpn_pph23" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6 mt-1">
+                                                    <input readonly value="<?= $buku->bill_pph23; ?>" type="text" name="ntpn_ppn" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -198,7 +210,10 @@
                                                     <input readonly type="number" name="pph_final" class="form-control" placeholder="Masukkan PPh Final" value="<?= $buku->pph_final; ?>">
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input readonly value="<?= $buku->ntpn_pph_final; ?>" type="text" name="ntpn_pph_final" class="form-control" placeholder="Masukkan NTPN PPh Ps. Final">
+                                                    <input readonly value="<?= $buku->ntpn_pph_final; ?>" type="text" name="ntpn_pph_final" class="form-control">
+                                                </div>
+                                                <div class="col-lg-6 mt-1">
+                                                    <input readonly value="<?= $buku->bill_pph_final; ?>" type="text" name="ntpn_ppn" class="form-control">
                                                 </div>
                                             </div>
                                         </div>

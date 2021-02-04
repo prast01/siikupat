@@ -72,7 +72,7 @@ if (isset($spj[0]["status_spj"])) {
                             <span class="info-box-icon bg-success"><i class="fa fa-book"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text">
-                                    <h3>Antrian SPJ ACC</h3>
+                                    <h3>SPJ Rekomendasi</h3>
                                 </span>
                                 <span class="info-box-number">
                                     <i id="acc" style="color: red; font-size: 25px;"><?= $antrian["acc"]; ?></i> SPJ
@@ -150,7 +150,7 @@ if (isset($spj[0]["status_spj"])) {
                 <div class="col-lg-12 mt-5">
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h5 class="card-title m-0">DAFTAR PEMBUKUAN SPJ</h5>
+                            <h5 class="card-title m-0">DAFTAR REKOM SPJ</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -175,7 +175,6 @@ if (isset($spj[0]["status_spj"])) {
                                                 <?php foreach ($acc as $row => $val) : ?>
                                                     <?php $total_2 = $total_2 + $val["nominal_real"]; ?>
                                                     <tr>
-                                                        <!-- <td><?= $val["no_spj"] . " /<br>" . $val["no_seksi"]; ?></td> -->
                                                         <td><?= $val["no_seksi"]; ?></td>
                                                         <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>

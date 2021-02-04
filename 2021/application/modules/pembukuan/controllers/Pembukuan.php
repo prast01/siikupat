@@ -60,7 +60,14 @@ class Pembukuan extends MY_Controller
         $model = $this->M_pembukuan;
         $post = $this->input->post();
 
-        $hasil = $model->save_buku($kode_spj, $post);
+        if (isset($_POST["tolak"])) {
+            $status = 0;
+        } else {
+            $status = 1;
+        }
+
+
+        $hasil = $model->save_buku($kode_spj, $post, $status);
 
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);

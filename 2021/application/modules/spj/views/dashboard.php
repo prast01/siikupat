@@ -28,24 +28,30 @@
                         </div>
                     <?php endif; ?>
                 </div>
-                <div class="col-lg-3">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">
-                                <h3>Antrian SPJ Saat Ini :</h3>
-                            </span>
-                            <span class="info-box-number">
-                                No SPJ. <i id="antrian" style="font-size: 22px; color: red;">XXXXX</i> <br>
-                                dari <i id="total" style="font-size: 22px; color: red;">XX</i> SPJ Menunggu
-                            </span>
+                <?php if ($kode_bidang != "DK005") : ?>
+                    <div class="col-lg-3">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fa fa-book"></i></span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">
+                                    <h3>Antrian SPJ Saat Ini :</h3>
+                                </span>
+                                <span class="info-box-number">
+                                    No SPJ. <i id="antrian" style="font-size: 22px; color: red;">XXXXX</i> <br>
+                                    dari <i id="total" style="font-size: 22px; color: red;">XX</i> SPJ Menunggu
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <?php endif; ?>
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar Pengajuan SPJ</h5>
+                            <?php if ($kode_bidang != "DK005") : ?>
+                                <h5 class="card-title m-0">Daftar Pengajuan SPJ</h5>
+                            <?php else : ?>
+                                <h5 class="card-title m-0">Daftar Pencatatan SPJ</h5>
+                            <?php endif; ?>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -68,18 +74,27 @@
                                     </div>
                                 </div> -->
                                 <div class="col-lg-5 mb-3">
-                                    <a href="<?= site_url("../spj/tambahGu"); ?>" class="btn btn-primary">
-                                        <span class="fa fa-plus"></span> Tambah GU
-                                    </a>
-                                    <a href="<?= site_url("../spj/tambahLs"); ?>" class="btn btn-success">
-                                        <span class="fa fa-plus"></span> Tambah LS
-                                    </a>
-                                    <a href="<?= site_url("../spj/a21"); ?>" class="btn btn-warning text-white" target="_blank">
-                                        <span class="fa fa-plus"></span> Buat A2.1
-                                    </a>
-                                </div>
-                                <div class="col-lg-7">
-                                    <!-- x -->
+                                    <?php if ($kode_bidang != "DK005") : ?>
+                                        <a href="<?= site_url("../spj/tambahGu"); ?>" class="btn btn-primary">
+                                            <span class="fa fa-plus"></span> Tambah GU
+                                        </a>
+                                        <a href="<?= site_url("../spj/tambahLs"); ?>" class="btn btn-success">
+                                            <span class="fa fa-plus"></span> Tambah LS
+                                        </a>
+                                        <a href="<?= site_url("../spj/a21"); ?>" class="btn btn-warning text-white" target="_blank">
+                                            <span class="fa fa-plus"></span> Buat A2.1
+                                        </a>
+                                    <?php else : ?>
+                                        <a href="<?= site_url("../spj/addGu"); ?>" class="btn btn-primary">
+                                            <span class="fa fa-plus"></span> Tambah GU
+                                        </a>
+                                        <a href="<?= site_url("../spj/addTu"); ?>" class="btn btn-warning">
+                                            <span class="fa fa-plus"></span> Tambah TU
+                                        </a>
+                                        <a href="<?= site_url("../spj/addLs"); ?>" class="btn btn-success">
+                                            <span class="fa fa-plus"></span> Tambah LS
+                                        </a>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
@@ -120,7 +135,7 @@
                                                                 <a href="<?= site_url("../spj/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
                                                                     <span class="fa fa-eye"></span>
                                                                 </a>
-                                                                <?php if ($val["status_spj"] <= "2") : ?>
+                                                                <?php if ($val["status_spj"] <= "3") : ?>
                                                                     <a href="<?= site_url("../spj/ubah/" . $val["kode_spj"]); ?>" class="btn btn-warning text-white btn-sm">
                                                                         <span class="fa fa-edit"></span>
                                                                     </a>

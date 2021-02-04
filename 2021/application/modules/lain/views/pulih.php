@@ -10,7 +10,7 @@
     </div>
 
     <div class="content">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
                     <?php if ($this->session->flashdata('sukses')) : ?>
@@ -31,48 +31,38 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar Sub Kegiatan</h5>
+                            <h5 class="card-title m-0">Daftar SPJ Hapus</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12 mb-3">
-                                    <a href="<?= site_url("../kegiatan"); ?>" class="btn btn-warning text-white"><span class="fa fa-arrow-left"></span> Kembali</a>
-                                    <?php if ($kode_bidang != "DK005") : ?>
-                                        <button class="btn btn-primary" onclick="modalDefault('Tambah Sub Kegiatan', 'addSubKegiatan', '<?= $id; ?>')">
-                                            <span class="fa fa-plus"></span> Tambah Sub Kegiatan
-                                        </button>
-                                    <?php endif; ?>
-                                </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered datatable">
                                             <thead>
                                                 <tr>
-                                                    <th width="5%">No</th>
-                                                    <th width="15%">Kode Sub Kegiatan</th>
-                                                    <th>Nama Sub Kegiatan</th>
-                                                    <th>Subbag/Seksi/UPT</th>
-                                                    <th>Pagu Anggaran</th>
-                                                    <th width="10%">Aksi</th>
+                                                    <th width="5%">No SPJ</th>
+                                                    <th width="10%">Tgl Kegiatan</th>
+                                                    <th>Uraian Kegiatan</th>
+                                                    <th width="15%">Nominal</th>
+                                                    <th width="5%">Status</th>
+                                                    <th>Catatan</th>
+                                                    <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($sub_kegiatan as $row => $val) : ?>
+                                                <?php foreach ($spj as $row => $val) : ?>
                                                     <tr>
-                                                        <td><?= $no++; ?></td>
-                                                        <td><?= $val["kode_sub_kegiatan"]; ?></td>
-                                                        <td><?= $val["nama_sub_kegiatan"]; ?></td>
-                                                        <td><?= $val["nama"]; ?></td>
-                                                        <td><?= number_format($val["pagu_anggaran"], 0, ",", "."); ?></td>
+                                                        <td><?= $val["no_seksi"]; ?></td>
+                                                        <td><?= $val["tgl_kegiatan"]; ?></td>
+                                                        <td><?= $val["uraian"]; ?></td>
+                                                        <td><?= $val["nominal"]; ?></td>
+                                                        <td><?= $val["nama_status"]; ?><br><?= $val["tanggal"]; ?></td>
+                                                        <td><?= $val["verif_spj"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <?php if ($kode_bidang != "DK005") : ?>
-                                                                    <button type="button" onclick="modalDefault('Ubah Sub Kegiatan', 'ubahSubKegiatan', '<?= $val['id_sub_kegiatan']; ?>')" class="btn btn-primary btn-sm btn-flat"><i class="fas fa-edit"></i></button>
-                                                                    <a href="<?= site_url("../kegiatan/hapusSub/" . $val["id_kegiatan"] . "/" . $val["id_sub_kegiatan"]); ?>" onclick="return confirm('Yakin Hapus?');" class="btn btn-danger btn-sm btn-flat"><i class="fas fa-trash"></i>
-                                                                    </a>
-                                                                <?php endif; ?>
-                                                                <a href="<?= site_url("../kegiatan/rekening/" . $val["id_kegiatan"] . "/" . $val["id_sub_kegiatan"]); ?>" class="btn btn-success btn-sm btn-flat"><i class="fas fa-align-justify"></i>
+                                                                <a href="<?= site_url("../lain/pulihkan/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm" onclick="return confirm('Yakin pulihkan SPJ?')">
+                                                                    <span class="fa fa-eye"></span>
                                                                 </a>
                                                             </div>
                                                         </td>

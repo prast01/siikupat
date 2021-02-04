@@ -91,6 +91,14 @@ class Modal extends MY_Controller
         $this->load->view('addPelaksana', $data);
     }
 
+    public function addUp()
+    {
+        if ($this->session->userdata('id_user') == '') {
+            redirect('../', 'refresh');
+        }
+        $this->load->view('addUp');
+    }
+
 
     // UBAH DATA
     public function ubahSandi()
@@ -264,6 +272,18 @@ class Modal extends MY_Controller
         $data["rek"] = $model->get_rekening($data["rok"]->id_sub_kegiatan);
 
         $this->load->view('ubahRok', $data);
+    }
+
+    public function ubahUp($id)
+    {
+        if ($this->session->userdata('id_user') == '') {
+            redirect('../', 'refresh');
+        }
+        $model = $this->M_modal;
+
+        $data['up'] = $model->get_up_by_id($id);
+
+        $this->load->view('ubahUp', $data);
     }
 }
 

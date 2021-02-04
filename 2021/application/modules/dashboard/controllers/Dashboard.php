@@ -20,11 +20,13 @@ class Dashboard extends MY_Controller
         }
 
         $model = $this->M_dashboard;
-
+        $model->cek_spj_revisi();
         $data['seksi'] = $model->get_seksi();
 
         $this->template("dashboard", $data);
-        // echo json_encode($data);
+
+        // $tgl_min = date("Y-m-d H:i:s", strtotime($model->get_min_tgl()));
+        // echo json_encode($tgl_min);
     }
 
     public function sub_kegiatan($kode_seksi)

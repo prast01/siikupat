@@ -35,7 +35,7 @@ class M_verifikasi extends CI_Model
                 $nama_status = "REVISI";
                 $tgl = $row->tgl_tolak;
             } elseif ($row->status_spj == "3") {
-                $nama_status = "ACC";
+                $nama_status = "REKOM VERIFIKATOR";
                 $tgl = $row->tgl_acc;
             } elseif ($row->status_spj == "5") {
                 $nama_status = "DIBUKUKAN";
@@ -153,7 +153,7 @@ class M_verifikasi extends CI_Model
             $data_spj = array(
                 "tgl_acc" => $tgl,
                 "status_spj" => 3,
-                "status_verif" => 0,
+                "status_verif" => 1,
                 "verif_spj" => $post["verif_spj"],
             );
         } else {
@@ -191,26 +191,6 @@ class M_verifikasi extends CI_Model
             "status_spj" => 5,
         );
 
-        if ($post["ppn"] == "") {
-            return array("res" => 0, "msg" => "PPN harus terisi");
-        }
-
-        if ($post["pph21"] == "") {
-            return array("res" => 0, "msg" => "PPh Ps. 21 harus terisi");
-        }
-
-        if ($post["pph22"] == "") {
-            return array("res" => 0, "msg" => "PPh Ps. 22 harus terisi");
-        }
-
-        if ($post["pph23"] == "") {
-            return array("res" => 0, "msg" => "PPh Ps. 23 harus terisi");
-        }
-
-        if ($post["pph_final"] == "") {
-            return array("res" => 0, "msg" => "PPh Final harus terisi");
-        }
-
         $data = array(
             "kode_spj" => $kode_spj,
             "tgl_buku" => $tgl,
@@ -221,6 +201,11 @@ class M_verifikasi extends CI_Model
             "pph22" => $post["pph22"],
             "pph23" => $post["pph23"],
             "pph_final" => $post["pph_final"],
+            "bill_ppn" => $post["bill_ppn"],
+            "bill_pph21" => $post["bill_pph21"],
+            "bill_pph22" => $post["bill_pph22"],
+            "bill_pph23" => $post["bill_pph23"],
+            "bill_pph_final" => $post["bill_pph_final"],
         );
 
 
@@ -241,7 +226,7 @@ class M_verifikasi extends CI_Model
 
     private function _get_antrian_spj($kode_bidang, $status)
     {
-        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_spj" => $status])->num_rows();
+        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_bidang" => $kode_bidang, "status_spj" => $status, "status_verif" => 0, "hapus" => 0])->num_rows();
 
         return $data;
     }

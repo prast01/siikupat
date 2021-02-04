@@ -22,7 +22,9 @@ class Spj extends MY_Controller
 
         $model = $this->M_spj;
         $kode_seksi = $this->session->userdata("kode_seksi");
+        $kode_bidang = $this->session->userdata("kode_bidang");
         $data["spj"] = $model->get_spj($kode_seksi);
+        $data["kode_bidang"] = $kode_bidang;
         $this->template("dashboard", $data);
 
         // echo json_encode($data["spj"]);
@@ -117,6 +119,51 @@ class Spj extends MY_Controller
         // echo date('N', strtotime($min));
     }
 
+    public function addGu()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_spj;
+        $kode_seksi = $this->session->userdata("kode_seksi");
+
+        $data["jenis"] = 0;
+        $data["id_unik"] = uniqid();
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $this->template("addSpj", $data);
+    }
+
+    public function addTu()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_spj;
+        $kode_seksi = $this->session->userdata("kode_seksi");
+
+        $data["jenis"] = 2;
+        $data["id_unik"] = uniqid();
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $this->template("addSpj", $data);
+    }
+
+    public function addLs()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_spj;
+        $kode_seksi = $this->session->userdata("kode_seksi");
+
+        $data["jenis"] = 1;
+        $data["id_unik"] = uniqid();
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $this->template("addSpj", $data);
+    }
+
     // CRUD
     public function add()
     {
@@ -139,8 +186,39 @@ class Spj extends MY_Controller
 
             if ($post["jenis_spj"] == "0") {
                 redirect("../spj/tambahGu");
-            } else {
+            } elseif ($post["jenis_spj"] == "1") {
                 redirect("../spj/tambahLs");
+            } elseif ($post["jenis_spj"] == "2") {
+                redirect("../spj/tambahTu");
+            }
+        }
+    }
+
+    public function addSpj()
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        // perdin 5.1.02.04.01.0001 dan 5.1.02.04.01.0003
+        $model = $this->M_spj;
+        $post = $this->input->post();
+
+        $hasil = $model->saveSpj($post);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../spj");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            if ($post["jenis_spj"] == "0") {
+                redirect("../spj/addGu");
+            } elseif ($post["jenis_spj"] == "1") {
+                redirect("../spj/addLs");
+            } elseif ($post["jenis_spj"] == "2") {
+                redirect("../spj/addTu");
             }
         }
     }

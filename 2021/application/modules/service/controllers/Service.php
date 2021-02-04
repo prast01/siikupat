@@ -82,6 +82,7 @@ class Service extends MY_Controller
         $data = $model->get_rekening_seksi2($id_sub_kegiatan);
 
         $no = 0;
+        $hsl = array();
         foreach ($data as $row) {
             $hsl[$no++] = array(
                 "id_rekening" => $row->id_rekening,

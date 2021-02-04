@@ -62,25 +62,50 @@
                                         <div class="card card-primary">
                                             <div class="card-header">Perpajakan</div>
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <label>PPN</label>
-                                                    <input type="number" name="ppn" class="form-control" placeholder="Masukkan PPN" value="0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-form-label">PPN</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="ppn" class="form-control" placeholder="Masukkan PPN">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" name="bill_ppn" class="form-control" placeholder="Masukkan ID Billing">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>PPh Ps. 21</label>
-                                                    <input type="number" name="pph21" class="form-control" placeholder="Masukkan PPh Ps. 21" value="0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-form-label">PPh Ps. 21</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="pph21" class="form-control" placeholder="Masukkan PPh Ps. 21">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" name="bill_pph21" class="form-control" placeholder="Masukkan ID Billing">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>PPh Ps. 22</label>
-                                                    <input type="number" name="pph22" class="form-control" placeholder="Masukkan PPh Ps. 22" value="0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-form-label">PPh Ps. 22</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="pph22" class="form-control" placeholder="Masukkan PPh Ps. 22">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" name="bill_pph22" class="form-control" placeholder="Masukkan ID Billing">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>PPh Ps. 23</label>
-                                                    <input type="number" name="pph23" class="form-control" placeholder="Masukkan PPh Ps. 23" value="0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-form-label">PPh Ps. 23</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="pph23" class="form-control" placeholder="Masukkan PPh Ps. 23">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" name="bill_pph23" class="form-control" placeholder="Masukkan ID Billing">
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>PPh Final</label>
-                                                    <input type="number" name="pph_final" class="form-control" placeholder="Masukkan PPh Final" value="0">
+                                                <div class="form-group row">
+                                                    <label class="col-lg-12 col-form-label">PPh Final</label>
+                                                    <div class="col-lg-6">
+                                                        <input type="number" name="pph_final" class="form-control" placeholder="Masukkan PPh Final">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" name="bill_pph_final" class="form-control" placeholder="Masukkan ID Billing">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

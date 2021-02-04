@@ -52,6 +52,8 @@
                                                     <input type="hidden" id="rek_hidden" value="<?= $spj->id_rekening; ?>">
                                                     <input type="hidden" id="rok_hidden" value="<?= $spj->id_rok; ?>">
                                                     <input type="hidden" name="jenis_spj" value="<?= $spj->jenis_spj; ?>">
+                                                    <input type="hidden" name="tgl_lama" value="<?= $spj->tgl_kegiatan; ?>">
+                                                    <input type="hidden" name="status_spj" value="<?= $spj->status_spj; ?>">
                                                     <input type="date" name="tgl_kegiatan" id="tgl_kegiatan" class="form-control tanggal" placeholder="Tanggal Kegiatan" value="<?= $spj->tgl_kegiatan; ?>">
                                                 </div>
                                                 <div class="form-group">

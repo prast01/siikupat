@@ -102,6 +102,13 @@ class M_modal extends CI_Model
 
         return $data;
     }
+
+    public function get_up_by_id($id)
+    {
+        $data = $this->db->get_where("tb_up", ["id_up" => $id])->row();
+
+        return $data;
+    }
 }
 
 /* End of file M_modal.php */

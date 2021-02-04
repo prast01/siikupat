@@ -19,11 +19,11 @@ class M_pembukuan extends CI_Model
                 $nama_status = "BARU";
                 $tgl = $row->tgl_daftar;
             } elseif ($row->status_spj == "2") {
-                $nama_status = "ACC";
-                $tgl = $row->tgl_acc;
-            } elseif ($row->status_spj == "3") {
                 $nama_status = "REVISI";
                 $tgl = $row->tgl_tolak;
+            } elseif ($row->status_spj == "3") {
+                $nama_status = "ACC";
+                $tgl = $row->tgl_acc;
             } elseif ($row->status_spj == "4") {
                 $nama_status = "TRANSFER";
                 $tgl = $row->tgl_transfer;
@@ -89,7 +89,7 @@ class M_pembukuan extends CI_Model
     }
 
     // CRUD
-    public function save_buku($kode_spj, $post)
+    public function save_buku($kode_spj, $post, $status)
     {
         $tgl = date("Y-m-d H:i:s");
         $where = array(
@@ -102,6 +102,10 @@ class M_pembukuan extends CI_Model
         );
 
         $data = array(
+            "kode_spj" => $kode_spj,
+            "tgl_buku" => $tgl,
+            "uraian" => $post["uraian"],
+            "nominal" => $post["nominal"],
             "ppn" => $post["ppn"],
             "pph21" => $post["pph21"],
             "pph22" => $post["pph22"],
@@ -112,15 +116,43 @@ class M_pembukuan extends CI_Model
             "ntpn_pph22" => $post["ntpn_pph22"],
             "ntpn_pph23" => $post["ntpn_pph23"],
             "ntpn_pph_final" => $post["ntpn_pph_final"],
+            "bill_ppn" => $post["bill_ppn"],
+            "bill_pph21" => $post["bill_pph21"],
+            "bill_pph22" => $post["bill_pph22"],
+            "bill_pph23" => $post["bill_pph23"],
+            "bill_pph_final" => $post["bill_pph_final"],
         );
 
 
-        $hasil = $this->db->update("tb_buku", $data, $where);
-        if ($hasil) {
-            $this->_update_spj($data_spj, $where);
-            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        if ($status) {
+            $hasil = $this->db->insert("tb_buku", $data);
+            if ($hasil) {
+                $this->_update_spj($data_spj, $where);
+                return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+            } else {
+                return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+            }
         } else {
-            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+            $data_spj = array(
+                "tgl_tolak" => $tgl,
+                "status_spj" => 2,
+                "status_verif" => 1,
+                "verif_spj" => $post["verif_spj"],
+            );
+            $data = array(
+                "kode_spj" => $kode_spj,
+                "status_spj" => $status,
+                "tgl_riwayat" => $tgl,
+                "riwayat_spj" => $post["verif_spj"],
+            );
+
+            $hasil = $this->db->insert('tb_riwayat_spj', $data);
+            if ($hasil) {
+                $this->_update_spj($data_spj, $where);
+                return array("res" => 1, "msg" => "SPJ Berhasil Ditolak");
+            } else {
+                return array("res" => 0, "msg" => "SPJ Gagal Ditolak");
+            }
         }
     }
 

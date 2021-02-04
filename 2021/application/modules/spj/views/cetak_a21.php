@@ -215,7 +215,7 @@ function Terbilang($x)
                 <p id="potong3">&nbsp;</p>
                 <p id="potong3">Bendahara Pengeluaran</p>
                 <br><br><br>
-                <p id="potong3" style="text-decoration: underline;">YUDHI DARMANSYAH</p>
+                <p id="potong3" style="text-decoration: underline;">YUDHI DHARMANSYAH</p>
                 <p id="potong3">NIP. 19830415 201001 1 025</p>
             </td>
         </tr>

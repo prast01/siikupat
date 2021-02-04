@@ -52,7 +52,7 @@ class M_spj extends CI_Model
     public function get_spj($kode_seksi)
     {
         $this->db->order_by("tgl_daftar", "DESC");
-        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_seksi" => $kode_seksi])->result();
+        $data = $this->db->get_where("view_spj_verif_bidang", ["kode_seksi" => $kode_seksi, "hapus" => 0])->result();
 
         // sprintf("%05s", $id)
         $no = 0;
@@ -65,7 +65,7 @@ class M_spj extends CI_Model
                 $nama_status = "REVISI";
                 $tgl = $row->tgl_tolak;
             } elseif ($row->status_spj == "3") {
-                $nama_status = "ACC";
+                $nama_status = "REKOM VERIFIKATOR";
                 $tgl = $row->tgl_acc;
             } elseif ($row->status_spj == "4") {
                 $nama_status = "TRANSFER";
@@ -77,8 +77,10 @@ class M_spj extends CI_Model
 
             if ($row->jenis_spj == "0") {
                 $jenis = "GU";
-            } else {
+            } elseif ($row->jenis_spj == "1") {
                 $jenis = "LS";
+            } elseif ($row->jenis_spj == "2") {
+                $jenis = "TU";
             }
 
             if ($row->kode_bidang == "DK001") {
@@ -89,6 +91,8 @@ class M_spj extends CI_Model
                 $bd = "3-";
             } elseif ($row->kode_bidang == "DK004") {
                 $bd = "4-";
+            } elseif ($row->kode_bidang == "DK005") {
+                $bd = "5-";
             }
 
 
@@ -219,6 +223,60 @@ class M_spj extends CI_Model
         }
     }
 
+    public function saveSpj($post)
+    {
+        if ($post["tgl_kegiatan"] == "") {
+            return array("res" => 0, "msg" => "Tanggal Kegiatan Belum dipilih");
+        }
+
+        if ($post["id_rekening"] == "") {
+            return array("res" => 0, "msg" => "Rekening Belum dipilih");
+        }
+
+        if (empty($_FILES['dokumen_spj']['name'])) {
+            return array("res" => 0, "msg" => "Wajib Melampirkan Dokumen SPJ");
+        } else {
+            if ($post["jenis_spj"] == "0") {
+                $nama_file = "SPJ-GU";
+            } elseif ($post["jenis_spj"] == "1") {
+                $nama_file = "SPJ-LS";
+            } elseif ($post["jenis_spj"] == "2") {
+                $nama_file = "SPJ-TU";
+            }
+
+            $hasil = json_decode($this->_uploadFile($nama_file), true);
+
+            if ($hasil["res"]) {
+                $dokumen_spj = $hasil["name_file"];
+            } else {
+                return array("res" => 0, "msg" => "File tidak Dijinkan. Error : " . $hasil["msg"]);
+            }
+        }
+
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = array(
+            "kode_spj" => $post["id_unik"],
+            "nomor_spj" => $this->get_last_no_seksi(),
+            "id_sub_kegiatan" => $post["id_sub_kegiatan"],
+            "id_rekening" => $post["id_rekening"],
+            "kode_seksi" => $kode_seksi,
+            "jenis_spj" => $post["jenis_spj"],
+            "tgl_kegiatan" => $post["tgl_kegiatan"],
+            "uraian" => $post["uraian"],
+            "nominal" => $post["nominal"],
+            "dokumen_spj" => $dokumen_spj,
+            "status_spj" => 4,
+            "tgl_transfer" => date("Y-m-d"),
+        );
+
+        $hasil = $this->db->insert('tb_spj', $data);
+        if ($hasil) {
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
     public function edit($kode_spj, $post)
     {
         $jml_pelaksana = count($post["id_pelaksana"]);
@@ -246,10 +304,13 @@ class M_spj extends CI_Model
 
         $min = $this->get_min_tgl();
         $min_tgl = date('Y-m-d', strtotime($min));
-        if (strtotime($min_tgl) > strtotime($post["tgl_kegiatan"])) {
-            return array("res" => 0, "msg" => "Tanggal Kegiatan Melebihi batas waktu pendaftaran SPJ");
+        if ($post["tgl_kegiatan"] != $post["tgl_lama"]) {
+            if (strtotime($min_tgl) > strtotime($post["tgl_kegiatan"])) {
+                return array("res" => 0, "msg" => "Tanggal Kegiatan Melebihi batas waktu pendaftaran SPJ");
+            }
         }
 
+        $st_verif = ($post["status_spj"] == 1) ? 0 : 1;
         if ($post["dokumen_up"] == "1") {
             if (empty($_FILES['dokumen_spj']['name'])) {
                 return array("res" => 0, "msg" => "Wajib Melampirkan Dokumen SPJ");
@@ -260,6 +321,7 @@ class M_spj extends CI_Model
                 if ($hasil["res"]) {
                     $dokumen_spj = $hasil["name_file"];
                     $this->_deleteFile($post["dokumen_old"]);
+                    $st_verif = 0;
                 } else {
                     return array("res" => 0, "msg" => "File tidak Dijinkan. Error : " . $hasil["msg"]);
                 }
@@ -286,7 +348,8 @@ class M_spj extends CI_Model
             "uraian" => $post["uraian"],
             "nominal" => $post["nominal"],
             "dokumen_spj" => $dokumen_spj,
-            "status_verif" => 0,
+            "status_verif" => $st_verif,
+            "pulih" => 0,
         );
 
         $hasil = $this->db->update('tb_spj', $data, $where);

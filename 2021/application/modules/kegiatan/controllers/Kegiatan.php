@@ -20,6 +20,7 @@ class Kegiatan extends MY_Controller
         }
         $model = $this->M_kegiatan;
 
+        $data["kode_bidang"] = $this->session->userdata("kode_bidang");
         $data['kegiatan'] = $model->get_kegiatan();
 
         $this->template("dashboard", $data);
@@ -32,6 +33,7 @@ class Kegiatan extends MY_Controller
         }
         $model = $this->M_kegiatan;
 
+        $data["kode_bidang"] = $this->session->userdata("kode_bidang");
         $data['id'] = $id;
         $data['sub_kegiatan'] = $model->get_sub_kegiatan($id);
 
@@ -45,6 +47,7 @@ class Kegiatan extends MY_Controller
         }
         $model = $this->M_kegiatan;
 
+        $data["kode_bidang"] = $this->session->userdata("kode_bidang");
         $data['id'] = $id;
         $data['id_sub'] = $id_sub;
         $data['rekening'] = $model->get_rekening($id_sub);
