@@ -62,22 +62,24 @@
 							<li>
 								<a tabindex="-1" href="<?php echo site_url('../realisasi-rok'); ?>" class="dropdown-item">Realisasi ROK</a>
 							</li>
-							<?php if ($kode_bidang == "XXXX") : ?>
-								<li class="dropdown-submenu dropdown-hover">
-									<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">SPJ</a>
-									<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-										<li>
-											<a tabindex="-1" href="<?php echo site_url('../verifikasi-spj'); ?>" class="dropdown-item">Verifikasi</a>
-										</li>
-										<li>
-											<a tabindex="-1" href="<?php echo site_url('../pembukuan-spj'); ?>" class="dropdown-item">Pembukuan</a>
-										</li>
-										<li>
-											<a tabindex="-1" href="<?php echo site_url('../transfer-spj'); ?>" class="dropdown-item">Transfer</a>
-										</li>
-									</ul>
-								</li>
-							<?php endif; ?>
+							<?php //if ($kode_bidang == "XXXX") : 
+							?>
+							<li class="dropdown-submenu dropdown-hover">
+								<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">SPJ</a>
+								<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+									<li>
+										<a tabindex="-1" href="<?php echo site_url('../verifikasi-spj'); ?>" class="dropdown-item">Verifikasi</a>
+									</li>
+									<li>
+										<a tabindex="-1" href="<?php echo site_url('../pembukuan-spj'); ?>" class="dropdown-item">Pembukuan</a>
+									</li>
+									<li>
+										<a tabindex="-1" href="<?php echo site_url('../transfer-spj'); ?>" class="dropdown-item">Transfer</a>
+									</li>
+								</ul>
+							</li>
+							<?php //endif; 
+							?>
 							<li class="dropdown-submenu dropdown-hover">
 								<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Buku Kas</a>
 								<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">

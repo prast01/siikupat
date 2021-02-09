@@ -156,6 +156,13 @@ class M_verifikasi extends CI_Model
                 "status_verif" => 1,
                 "verif_spj" => $post["verif_spj"],
             );
+        } elseif ($status == 2) {
+            $data_spj = array(
+                "tgl_acc" => $tgl,
+                "status_spj" => 3,
+                "status_verif" => 0,
+                "verif_spj" => $post["verif_spj"],
+            );
         } else {
             $data_spj = array(
                 "tgl_tolak" => $tgl,

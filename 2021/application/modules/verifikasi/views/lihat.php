@@ -139,7 +139,8 @@
                                             </div>
                                             <div class="card-footer justify-content-between">
                                                 <?php if ($spj->status_spj <= "2") : ?>
-                                                    <button type="submit" name="setuju" class="btn btn-success" onclick="return confirm('Yakin SPJ sudah valid?')">Setuju</button>
+                                                    <button type="submit" name="rekom" class="btn btn-success" onclick="return confirm('Yakin SPJ sudah valid?')">Rekomendasi</button>
+                                                    <button type="submit" name="setuju" class="btn btn-primary" onclick="return confirm('Yakin SPJ sudah valid?')">Setuju</button>
                                                 <?php else : ?>
                                                     <a href="<?= site_url("../verifikasi/pembukuan/" . $spj->kode_spj); ?>" class="btn btn-success" onclick="return confirm('Bukukan SPJ?')">
                                                         <span class="fa fa-book"></span> Bukukan

@@ -87,7 +87,7 @@ class M_laporan extends CI_Model
             $this->db->where("status_spj", 4);
         }
 
-        $this->db->where("status_verif", 0);
+        // $this->db->where("status_verif", 0);
         $this->db->order_by("nomor_spj", "ASC");
         $data = $this->db->get()->result();
 

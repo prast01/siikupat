@@ -68,8 +68,10 @@ class Verifikasi extends MY_Controller
         $model = $this->M_verifikasi;
         $post = $this->input->post();
 
-        if (isset($_POST["setuju"])) {
+        if (isset($_POST["rekom"])) {
             $status = 1;
+        } elseif (isset($_POST["setuju"])) {
+            $status = 2;
         } else {
             $status = 0;
         }
