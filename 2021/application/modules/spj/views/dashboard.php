@@ -105,9 +105,13 @@
                                                     <th width="10%">Tgl Kegiatan</th>
                                                     <th>Uraian Kegiatan</th>
                                                     <th width="15%">Nominal</th>
-                                                    <th>Pelaksana</th>
+                                                    <?php if ($kode_bidang != "DK005") : ?>
+                                                        <th>Pelaksana</th>
+                                                    <?php endif; ?>
                                                     <th width="5%">Status</th>
-                                                    <th>Catatan</th>
+                                                    <?php if ($kode_bidang != "DK005") : ?>
+                                                        <th>Catatan</th>
+                                                    <?php endif; ?>
                                                     <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -121,29 +125,44 @@
                                                         <td><?= $val["tgl_kegiatan"]; ?></td>
                                                         <td><?= $val["uraian"]; ?></td>
                                                         <td><?= $val["nominal"]; ?></td>
-                                                        <td>
-                                                            <ol>
-                                                                <?php foreach ($val["pelaksana"] as $row) : ?>
-                                                                    <li class="my-0"><?= $row->nama_pegawai; ?></li>
-                                                                <?php endforeach; ?>
-                                                            </ol>
-                                                        </td>
+                                                        <?php if ($kode_bidang != "DK005") : ?>
+                                                            <td>
+                                                                <ol>
+                                                                    <?php foreach ($val["pelaksana"] as $row) : ?>
+                                                                        <li class="my-0"><?= $row->nama_pegawai; ?></li>
+                                                                    <?php endforeach; ?>
+                                                                </ol>
+                                                            </td>
+                                                        <?php endif; ?>
                                                         <td><?= $val["nama_status"]; ?><br><?= $val["tanggal"]; ?></td>
-                                                        <td><?= $val["verif_spj"]; ?></td>
+                                                        <?php if ($kode_bidang != "DK005") : ?>
+                                                            <td><?= $val["verif_spj"]; ?></td>
+                                                        <?php endif; ?>
                                                         <td>
-                                                            <div class="btn-group">
-                                                                <a href="<?= site_url("../spj/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
-                                                                    <span class="fa fa-eye"></span>
-                                                                </a>
-                                                                <?php if ($val["status_spj"] <= "3") : ?>
-                                                                    <a href="<?= site_url("../spj/ubah/" . $val["kode_spj"]); ?>" class="btn btn-warning text-white btn-sm">
+                                                            <?php if ($kode_bidang != "DK005") : ?>
+                                                                <div class="btn-group">
+                                                                    <a href="<?= site_url("../spj/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
+                                                                        <span class="fa fa-eye"></span>
+                                                                    </a>
+                                                                    <?php if ($val["status_spj"] <= "3") : ?>
+                                                                        <a href="<?= site_url("../spj/ubah/" . $val["kode_spj"]); ?>" class="btn btn-warning text-white btn-sm">
+                                                                            <span class="fa fa-edit"></span>
+                                                                        </a>
+                                                                        <a href="<?= site_url("../spj/hapus/" . $val["kode_spj"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">
+                                                                            <span class="fa fa-trash"></span>
+                                                                        </a>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            <?php else : ?>
+                                                                <div class="btn-group">
+                                                                    <a href="<?= site_url("../spj/ubahSpj/" . $val["kode_spj"]); ?>" class="btn btn-warning text-white btn-sm">
                                                                         <span class="fa fa-edit"></span>
                                                                     </a>
                                                                     <a href="<?= site_url("../spj/hapus/" . $val["kode_spj"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">
                                                                         <span class="fa fa-trash"></span>
                                                                     </a>
-                                                                <?php endif; ?>
-                                                            </div>
+                                                                </div>
+                                                            <?php endif; ?>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>

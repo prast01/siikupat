@@ -99,7 +99,11 @@ class M_dashboard extends CI_Model
                 $nama_status = "DIBUKUKAN";
                 $tgl = $row->tgl_buku;
             } elseif ($row->status_spj == "4") {
-                $nama_status = "TRANSFER";
+                if ($row->kode_bidang != "DK005") {
+                    $nama_status = "TRANSFER";
+                } else {
+                    $nama_status = "TERCATAT";
+                }
                 $tgl = $row->tgl_transfer;
             }
 
@@ -117,6 +121,8 @@ class M_dashboard extends CI_Model
                 $bd = "3-";
             } elseif ($row->kode_bidang == "DK004") {
                 $bd = "4-";
+            } else {
+                $bd = "5-";
             }
 
             $hsl[$no++] = array(

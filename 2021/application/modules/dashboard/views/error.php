@@ -21,7 +21,7 @@
 
                 <p>
                     Kami tidak dapat menemukan halaman yang Anda cari.
-                    Sementara itu, Anda bisa <a href="<?= site_url(""); ?>">kembali ke Beranda</a>
+                    Sementara itu, Anda bisa <a href="<?= site_url("../"); ?>">kembali ke Beranda</a>
                 </p>
             </div>
             <!-- /.error-content -->

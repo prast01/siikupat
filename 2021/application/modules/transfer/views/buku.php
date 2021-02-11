@@ -152,7 +152,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <!-- <div class="col-lg-6">
                                     <div class="card card-primary">
                                         <div class="card-header">Perpajakan</div>
                                         <div class="card-body">
@@ -218,7 +218,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

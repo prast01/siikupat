@@ -164,6 +164,21 @@ class Spj extends MY_Controller
         $this->template("addSpj", $data);
     }
 
+    public function ubahSpj($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_spj;
+        $kode_seksi = $this->session->userdata("kode_seksi");
+
+        $data["spj"] = $model->get_spj_by_kode($kode_spj);
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $data["list_rekening"] = $model->get_rekening($data["spj"]->id_sub_kegiatan);
+        $this->template("ubahSpj", $data);
+    }
+
     // CRUD
     public function add()
     {
@@ -243,6 +258,29 @@ class Spj extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
 
             redirect("../spj/ubah/" . $kode_spj);
+        }
+    }
+
+    public function editSpj($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        // perdin 5.1.02.04.01.0001 dan 5.1.02.04.01.0003
+        $model = $this->M_spj;
+        $post = $this->input->post();
+
+        $hasil = $model->editSpj($kode_spj, $post);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../spj");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../spj/ubahSpj/" . $kode_spj);
         }
     }
 

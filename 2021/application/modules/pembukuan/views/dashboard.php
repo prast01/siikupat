@@ -75,7 +75,10 @@
                                                         <!-- <td><?= $val["verif_spj"]; ?></td> -->
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../pembukuan/tambah/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm">
+                                                                <!-- <a href="<?= site_url("../pembukuan/tambah/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm">
+                                                                    <span class="fa fa-check"></span>
+                                                                </a> -->
+                                                                <a href="<?= site_url("../pembukuan/transfer/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm" onclick="return confirm('Yakin SPJ Sudah di transfer?')">
                                                                     <span class="fa fa-check"></span>
                                                                 </a>
                                                             </div>

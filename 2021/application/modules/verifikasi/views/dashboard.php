@@ -193,7 +193,7 @@ if (isset($spj[0]["status_spj"])) {
                                                                 <a href="<?= site_url("../verifikasi/lihat/" . $val["kode_spj"]); ?>" class="btn btn-primary btn-sm">
                                                                     <span class="fa fa-eye"></span>
                                                                 </a>
-                                                                <a href="<?= site_url("../verifikasi/pembukuan/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm" onclick="return confirm('Bukukan SPJ?')">
+                                                                <a href="<?= site_url("../verifikasi/bukukan/" . $val["kode_spj"]); ?>" class="btn btn-success btn-sm" onclick="return confirm('Bukukan SPJ?')">
                                                                     <span class="fa fa-book"></span>
                                                                 </a>
                                                             </div>

@@ -68,7 +68,11 @@ class M_spj extends CI_Model
                 $nama_status = "REKOM VERIFIKATOR";
                 $tgl = $row->tgl_acc;
             } elseif ($row->status_spj == "4") {
-                $nama_status = "TRANSFER";
+                if ($row->kode_bidang != "DK005") {
+                    $nama_status = "TRANSFER";
+                } else {
+                    $nama_status = "TERCATAT";
+                }
                 $tgl = $row->tgl_transfer;
             } elseif ($row->status_spj == "5") {
                 $nama_status = "DIBUKUKAN";
@@ -184,7 +188,13 @@ class M_spj extends CI_Model
         if (empty($_FILES['dokumen_spj']['name'])) {
             return array("res" => 0, "msg" => "Wajib Melampirkan Dokumen SPJ");
         } else {
-            $nama_file = ($post["jenis_spj"] == "0") ? "SPJ-GU" : "SPJ-LS";
+            if ($post["jenis_spj"] == "0") {
+                $nama_file = "SPJ-GU";
+            } elseif ($post["jenis_spj"] == "1") {
+                $nama_file = "SPJ-LS";
+            } else {
+                $nama_file = "SPJ-TU";
+            }
             $hasil = json_decode($this->_uploadFile($nama_file), true);
 
             if ($hasil["res"]) {
@@ -356,6 +366,59 @@ class M_spj extends CI_Model
         if ($hasil) {
             $this->db->delete("tb_spj_detail", $where);
             $this->_insert_pelaksana($post["id_pelaksana"], $post["nominal_pelaksana"], $post["pihak_ketiga"], $kode_spj);
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
+    public function editSpj($kode_spj, $post)
+    {
+        if ($post["dokumen_up"] == "1") {
+            if (empty($_FILES['dokumen_spj']['name'])) {
+                return array("res" => 0, "msg" => "Wajib Melampirkan Dokumen SPJ");
+            } else {
+                if ($post["jenis_spj"] == "0") {
+                    $nama_file = "SPJ-GU";
+                } elseif ($post["jenis_spj"] == "1") {
+                    $nama_file = "SPJ-LS";
+                } else {
+                    $nama_file = "SPJ-TU";
+                }
+
+                $hasil = json_decode($this->_uploadFile($nama_file), true);
+
+                if ($hasil["res"]) {
+                    $dokumen_spj = $hasil["name_file"];
+                    $this->_deleteFile($post["dokumen_old"]);
+                } else {
+                    return array("res" => 0, "msg" => "File tidak Dijinkan. Error : " . $hasil["msg"]);
+                }
+            }
+        } else {
+            $dokumen_spj = $post["dokumen_old"];
+        }
+
+        if ($post["id_rekening"] == "") {
+            return array("res" => 0, "msg" => "Rekening Belum dipilih");
+        }
+
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $where = array(
+            "kode_spj" => $kode_spj
+        );
+        $data = array(
+            "id_sub_kegiatan" => $post["id_sub_kegiatan"],
+            "id_rekening" => $post["id_rekening"],
+            "kode_seksi" => $kode_seksi,
+            "tgl_kegiatan" => $post["tgl_kegiatan"],
+            "uraian" => $post["uraian"],
+            "nominal" => $post["nominal"],
+            "dokumen_spj" => $dokumen_spj,
+        );
+
+        $hasil = $this->db->update('tb_spj', $data, $where);
+        if ($hasil) {
             return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
         } else {
             return array("res" => 0, "msg" => "SPJ Gagal Disimpan");

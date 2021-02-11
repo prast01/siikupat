@@ -72,6 +72,8 @@ class Verifikasi extends MY_Controller
             $status = 1;
         } elseif (isset($_POST["setuju"])) {
             $status = 2;
+        } elseif (isset($_POST["buku"])) {
+            $status = 3;
         } else {
             $status = 0;
         }
@@ -120,6 +122,27 @@ class Verifikasi extends MY_Controller
         $model = $this->M_verifikasi;
 
         $hasil = $model->batal($kode_spj);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../verifikasi");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../verifikasi");
+        }
+    }
+
+    public function bukukan($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_verifikasi;
+
+        $hasil = $model->bukukan($kode_spj);
 
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);

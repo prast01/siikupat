@@ -79,6 +79,26 @@ class Pembukuan extends MY_Controller
             redirect("../pembukuan/tambah/" . $kode_spj);
         }
     }
+
+    public function transfer($kode_spj)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_pembukuan;
+        $hasil = $model->transfer($kode_spj);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+
+            redirect("../pembukuan");
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+
+            redirect("../pembukuan/tambah/" . $kode_spj);
+        }
+    }
 }
 
 /* End of file Pembukuan.php */

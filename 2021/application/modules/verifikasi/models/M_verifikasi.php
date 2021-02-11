@@ -163,6 +163,12 @@ class M_verifikasi extends CI_Model
                 "status_verif" => 0,
                 "verif_spj" => $post["verif_spj"],
             );
+        } elseif ($status == 3) {
+            $data_spj = array(
+                "tgl_buku" => $tgl,
+                "status_spj" => 5,
+                "status_verif" => 0,
+            );
         } else {
             $data_spj = array(
                 "tgl_tolak" => $tgl,
@@ -217,6 +223,36 @@ class M_verifikasi extends CI_Model
 
 
         $hasil = $this->db->insert("tb_buku", $data);
+        if ($hasil) {
+            $this->_update_spj($data_spj, $where);
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
+    public function bukukan($kode_spj)
+    {
+        $tgl = date("Y-m-d H:i:s");
+        $where = array(
+            "kode_spj" => $kode_spj
+        );
+
+        $data = array(
+            "kode_spj" => $kode_spj,
+            "status_spj" => 3,
+            "tgl_riwayat" => $tgl,
+            "riwayat_spj" => "Dibukukan",
+        );
+
+        $data_spj = array(
+            "tgl_buku" => $tgl,
+            "status_spj" => 5,
+            "status_verif" => 0,
+            "verif_spj" => "Dibukukan",
+        );
+
+        $hasil = $this->db->insert('tb_riwayat_spj', $data);
         if ($hasil) {
             $this->_update_spj($data_spj, $where);
             return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");

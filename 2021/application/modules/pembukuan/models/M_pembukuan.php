@@ -156,6 +156,36 @@ class M_pembukuan extends CI_Model
         }
     }
 
+    public function transfer($kode_spj)
+    {
+        $tgl = date("Y-m-d H:i:s");
+        $where = array(
+            "kode_spj" => $kode_spj
+        );
+
+        $data = array(
+            "kode_spj" => $kode_spj,
+            "status_spj" => 4,
+            "tgl_riwayat" => $tgl,
+            "riwayat_spj" => "Transfer",
+        );
+
+        $data_spj = array(
+            "tgl_transfer" => $tgl,
+            "status_spj" => 4,
+            "status_verif" => 0,
+            "verif_spj" => "Transfer",
+        );
+
+        $hasil = $this->db->insert('tb_riwayat_spj', $data);
+        if ($hasil) {
+            $this->_update_spj($data_spj, $where);
+            return array("res" => 1, "msg" => "SPJ Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "SPJ Gagal Disimpan");
+        }
+    }
+
     // PRIVATE
     private function _update_spj($data, $where)
     {
