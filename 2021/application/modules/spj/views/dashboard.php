@@ -148,9 +148,11 @@
                                                                         <a href="<?= site_url("../spj/ubah/" . $val["kode_spj"]); ?>" class="btn btn-warning text-white btn-sm">
                                                                             <span class="fa fa-edit"></span>
                                                                         </a>
-                                                                        <a href="<?= site_url("../spj/hapus/" . $val["kode_spj"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">
-                                                                            <span class="fa fa-trash"></span>
-                                                                        </a>
+                                                                        <?php if ($val["status_spj"] == "1") : ?>
+                                                                            <a href="<?= site_url("../spj/hapus/" . $val["kode_spj"]); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus?')">
+                                                                                <span class="fa fa-trash"></span>
+                                                                            </a>
+                                                                        <?php endif; ?>
                                                                     <?php endif; ?>
                                                                 </div>
                                                             <?php else : ?>

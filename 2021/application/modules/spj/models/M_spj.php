@@ -156,6 +156,7 @@ class M_spj extends CI_Model
     // CRUD
     public function save($post)
     {
+        $kode_seksi = $this->session->userdata("kode_seksi");
         $jml_pelaksana = count($post["id_pelaksana"]);
         if ($jml_pelaksana <= 0) {
             return array("res" => 0, "msg" => "Pelaksana Harus Dipilih");
@@ -208,7 +209,11 @@ class M_spj extends CI_Model
             return array("res" => 0, "msg" => "ROK Belum dipilih");
         }
 
-        $kode_seksi = $this->session->userdata("kode_seksi");
+        $cek_pagu = $this->_cek_pagu($post["id_rekening"], $post["nominal"], $kode_seksi);
+        if ($cek_pagu) {
+            return array("res" => 0, "msg" => "Sisa Pagu tidak Mencukupi");
+        }
+
         $data = array(
             "kode_spj" => $post["id_unik"],
             "nomor_spj" => $this->get_last_no_seksi(),
@@ -264,6 +269,11 @@ class M_spj extends CI_Model
         }
 
         $kode_seksi = $this->session->userdata("kode_seksi");
+        $cek_pagu = $this->_cek_pagu($post["id_rekening"], $post["nominal"], $kode_seksi);
+        if ($cek_pagu) {
+            return array("res" => 0, "msg" => "Sisa Pagu tidak Mencukupi");
+        }
+
         $data = array(
             "kode_spj" => $post["id_unik"],
             "nomor_spj" => $this->get_last_no_seksi(),
@@ -345,6 +355,11 @@ class M_spj extends CI_Model
         }
 
         $kode_seksi = $this->session->userdata("kode_seksi");
+        $cek_pagu = $this->_cek_pagu($post["id_rekening"], $post["nominal"], $kode_seksi);
+        if ($cek_pagu) {
+            return array("res" => 0, "msg" => "Sisa Pagu tidak Mencukupi");
+        }
+
         $where = array(
             "kode_spj" => $kode_spj
         );
@@ -404,6 +419,11 @@ class M_spj extends CI_Model
         }
 
         $kode_seksi = $this->session->userdata("kode_seksi");
+        $cek_pagu = $this->_cek_pagu($post["id_rekening"], $post["nominal"], $kode_seksi);
+        if ($cek_pagu) {
+            return array("res" => 0, "msg" => "Sisa Pagu tidak Mencukupi");
+        }
+
         $where = array(
             "kode_spj" => $kode_spj
         );
@@ -443,6 +463,7 @@ class M_spj extends CI_Model
         }
     }
 
+    // PRIVATE
     private function _uploadFile($name)
     {
         $config['upload_path'] = './assets/upload/';
@@ -549,6 +570,42 @@ class M_spj extends CI_Model
         $data = $this->db->get_where("view_spj_rekening", ["kode_spj" => $kode_spj])->result();
 
         return $data;
+    }
+
+    private function _cek_pagu($id_rekening, $nominal, $kode_seksi)
+    {
+        $pagu = $this->_get_pagu($id_rekening);
+        $real = $this->_get_real($kode_seksi, $id_rekening);
+        $sisa = $pagu - $real;
+
+        if ($sisa <= 0) {
+            return 1;
+        }
+
+        if ($sisa > $nominal) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    private function _get_pagu($id_rekening)
+    {
+        $data = $this->db->get_where("tb_rekening", ["id_rekening" => $id_rekening])->row();
+
+        return $data->pagu_rekening;
+    }
+
+    private function _get_real($kode_seksi, $id_rekening)
+    {
+        $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE kode_seksi='$kode_seksi' AND id_rekening='$id_rekening' AND status_spj='4' GROUP BY id_rekening");
+
+        $total = 0;
+        if ($real->num_rows() > 0) {
+            $r = $real->row();
+            $total = $r->nominal;
+        }
+        return $total;
     }
 }
 
