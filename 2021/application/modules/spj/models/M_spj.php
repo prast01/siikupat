@@ -355,9 +355,11 @@ class M_spj extends CI_Model
         }
 
         $kode_seksi = $this->session->userdata("kode_seksi");
-        $cek_pagu = $this->_cek_pagu($post["id_rekening"], $post["nominal"], $kode_seksi);
-        if ($cek_pagu) {
-            return array("res" => 0, "msg" => "Sisa Pagu tidak Mencukupi");
+        if ($post["nominal"] != $post["nominal_lama"]) {
+            $cek_pagu = $this->_cek_pagu($post["id_rekening"], $post["nominal"], $kode_seksi);
+            if ($cek_pagu) {
+                return array("res" => 0, "msg" => "Sisa Pagu tidak Mencukupi");
+            }
         }
 
         $where = array(
