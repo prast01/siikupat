@@ -254,17 +254,17 @@ class M_service extends CI_Model
     {
         $bulan = date("m");
 
-        $this->db->select("id_rok");
-        $x = $this->db->get("tb_spj")->row_array();
+        // $this->db->select("id_rok");
+        // $x = $this->db->get("tb_spj")->row_array();
 
-        $this->db->join("tb_rekening", "tb_rekening.id_rekening = tb_rok.id_rekening");
-        $this->db->where_not_in("tb_rok.id_rok", $x);
-        $this->db->where("tb_rekening.cek", 1);
-        $this->db->where("tb_rok.kode_seksi", $kode_seksi);
-        $this->db->where("tb_rok.bulan <=", $bulan);
-        $data = $this->db->get("tb_rok")->result();
+        // $this->db->join("tb_rekening", "tb_rekening.id_rekening = tb_rok.id_rekening");
+        // $this->db->where_not_in("tb_rok.id_rok", $x);
+        // $this->db->where("tb_rekening.cek", 1);
+        // $this->db->where("tb_rok.kode_seksi", $kode_seksi);
+        // $this->db->where("tb_rok.bulan <=", $bulan);
+        // $data = $this->db->get("tb_rok")->result();
 
-        // $data = $this->db->query("SELECT tb_rok.uraian, tb_rok.nominal FROM tb_rok INNER JOIN tb_rekening ON tb_rok.id_rekening=tb_rekening.id_rekening WHERE tb_rekening.cek = 1 AND tb_rok.kode_seksi = '$kode_seksi' AND tb_rok.bulan <= '$bulan' AND tb_rok.id_rok NOT IN (SELECT id_rok FROM tb_spj)")->result();
+        $data = $this->db->query("SELECT tb_rok.uraian, tb_rok.nominal FROM tb_rok INNER JOIN tb_rekening ON tb_rok.id_rekening=tb_rekening.id_rekening WHERE tb_rekening.cek = 1 AND tb_rok.kode_seksi = '$kode_seksi' AND tb_rok.bulan <= '$bulan' AND tb_rok.id_rok NOT IN (SELECT id_rok FROM tb_spj)")->result();
 
         $no = 0;
         $hsl = array();
