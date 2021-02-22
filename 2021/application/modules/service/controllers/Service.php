@@ -193,6 +193,30 @@ class Service extends MY_Controller
 
         echo json_encode($data);
     }
+
+    public function get_data_rok($id)
+    {
+        $seksi = array(
+            '5' => "DJ001",
+            '6' => "DJ002",
+            '7' => "DJ004",
+            '8' => "DJ005",
+            '9' => "DJ003",
+            '10' => "DJ006",
+            '11' => "DJ008",
+            '12' => "DJ010",
+            '13' => "DJ011",
+            '14' => "DJ007",
+            '15' => "DJ009",
+            '16' => "DJ012",
+            '17' => "DJ013"
+        );
+
+        $model = $this->M_service;
+        $data = $model->get_data_rok($seksi[$id]);
+
+        echo json_encode($data);
+    }
 }
 
 /* End of file Service.php */

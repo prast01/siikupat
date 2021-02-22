@@ -250,7 +250,25 @@ class M_service extends CI_Model
         return $hsl;
     }
 
+    public function get_data_rok($kode_seksi)
+    {
+        $this->db->join("tb_rekening", "tb_rekening.id_rekening = tb_rok.id_rekening");
+        $this->db->where("tb_rekening.cek", 1);
+        $this->db->where("tb_rok.kode_seksi", $kode_seksi);
+        $data = $this->db->get("tb_rok")->result();
 
+        $no = 0;
+        $hsl = array();
+        foreach ($data as $key) {
+            $hsl[$no++] = array(
+                "rok" => $key->uraian,
+            );
+        }
+
+        return $hsl;
+    }
+
+    // PRIVATE
     private function _get_antrian_spj($kode_bidang, $status)
     {
         if ($status == 1) {

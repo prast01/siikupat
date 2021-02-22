@@ -584,7 +584,7 @@ class M_spj extends CI_Model
             return 1;
         }
 
-        if ($sisa > $nominal) {
+        if ($sisa >= $nominal) {
             return 0;
         } else {
             return 1;
