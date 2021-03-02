@@ -158,6 +158,7 @@ class M_dashboard extends CI_Model
 
         $where = array(
             "tgl_tolak <" => $tgl_min,
+            "status_spj" => 2,
             "status_verif" => 1,
             "hapus" => 0,
             "pulih" => 0,
