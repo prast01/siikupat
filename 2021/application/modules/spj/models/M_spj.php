@@ -527,9 +527,14 @@ class M_spj extends CI_Model
         for ($i = 0; $i < $jml; $i++) {
             if ($i > 0) {
                 $ii = $i - 1;
-                if ($pelaksana[$i] == $pelaksana[$ii]) {
-                    return 1;
-                    break;
+                if ($pelaksana[$i] != '128' || $pelaksana[$ii] != '128') {
+                    if ($pelaksana[$i] == $pelaksana[$ii]) {
+                        return 1;
+                        break;
+                    } else {
+                        return 0;
+                        continue;
+                    }
                 } else {
                     return 0;
                     continue;
