@@ -34,9 +34,7 @@ class Dashboard extends MY_Controller
         if ($this->session->userdata("id_user") == "") {
             redirect("../");
         }
-
         $model = $this->M_dashboard;
-
         $data['sub_kegiatan'] = $model->get_sub_kegiatan($kode_seksi);
 
         $this->template("sub_kegiatan", $data);
