@@ -297,7 +297,7 @@ class M_laporan extends CI_Model
             $kredit = 0;
 
             // UP
-            $up = $this->db->get_where("tb_up", ["aktif" => 1, "tgl_up" => $dari]);
+            $up = $this->db->get_where("tb_up", ["tgl_up" => $dari]);
             if ($up->num_rows() > 0) {
                 $x = $up->row();
                 $debet = $x->nominal;
@@ -311,7 +311,7 @@ class M_laporan extends CI_Model
             }
 
             // REALISASI
-            $real = $this->db->get_where("tb_spj", ["status_spj" => 4, "tgl_transfer" => $dari]);
+            $real = $this->db->get_where("tb_spj", ["status_spj" => 4, "jenis_spj" => 0, "tgl_transfer" => $dari]);
             if ($real->num_rows() > 0) {
                 $x = $real->result();
                 foreach ($x as $key) {
