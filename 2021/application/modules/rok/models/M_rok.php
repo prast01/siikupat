@@ -45,7 +45,7 @@ class M_rok extends CI_Model
             $hsl[$no++] = array(
                 "kode_bulan" => $key,
                 "nama_bulan" => $val,
-                "realisasi" => $this->get_nom_realisasi($id, $key),
+                "realisasi" => $this->get_nom_realisasi($id, $key, $kode_seksi),
                 "rok" => $this->get_nom_rok($id, $kode_seksi, $key),
                 "valid" => $this->get_rok_valid($id, $kode_seksi, $key),
             );
@@ -102,11 +102,12 @@ class M_rok extends CI_Model
     }
 
     // PRIVATE
-    private function get_nom_realisasi($id_sub, $bulan)
+    private function get_nom_realisasi($id_sub, $bulan, $kode_seksi)
     {
         $this->db->select("SUM(nominal) as nominal");
         $this->db->from("tb_spj");
         $this->db->where("id_sub_kegiatan", $id_sub);
+        $this->db->where("kode_seksi", $kode_seksi);
         $this->db->where("MONTH(tgl_kegiatan)", $bulan);
         $this->db->where("status_spj", 4);
         $data = $this->db->get()->row();
