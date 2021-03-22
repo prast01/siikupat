@@ -138,6 +138,7 @@ class M_dashboard extends CI_Model
                 "nama_status" => $nama_status,
                 "tanggal" => $tgl,
                 "verif_spj" => $row->verif_spj,
+                "nama" => $row->nama,
             );
         }
 
@@ -249,7 +250,8 @@ class M_dashboard extends CI_Model
 
         $total = 0;
         foreach ($data as $row) {
-            $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE kode_seksi='$kode_seksi' AND id_sub_kegiatan='$row->id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
+            // $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE kode_seksi='$kode_seksi' AND id_sub_kegiatan='$row->id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
+            $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE id_sub_kegiatan='$row->id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
 
             if ($real->num_rows() > 0) {
                 $r = $real->row();
@@ -262,7 +264,8 @@ class M_dashboard extends CI_Model
 
     private function get_real_by_id($kode_seksi, $id_sub_kegiatan)
     {
-        $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE kode_seksi='$kode_seksi' AND id_sub_kegiatan='$id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
+        // $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE kode_seksi='$kode_seksi' AND id_sub_kegiatan='$id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
+        $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE id_sub_kegiatan='$id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
 
         $total = 0;
         if ($real->num_rows() > 0) {

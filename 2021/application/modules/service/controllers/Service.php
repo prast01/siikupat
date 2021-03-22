@@ -217,6 +217,40 @@ class Service extends MY_Controller
 
         echo json_encode($data);
     }
+
+    public function send_surtug()
+    {
+        header("Content-Type:application/json");
+        $post = json_decode(file_get_contents('php://input'), true);
+        // $data = $model->save_surtug($post);
+
+        if ($post["status"]["perdin"]) {
+            $cek = $this->_cek_inputan($post["perdin"]);
+            if ($cek) {
+                $this->db->insert("tb_rok", $post["perdin"]);
+            }
+        }
+
+        if ($post["status"]["bbm"]) {
+            $cek = $this->_cek_inputan($post["bbm"]);
+            if ($cek) {
+                $this->db->insert("tb_rok", $post["bbm"]);
+            }
+        }
+
+
+        echo json_encode($post);
+    }
+
+    private function _cek_inputan($post)
+    {
+        $data = $this->db->get_where("tb_rok", $post)->num_rows();
+        if ($data > 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 }
 
 /* End of file Service.php */

@@ -35,6 +35,13 @@ class M_spj extends CI_Model
         return $data;
     }
 
+    public function get_sub_kegiatan_bagi()
+    {
+        $data = $this->db->get_where("tb_sub_kegiatan", ["bagi" => 1])->result();
+
+        return $data;
+    }
+
     public function get_rekening($id_sub_kegiatan)
     {
         $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub_kegiatan])->result();
@@ -44,7 +51,8 @@ class M_spj extends CI_Model
 
     public function get_rok($id_rekening)
     {
-        $data = $this->db->get_where("tb_rok", ["id_rekening" => $id_rekening])->result();
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = $this->db->get_where("tb_rok", ["id_rekening" => $id_rekening, "kode_seksi" => $kode_seksi])->result();
 
         return $data;
     }

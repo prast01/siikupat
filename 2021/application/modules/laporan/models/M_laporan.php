@@ -39,6 +39,26 @@ class M_laporan extends CI_Model
             );
         }
 
+        if ($kode_seksi != "DJ002") {
+            $data_sub_2 = $this->_get_sub_kegiatan_bagi();
+            $seksi = $this->_get_seksi($kode_bidang, $kode_seksi);
+
+            foreach ($data_sub_2 as $row) {
+                foreach ($seksi as $row2) {
+                    $hsl[$no++] = array(
+                        "id_sub_kegiatan" => $row->id_sub_kegiatan,
+                        "kode_seksi" => $row2->kode_seksi,
+                        "nama_sub_kegiatan" => $row->nama_sub_kegiatan,
+                        "nama" => $row2->nama,
+                        "sisa" => $this->_get_sisa_bulan_lalu($row->id_sub_kegiatan, $bln_sblm, $row2->kode_seksi),
+                        "rok" => $this->_get_rok($row->id_sub_kegiatan, $bulan, $row2->kode_seksi),
+                        "realisasi" => $this->_get_real($row->id_sub_kegiatan, $bulan, $row2->kode_seksi),
+                        "valid" => $this->_get_valid($row->id_sub_kegiatan, $bulan, $row2->kode_seksi),
+                    );
+                }
+            }
+        }
+
         $sort = $this->array_multi_subsort($hsl, 'rok');
 
         return $sort;
@@ -369,10 +389,10 @@ class M_laporan extends CI_Model
         return $c;
     }
 
-    private function _get_valid($id_sub, $bln)
+    private function _get_valid($id_sub, $bln, $kode_seksi)
     {
         $tbl = "b" . $bln;
-        $data = $this->db->query("SELECT $tbl FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub'")->row();
+        $data = $this->db->query("SELECT $tbl FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'")->row();
 
         return $data->$tbl;
     }
@@ -412,6 +432,27 @@ class M_laporan extends CI_Model
         $saldo = $up->nominal - $real->nominal;
 
         return $saldo;
+    }
+
+    private function _get_sub_kegiatan_bagi()
+    {
+        $data = $this->db->get_where("tb_sub_kegiatan", ["bagi" => 1])->result();
+
+        return $data;
+    }
+
+    private function _get_seksi($kode_bidang, $kode_seksi)
+    {
+        if ($kode_bidang != "") {
+            $this->db->where("kode_bidang", $kode_bidang);
+        }
+        if ($kode_seksi != "") {
+            $this->db->where("kode_seksi", $kode_seksi);
+        }
+        $this->db->where("kode_seksi !=", "XXXX");
+        $data = $this->db->get("tb_user")->result();
+
+        return $data;
     }
 }
 

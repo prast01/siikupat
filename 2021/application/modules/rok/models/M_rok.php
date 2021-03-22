@@ -16,6 +16,13 @@ class M_rok extends CI_Model
         return $data;
     }
 
+    public function get_sub_kegiatan_bagi()
+    {
+        $data = $this->db->get_where("tb_sub_kegiatan", ["bagi" => 1])->result();
+
+        return $data;
+    }
+
     public function get_bulan($id, $kode_seksi)
     {
         $bulan = array(
@@ -49,7 +56,11 @@ class M_rok extends CI_Model
 
     public function get_rok($id_sub, $bulan, $kode_seksi)
     {
-        $rekening = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub])->result();
+        if (($id_sub == 3 || $id_sub == 7) && $kode_seksi != "DJ002") {
+            $rekening = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub, "cek >=" => 1])->result();
+        } else {
+            $rekening = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub])->result();
+        }
 
         $no = 0;
         foreach ($rekening as $row) {
@@ -125,7 +136,7 @@ class M_rok extends CI_Model
 
     private function get_rok_data($id_sub, $id_rekening, $bulan, $kode_seksi)
     {
-        $data = $this->db->get_where("tb_rok", ["id_sub_kegiatan" => $id_sub, "bulan" => $bulan, "kode_seksi" => $kode_seksi, "id_rekening" => $id_rekening])->result();
+        $data = $this->db->get_where("tb_rok", ["id_sub_kegiatan" => $id_sub, "bulan" => $bulan, "kode_seksi" => $kode_seksi, "id_rekening" => $id_rekening, "jenis_spj" => 0])->result();
 
         return $data;
     }
@@ -138,6 +149,7 @@ class M_rok extends CI_Model
         $this->db->where("kode_seksi", $kode_seksi);
         $this->db->where("bulan", $bulan);
         $this->db->where("id_rekening", $id_rekening);
+        $this->db->where("jenis_spj", 0);
         $data = $this->db->get()->row();
 
         if ($data->nominal != "") {

@@ -64,6 +64,9 @@
                                                         <?php foreach ($sub_kegiatan as $row) : ?>
                                                             <option <?= ($row->id_sub_kegiatan == $spj->id_sub_kegiatan) ? "selected" : ""; ?> value="<?= $row->id_sub_kegiatan; ?>"><?= $row->nama_sub_kegiatan; ?></option>
                                                         <?php endforeach; ?>
+                                                        <?php foreach ($sub_kegiatan_2 as $row) : ?>
+                                                            <option <?= ($row->id_sub_kegiatan == $spj->id_sub_kegiatan) ? "selected" : ""; ?> value="<?= $row->id_sub_kegiatan; ?>"><?= $row->nama_sub_kegiatan; ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
