@@ -96,9 +96,14 @@ class M_modal extends CI_Model
         return $data;
     }
 
-    public function get_rekening($id_sub)
+    public function get_rekening($id_sub, $kode_seksi)
     {
-        $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub])->result();
+        if (($id_sub == 3 || $id_sub == 7) && $kode_seksi != "DJ002") {
+            $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub, "cek >=" => 1])->result();
+        } else {
+            $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub])->result();
+        }
+        // $data = $this->db->get_where("tb_rekening", ["id_sub_kegiatan" => $id_sub])->result();
 
         return $data;
     }

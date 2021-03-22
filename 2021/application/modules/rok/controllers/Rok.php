@@ -23,6 +23,7 @@ class Rok extends MY_Controller
         $kode_seksi = $this->session->userdata("kode_seksi");
         $data["kode_seksi"] = $kode_seksi;
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $data["sub_kegiatan_2"] = $model->get_sub_kegiatan_bagi();
 
         $this->template("dashboard", $data);
     }
@@ -209,11 +210,13 @@ class Rok extends MY_Controller
 
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);
-
-            redirect("../rok/bulan/" . $id_sub . "/" . $seksi);
         } else {
             $this->session->set_flashdata('gagal', $hasil['msg']);
+        }
 
+        if ($this->session->userdata("kode_seksi") == "XXXX") {
+            redirect("../rok/lihatDaftar/" . $id_sub . "/" . $bln . "/" . $seksi);
+        } else {
             redirect("../rok/bulan/" . $id_sub . "/" . $seksi);
         }
     }

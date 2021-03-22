@@ -64,7 +64,8 @@ class M_service extends CI_Model
 
     public function get_rok($id_sub, $id_rekening, $bln)
     {
-        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln' AND kode_seksi = '$kode_seksi' AND jenis_spj='0' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
 
         $hsl = array();
         $no = 0;
@@ -87,12 +88,26 @@ class M_service extends CI_Model
             );
         }
 
+        $rek = array("24", "25", "26", "41", "46");
+        if (in_array($id_rekening, $rek)) {
+            $data_surat = $this->get_data_surat($id_sub, $id_rekening, $bln);
+            foreach ($data_surat as $row) {
+                $hsl[$no++] = array(
+                    "id_rok" => $row->id_rok,
+                    "uraian" => $row->uraian,
+                    "nominal" => "Rp" . number_format($row->nominal, 0, ",", "."),
+                    "valid" => 1,
+                );
+            }
+        }
+
         return $hsl;
     }
 
     public function get_rok_ubah($id_sub, $id_rekening, $bln, $id_rek, $id_rok)
     {
-        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln' AND kode_seksi='$kode_seksi' AND jenis_spj='0' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
 
         $rok = $this->get_uraian($id_rok);
         $hsl = array();
@@ -131,14 +146,16 @@ class M_service extends CI_Model
 
     public function get_rok_old($id_sub, $id_rekening, $bln)
     {
-        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan<'$bln' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan<'$bln' AND kode_seksi = '$kode_seksi' AND jenis_spj='0' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
 
         return $data;
     }
 
     public function get_rok_a21($id_sub, $id_rekening, $bln)
     {
-        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan <= '$bln'")->result();
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan <= '$bln' AND kode_seksi='$kode_seksi'")->result();
 
         $hsl = array();
         $no = 0;
@@ -156,8 +173,9 @@ class M_service extends CI_Model
 
     public function cek_rok_valid($id_sub, $bln)
     {
+        $kode_seksi = $this->session->userdata("kode_seksi");
         $tbl = "b" . $bln;
-        $data = $this->db->query("SELECT $tbl FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub'")->row();
+        $data = $this->db->query("SELECT $tbl FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'")->row();
 
         return $data->$tbl;
     }
@@ -303,6 +321,14 @@ class M_service extends CI_Model
         }
 
         $data = $this->db->get_where("view_spj_verif_bidang", $where)->num_rows();
+
+        return $data;
+    }
+
+    private function get_data_surat($id_sub, $id_rekening, $bln)
+    {
+        $kode_seksi = $this->session->userdata("kode_seksi");
+        $data = $this->db->query("SELECT * FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND id_rekening='$id_rekening' AND bulan='$bln' AND kode_seksi='$kode_seksi' AND jenis_spj='1' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE id_sub_kegiatan='$id_sub')")->result();
 
         return $data;
     }

@@ -63,6 +63,19 @@
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
+                                                <?php foreach ($sub_kegiatan_2 as $row) : ?>
+                                                    <tr>
+                                                        <td><?= $no++; ?></td>
+                                                        <td><?= $row->nama_sub_kegiatan; ?></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan . "/" . $kode_seksi); ?>" class="btn btn-primary btn-sm btn-flat">
+                                                                    <span class="fa fa-align-justify"></span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>

@@ -50,8 +50,7 @@
                                                     <th>Uraian Kegiatan</th>
                                                     <th width="15%">Nominal</th>
                                                     <th>Pelaksana</th>
-                                                    <th width="5%">Status</th>
-                                                    <th>Catatan</th>
+                                                    <th>Subbag/Seksi/UPT</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -71,8 +70,7 @@
                                                                 <?php endforeach; ?>
                                                             </ol>
                                                         </td>
-                                                        <td><?= $val["nama_status"]; ?><br><?= $val["tanggal"]; ?></td>
-                                                        <td><?= $val["verif_spj"]; ?></td>
+                                                        <td><?= $val["nama"]; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

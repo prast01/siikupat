@@ -75,7 +75,7 @@ class Modal extends MY_Controller
         $data["id_sub"] = $id_sub;
         $data["bln"] = $bln;
         $data["kode_seksi"] = $kode_seksi;
-        $data["rek"] = $model->get_rekening($id_sub);
+        $data["rek"] = $model->get_rekening($id_sub, $kode_seksi);
 
         $this->load->view('addRok', $data);
     }
@@ -269,7 +269,7 @@ class Modal extends MY_Controller
         // $kode_seksi = $this->session->userdata("kode_seksi");
         $data["kode_seksi"] = $kode_seksi;
         $data["rok"] = $model->get_rok_by_id($id);
-        $data["rek"] = $model->get_rekening($data["rok"]->id_sub_kegiatan);
+        $data["rek"] = $model->get_rekening($data["rok"]->id_sub_kegiatan, $kode_seksi);
 
         $this->load->view('ubahRok', $data);
     }

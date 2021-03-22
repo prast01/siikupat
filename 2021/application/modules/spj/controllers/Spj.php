@@ -43,6 +43,7 @@ class Spj extends MY_Controller
         $data["min_tgl"] = date('Y-m-d', strtotime($min));
         $data["id_unik"] = uniqid();
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $data["sub_kegiatan_2"] = $model->get_sub_kegiatan_bagi();
         $this->template("tambahGu", $data);
     }
 
@@ -59,6 +60,7 @@ class Spj extends MY_Controller
         $data["min_tgl"] = date('Y-m-d', strtotime($min));
         $data["id_unik"] = uniqid();
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $data["sub_kegiatan_2"] = $model->get_sub_kegiatan_bagi();
         $this->template("tambahLs", $data);
     }
 
@@ -92,6 +94,7 @@ class Spj extends MY_Controller
         $data["spj"] = $model->get_spj_by_kode($kode_spj);
 
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $data["sub_kegiatan_2"] = $model->get_sub_kegiatan_bagi();
         $data["list_rekening"] = $model->get_rekening($data["spj"]->id_sub_kegiatan);
         $data["list_rok"] = $model->get_rok($data["spj"]->id_rekening);
 
@@ -114,6 +117,7 @@ class Spj extends MY_Controller
         $data["min_tgl"] = date('Y-m-d', strtotime($min));
         $data["id_unik"] = uniqid();
         $data["sub_kegiatan"] = $model->get_sub_kegiatan($kode_seksi);
+        $data["sub_kegiatan_2"] = $model->get_sub_kegiatan_bagi();
         $this->template("a21", $data);
 
         // echo date('N', strtotime($min));
