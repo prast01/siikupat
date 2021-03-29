@@ -338,7 +338,6 @@ class M_spj extends CI_Model
             }
         }
 
-        $st_verif = ($post["status_spj"] == 1) ? 0 : 1;
         if ($post["dokumen_up"] == "1") {
             if (empty($_FILES['dokumen_spj']['name'])) {
                 return array("res" => 0, "msg" => "Wajib Melampirkan Dokumen SPJ");
@@ -356,6 +355,7 @@ class M_spj extends CI_Model
             }
         } else {
             $dokumen_spj = $post["dokumen_old"];
+            $st_verif = 1;
         }
 
         if ($post["id_rok"] == "") {
