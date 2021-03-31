@@ -449,7 +449,9 @@ class M_laporan extends CI_Model
         if ($kode_seksi != "") {
             $this->db->where("kode_seksi", $kode_seksi);
         }
+        $this->db->where("kode_bidang !=", "DK005");
         $this->db->where("kode_seksi !=", "XXXX");
+        $this->db->where("kode_seksi !=", "DJ002");
         $data = $this->db->get("tb_user")->result();
 
         return $data;

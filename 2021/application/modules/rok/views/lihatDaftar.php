@@ -80,6 +80,7 @@
                                                     <th width="5%">No</th>
                                                     <th>Uraian Kegiatan</th>
                                                     <th width="15%">Nominal</th>
+                                                    <th width="5%">Blokir</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -91,6 +92,7 @@
                                                         <td align="right">
                                                             <b><?= number_format($val["total_rok"], 0, ",", "."); ?></b>
                                                         </td>
+                                                        <td></td>
                                                     </tr>
                                                     <?php if ($val["rok"] != "") : ?>
                                                         <?php $no = 1; ?>
@@ -102,6 +104,17 @@
                                                                     <p class="my-0"><?= $row2->keterangan; ?></p>
                                                                 </td>
                                                                 <td align="right"><?= number_format($row2->nominal, 0, ",", "."); ?></td>
+                                                                <td align="center">
+                                                                    <?php if ($row2->blok) : ?>
+                                                                        <a href="<?= site_url("../rok/blok/0/" . $id . "/" . $bln . "/" . $kode_seksi . "/" . $row2->id_rok); ?>" class="btn btn-sm btn-success" title="Buka Blokir" onclick="return confirm('Buka Blokir?')">
+                                                                            <span class="fa fa-check-circle"></span>
+                                                                        </a>
+                                                                    <?php else : ?>
+                                                                        <a href="<?= site_url("../rok/blok/1/" . $id . "/" . $bln . "/" . $kode_seksi . "/" . $row2->id_rok); ?>" class="btn btn-sm btn-danger" title="Blokir" onclick="return confirm('Blokir ROK?')">
+                                                                            <span class="fa fa-ban"></span>
+                                                                        </a>
+                                                                    <?php endif; ?>
+                                                                </td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     <?php endif; ?>

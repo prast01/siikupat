@@ -292,6 +292,29 @@ class M_rok extends CI_Model
         }
     }
 
+    public function blok($blok, $id_rok)
+    {
+        $bl = ($blok) ? "Diblokir" : "Dibuka";
+
+        $data = array(
+            "blok" => $blok
+        );
+
+        $where = array(
+            "id_rok" => $id_rok
+        );
+
+        $hasil = $this->db->update("tb_rok", $data, $where);
+
+        if ($hasil) {
+            return array("res" => 1, "msg" => "Data ROK Berhasil " . $bl);
+        } else {
+            return array("res" => 0, "msg" => "Data ROK Gagal " . $bl);
+        }
+    }
+
+
+    // PRIVATE
     private function cek_pagu($id_rekening, $nominal, $bln, $nominal_lama = 0)
     {
         $rekening = $this->db->get_where("tb_rekening", ["id_rekening" => $id_rekening])->row();
