@@ -36,10 +36,6 @@ class M_service extends CI_Model
         $this->db->from("tb_rekening");
         $this->db->where("id_sub_kegiatan", $id_sub_kegiatan);
 
-        if ($kode_seksi != "DJ002") {
-            $this->db->where("cek !=", 0);
-        }
-
         $data = $this->db->get()->result();
 
         return $data;
