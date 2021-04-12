@@ -36,6 +36,10 @@ class M_service extends CI_Model
         $this->db->from("tb_rekening");
         $this->db->where("id_sub_kegiatan", $id_sub_kegiatan);
 
+        if ($kode_seksi != "DJ002" && ($id_sub_kegiatan == 3 || $id_sub_kegiatan == 7)) {
+            $this->db->where("cek !=", 0);
+        }
+
         $data = $this->db->get()->result();
 
         return $data;
@@ -285,7 +289,8 @@ class M_service extends CI_Model
         // $this->db->where("tb_rok.bulan <=", $bulan);
         // $data = $this->db->get("tb_rok")->result();
 
-        $data = $this->db->query("SELECT tb_rok.uraian, tb_rok.nominal FROM tb_rok INNER JOIN tb_rekening ON tb_rok.id_rekening=tb_rekening.id_rekening WHERE tb_rekening.cek = 1 AND tb_rok.kode_seksi = '$kode_seksi' AND tb_rok.bulan <= '$bulan' AND tb_rok.id_rok NOT IN (SELECT id_rok FROM tb_spj)")->result();
+        // $data = $this->db->query("SELECT tb_rok.uraian, tb_rok.nominal FROM tb_rok INNER JOIN tb_rekening ON tb_rok.id_rekening=tb_rekening.id_rekening WHERE tb_rekening.cek = 1 AND tb_rok.kode_seksi = '$kode_seksi' AND tb_rok.bulan <= '$bulan' AND tb_rok.id_rok NOT IN (SELECT id_rok FROM tb_spj)")->result();
+        $data = $this->db->query("SELECT tb_rok.uraian, tb_rok.nominal FROM tb_rok INNER JOIN tb_rekening ON tb_rok.id_rekening=tb_rekening.id_rekening WHERE tb_rekening.cek = 1 AND tb_rok.kode_seksi = '$kode_seksi' AND tb_rok.bulan <= '$bulan'")->result();
 
         $no = 0;
         $hsl = array();
