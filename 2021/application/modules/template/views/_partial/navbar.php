@@ -60,6 +60,9 @@
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 							<li>
+								<a tabindex="-1" href="<?php echo site_url('../rak-rok'); ?>" class="dropdown-item">RAK x ROK</a>
+							</li>
+							<li>
 								<a tabindex="-1" href="<?php echo site_url('../realisasi-rok'); ?>" class="dropdown-item">Realisasi ROK</a>
 							</li>
 							<?php //if ($kode_bidang == "XXXX") : 
@@ -95,6 +98,12 @@
 								</ul>
 							</li>
 						</ul>
+					</li>
+				<?php endif; ?>
+				<!-- RAK -->
+				<?php if ($kode_seksi != "XXXX") : ?>
+					<li class="nav-item">
+						<a href="<?php echo site_url('../rak'); ?>" class="nav-link">RAK</a>
 					</li>
 				<?php endif; ?>
 				<!-- PENGATURAN -->

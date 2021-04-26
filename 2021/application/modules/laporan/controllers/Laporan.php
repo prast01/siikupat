@@ -319,6 +319,49 @@ class Laporan extends MY_Controller
 
         $this->template("bk_0", $data);
     }
+
+    public function rak_rok()
+    {
+        error_reporting(E_NOTICE ^ E_ALL);
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_laporan;
+        if (isset($_POST["kode_bidang"])) {
+            $kode_bidang = $_POST["kode_bidang"];
+        } else {
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+        }
+        if (isset($_POST["kode_seksi"])) {
+            $kode_seksi = $_POST["kode_seksi"];
+        } else {
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+        }
+
+        $data["kode_bidang"] = $kode_bidang;
+        $data["kode_seksi"] = $kode_seksi;
+        $data["bln"] = array(
+            "01" => "Januari",
+            "02" => "Februari",
+            "03" => "Maret",
+            "04" => "April",
+            "05" => "Mei",
+            "06" => "Juni",
+            "07" => "Juli",
+            "08" => "Agustus",
+            "09" => "September",
+            "10" => "Oktober",
+            "11" => "November",
+            "12" => "Desember"
+        );
+
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan_rak_rok($kode_bidang, $kode_seksi);
+        $data["bidang"] = $model->get_bidang();
+        $data["seksi"] = $model->get_seksi($kode_bidang);
+
+        // $this->template("lap_rak_rok", $data);
+        echo json_encode($data["sub_kegiatan"][0]["data"][1]["sumber"]);
+    }
 }
 
 /* End of file Laporan.php */

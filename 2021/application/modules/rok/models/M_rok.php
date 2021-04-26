@@ -101,71 +101,51 @@ class M_rok extends CI_Model
         return $data->$bulan;
     }
 
-    // PRIVATE
-    private function get_nom_realisasi($id_sub, $bulan, $kode_seksi)
+    public function get_jml_rok($id_sub_kegiatan, $kode_seksi, $bln)
     {
-        $this->db->select("SUM(nominal) as nominal");
-        $this->db->from("tb_spj");
-        $this->db->where("id_sub_kegiatan", $id_sub);
-        $this->db->where("kode_seksi", $kode_seksi);
-        $this->db->where("MONTH(tgl_kegiatan)", $bulan);
-        $this->db->where("status_spj", 4);
-        $data = $this->db->get()->row();
-
-        if ($data->nominal != "") {
-            return $data->nominal;
+        $data = $this->db->query("SELECT SUM(nominal) as total FROM tb_rok WHERE id_sub_kegiatan='$id_sub_kegiatan' AND kode_seksi='$kode_seksi' AND bulan='$bln'")->row();
+        if ($data->total != "") {
+            return $data->total;
         } else {
             return 0;
         }
     }
 
-    private function get_nom_rok($id_sub, $kode_seksi, $bulan)
+    public function get_jml_rak($id_sub_kegiatan, $bln)
     {
-        $this->db->select("SUM(nominal) as nominal");
-        $this->db->from("tb_rok");
-        $this->db->where("id_sub_kegiatan", $id_sub);
-        $this->db->where("kode_seksi", $kode_seksi);
-        $this->db->where("bulan", $bulan);
-        $data = $this->db->get()->row();
+        $bulan = "b" . $bln;
+        $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+        if ($data->num_rows() > 0) {
+            $x = $data->row();
 
-        if ($data->nominal != "") {
-            return $data->nominal;
+            return $x->$bulan;
         } else {
             return 0;
         }
     }
 
-    private function get_rok_data($id_sub, $id_rekening, $bulan, $kode_seksi)
+
+    public function get_sisa_bulan_lalu($id_sub, $bln_sblm, $kode_seksi)
     {
-        $data = $this->db->get_where("tb_rok", ["id_sub_kegiatan" => $id_sub, "bulan" => $bulan, "kode_seksi" => $kode_seksi, "id_rekening" => $id_rekening, "jenis_spj" => 0])->result();
+        if ($bln_sblm > 0) {
+            $total = 0;
+            for ($i = 1; $i < $bln_sblm; $i++) {
+                $bln = sprintf("%02s", $i);
+                $tbl = "b" . $bln;
 
-        return $data;
-    }
+                $valid = $this->db->query("SELECT $tbl as cek FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'")->row();
 
-    private function get_nom_rok_data($id_sub, $id_rekening, $bulan, $kode_seksi)
-    {
-        $this->db->select("SUM(nominal) as nominal");
-        $this->db->from("tb_rok");
-        $this->db->where("id_sub_kegiatan", $id_sub);
-        $this->db->where("kode_seksi", $kode_seksi);
-        $this->db->where("bulan", $bulan);
-        $this->db->where("id_rekening", $id_rekening);
-        $this->db->where("jenis_spj", 0);
-        $data = $this->db->get()->row();
+                if ($valid->cek == 1) {
+                    $rok = $this->db->query("SELECT SUM(nominal) as nom FROM tb_rok WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi' AND bulan='$bln' AND id_rok NOT IN (SELECT id_rok FROM tb_spj WHERE status_spj='4')")->row();
 
-        if ($data->nominal != "") {
-            return $data->nominal;
+                    $total = $total + $rok->nom;
+                }
+            }
+
+            return $total;
         } else {
             return 0;
         }
-    }
-
-    private function get_rok_valid($id_sub, $kode_seksi, $bulan)
-    {
-        $tbl = "b" . $bulan;
-        $data = $this->db->query("SELECT $tbl AS bulan FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'")->row();
-
-        return $data->bulan;
     }
 
     // CRUD
@@ -313,8 +293,73 @@ class M_rok extends CI_Model
         }
     }
 
-
     // PRIVATE
+    private function get_nom_realisasi($id_sub, $bulan, $kode_seksi)
+    {
+        $this->db->select("SUM(nominal) as nominal");
+        $this->db->from("tb_spj");
+        $this->db->where("id_sub_kegiatan", $id_sub);
+        $this->db->where("kode_seksi", $kode_seksi);
+        $this->db->where("MONTH(tgl_kegiatan)", $bulan);
+        $this->db->where("status_spj", 4);
+        $data = $this->db->get()->row();
+
+        if ($data->nominal != "") {
+            return $data->nominal;
+        } else {
+            return 0;
+        }
+    }
+
+    private function get_nom_rok($id_sub, $kode_seksi, $bulan)
+    {
+        $this->db->select("SUM(nominal) as nominal");
+        $this->db->from("tb_rok");
+        $this->db->where("id_sub_kegiatan", $id_sub);
+        $this->db->where("kode_seksi", $kode_seksi);
+        $this->db->where("bulan", $bulan);
+        $data = $this->db->get()->row();
+
+        if ($data->nominal != "") {
+            return $data->nominal;
+        } else {
+            return 0;
+        }
+    }
+
+    private function get_rok_data($id_sub, $id_rekening, $bulan, $kode_seksi)
+    {
+        $data = $this->db->get_where("tb_rok", ["id_sub_kegiatan" => $id_sub, "bulan" => $bulan, "kode_seksi" => $kode_seksi, "id_rekening" => $id_rekening, "jenis_spj" => 0])->result();
+
+        return $data;
+    }
+
+    private function get_nom_rok_data($id_sub, $id_rekening, $bulan, $kode_seksi)
+    {
+        $this->db->select("SUM(nominal) as nominal");
+        $this->db->from("tb_rok");
+        $this->db->where("id_sub_kegiatan", $id_sub);
+        $this->db->where("kode_seksi", $kode_seksi);
+        $this->db->where("bulan", $bulan);
+        $this->db->where("id_rekening", $id_rekening);
+        $this->db->where("jenis_spj", 0);
+        $data = $this->db->get()->row();
+
+        if ($data->nominal != "") {
+            return $data->nominal;
+        } else {
+            return 0;
+        }
+    }
+
+    private function get_rok_valid($id_sub, $kode_seksi, $bulan)
+    {
+        $tbl = "b" . $bulan;
+        $data = $this->db->query("SELECT $tbl AS bulan FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'")->row();
+
+        return $data->bulan;
+    }
+
     private function cek_pagu($id_rekening, $nominal, $bln, $nominal_lama = 0)
     {
         $rekening = $this->db->get_where("tb_rekening", ["id_rekening" => $id_rekening])->row();

@@ -48,12 +48,6 @@
                                     </div>
                                 <?php else : ?>
                                     <div class="col-lg-12 mb-3">
-                                        <!-- <a href="<?= site_url("../realisasi-rok"); ?>" class="btn btn-warning text-white">
-                                            <span class="fa fa-arrow-left"></span> Kembali
-                                        </a> -->
-                                        <!-- <button class="btn btn-danger" onclick="CloseOpenerWindow()">
-                                            <span class="fa fa-times"></span> tutup
-                                        </button> -->
                                         <?php if ($valid == 0) : ?>
                                             <a href="<?= site_url("../rok/valid_bend/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-warning text-white">
                                                 <span class="fa fa-check"></span> Valid Verifikator
@@ -70,6 +64,34 @@
                                                 <span class="fa fa-check"></span> Validasi ROK
                                             </a>
                                         <?php endif; ?>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="33%">
+                                                            <p class="my-0">Jumlah <span class="text-success">RAK</span> Bulan ini :</p>
+                                                            <h3 class="py-2 my-0 text-success">
+                                                                <?= number_format($jml_rak, 0, ",", "."); ?>
+                                                            </h3>
+                                                        </td>
+                                                        <td>
+                                                            <p class="my-0">Jumlah <span class="text-primary">ROK</span> Bulan ini :</p>
+                                                            <h3 class="py-2 my-0 text-primary">
+                                                                <?= number_format($jml_rok, 0, ",", "."); ?>
+                                                            </h3>
+                                                        </td>
+                                                        <td width="33%">
+                                                            <p class="my-0">Sisa <span class="text-danger">ROK</span> s.d Bulan kemarin :</p>
+                                                            <h3 class="py-2 my-0 text-danger">
+                                                                <?= number_format($jml_sisa, 0, ",", "."); ?>
+                                                            </h3>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 <?php endif; ?>
                                 <div class="col-lg-12">
