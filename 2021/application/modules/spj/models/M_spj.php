@@ -501,7 +501,7 @@ class M_spj extends CI_Model
     {
         $data = $this->db->get_where("tb_rekening", ["id_rekening" => $id_rekening])->row();
 
-        if ($data->cek) {
+        if ($data->cek == 1) {
             $kode_rekening = $data->kode_rekening;
             foreach ($pelaksana as $key => $val) {
                 $data2 = $this->db->get_where("view_spj_rekening", ["id_pegawai" => $val, "kode_rekening" => $kode_rekening, "tgl_kegiatan" => $tgl_kegiatan]);
