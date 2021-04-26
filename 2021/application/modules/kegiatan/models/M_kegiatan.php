@@ -119,7 +119,7 @@ class M_kegiatan extends CI_Model
 
         $hasil = $this->db->insert('tb_sub_kegiatan', $data);
         if ($hasil) {
-            $this->_save_valid($post["kode_seksi"], $post["kode_sub_kegiatan"]);
+            $this->_save_valid($post["kode_seksi"], $post["kode_sub_kegiatan"], $post["nama_sub_kegiatan"]);
             return array("res" => 1, "msg" => "Kegiatan Berhasil Disimpan");
         } else {
             return array("res" => 0, "msg" => "Kegiatan Gagal Disimpan");
@@ -365,9 +365,9 @@ class M_kegiatan extends CI_Model
         }
     }
 
-    private function _save_valid($kode_seksi, $kode_sub)
+    private function _save_valid($kode_seksi, $kode_sub, $nama_sub)
     {
-        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_sub_kegiatan" => $kode_sub, "kode_seksi" => $kode_seksi])->row();
+        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_sub_kegiatan" => $kode_sub, "kode_seksi" => $kode_seksi, "nama_sub_kegiatan" => $nama_sub])->row();
 
         $data_r = array(
             "id_sub_kegiatan" => $data->id_sub_kegiatan,

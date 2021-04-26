@@ -50,32 +50,38 @@
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($sub_kegiatan as $row) : ?>
+                                                <?php foreach ($sub_kegiatan as $row => $val) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $row->nama_sub_kegiatan; ?></td>
+                                                        <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td>
-                                                            <div class="btn-group">
-                                                                <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan . "/" . $row->kode_seksi); ?>" class="btn btn-primary btn-sm btn-flat">
-                                                                    <span class="fa fa-align-justify"></span>
-                                                                </a>
-                                                            </div>
+                                                            <?php if ($val["cek_rak"]) : ?>
+                                                                <div class="btn-group">
+                                                                    <a href="<?= site_url("../rok/bulan/" . $val["id_sub_kegiatan"] . "/" . $val["kode_seksi"]); ?>" class="btn btn-primary btn-sm btn-flat">
+                                                                        <span class="fa fa-align-justify"></span>
+                                                                    </a>
+                                                                </div>
+                                                            <?php else : ?>
+                                                                Silahkan Mengisi RAK pada menu RAK
+                                                            <?php endif; ?>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
-                                                <?php foreach ($sub_kegiatan_2 as $row) : ?>
-                                                    <tr>
-                                                        <td><?= $no++; ?></td>
-                                                        <td><?= $row->nama_sub_kegiatan; ?></td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan . "/" . $kode_seksi); ?>" class="btn btn-primary btn-sm btn-flat">
-                                                                    <span class="fa fa-align-justify"></span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                <?php endforeach; ?>
+                                                <?php if ($kode_seksi != "DJ002") : ?>
+                                                    <?php foreach ($sub_kegiatan_2 as $row) : ?>
+                                                        <tr>
+                                                            <td><?= $no++; ?></td>
+                                                            <td><?= $row->nama_sub_kegiatan; ?></td>
+                                                            <td>
+                                                                <div class="btn-group">
+                                                                    <a href="<?= site_url("../rok/bulan/" . $row->id_sub_kegiatan . "/" . $kode_seksi); ?>" class="btn btn-primary btn-sm btn-flat">
+                                                                        <span class="fa fa-align-justify"></span>
+                                                                    </a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
                                             </tbody>
                                         </table>
                                     </div>

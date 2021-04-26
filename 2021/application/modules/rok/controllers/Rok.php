@@ -72,6 +72,9 @@ class Rok extends MY_Controller
         $data["kode_seksi"] = $seksi;
         $data["rok"] = $model->get_rok($id_sub, $bulan, $seksi);
         $data["valid"] = $model->get_valid_bend($id_sub, $seksi, $bulan);
+        $data["jml_rok"] = $model->get_jml_rok($id_sub, $seksi, $bulan);
+        $data["jml_rak"] = $model->get_jml_rak($id_sub, $bulan);
+        $data["jml_sisa"] = $model->get_sisa_bulan_lalu($id_sub, $bulan, $seksi);
 
         $this->template("lihatDaftar", $data);
         // echo json_encode($data["rok"]);
@@ -86,10 +89,13 @@ class Rok extends MY_Controller
         $data["id"] = $id_sub;
         $data["bln"] = $bulan;
         $data["rok"] = $model->get_rok($id_sub, $bulan, $seksi);
+        $data["sisa"] = $model->get_sisa_bulan_lalu($id_sub, $bulan, $seksi);
+        $data["rak"] = $model->get_data_rak($id_sub, $bulan);
         $data["seksi"] = $model->get_seksi($seksi);
         $data["kegiatan"] = $model->get_kegiatan($id_sub);
 
         $this->load->view("cetak", $data);
+        // echo json_encode($data);
     }
 
     // CRUD
