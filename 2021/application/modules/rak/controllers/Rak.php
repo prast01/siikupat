@@ -64,6 +64,9 @@ class Rak extends MY_Controller
         $data["detail"] = $model->get_detail($id_sub_kegiatan);
         $data["id_sub_kegiatan"] = $id_sub_kegiatan;
 
+        $lock = $this->db->get_where("tb_pengaturan", ["nama_pengaturan" => "lock_rak"])->row();
+        $data["lock"] = $lock->nilai_pengaturan;
+
         $this->template("detail", $data);
     }
 }

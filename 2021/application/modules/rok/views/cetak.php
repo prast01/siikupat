@@ -170,7 +170,22 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
             </tr>
         </tbody>
     </table>
-    <br><br>
+    <?php if ($kegiatan->bagi != 1) : ?>
+        <br>
+        <table style="border-collapse:collapse;" border="1" width="50%">
+            <tbody>
+                <tr>
+                    <td align="center" width="50%">RAK Bulan ini :</td>
+                    <td align="center">Sisa ROK Bulan Kemarin :</td>
+                </tr>
+                <tr>
+                    <td align="center"><b><?= $rak; ?></b></td>
+                    <td align="center"><b><?= $sisa; ?></b></td>
+                </tr>
+            </tbody>
+        </table>
+    <?php endif; ?>
+    <br>
     <table border="0" width="100%">
         <tr>
             <td width="35%">

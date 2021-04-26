@@ -89,10 +89,13 @@ class Rok extends MY_Controller
         $data["id"] = $id_sub;
         $data["bln"] = $bulan;
         $data["rok"] = $model->get_rok($id_sub, $bulan, $seksi);
+        $data["sisa"] = $model->get_sisa_bulan_lalu($id_sub, $bulan, $seksi);
+        $data["rak"] = $model->get_data_rak($id_sub, $bulan);
         $data["seksi"] = $model->get_seksi($seksi);
         $data["kegiatan"] = $model->get_kegiatan($id_sub);
 
         $this->load->view("cetak", $data);
+        // echo json_encode($data);
     }
 
     // CRUD

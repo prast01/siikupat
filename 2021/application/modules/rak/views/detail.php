@@ -59,6 +59,7 @@
                                                 </thead>
                                                 <tbody>
                                                     <?php $no = 1; ?>
+                                                    <?php $rd = ($lock) ? "readonly" : ""; ?>
                                                     <?php foreach ($detail as $row => $val) : ?>
                                                         <tr>
                                                             <td><?= $no++; ?></td>
@@ -66,7 +67,7 @@
                                                             <td>
                                                                 <div class="form-group">
                                                                     <input type="hidden" name="id_sub_kegiatan" value="<?= $id_sub_kegiatan; ?>">
-                                                                    <input type="number" name="b<?= $val["kode_bulan"]; ?>" value="<?= $val["rak"]; ?>" class="form-control">
+                                                                    <input <?= $rd; ?> type="number" name="b<?= $val["kode_bulan"]; ?>" value="<?= $val["rak"]; ?>" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -74,9 +75,11 @@
                                                     <tr>
                                                         <td colspan="2"></td>
                                                         <td align="center">
-                                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                                Simpan
-                                                            </button>
+                                                            <?php if (!$lock) : ?>
+                                                                <button type="submit" class="btn btn-primary btn-sm">
+                                                                    Simpan
+                                                                </button>
+                                                            <?php endif; ?>
                                                         </td>
                                                     </tr>
                                                 </tbody>

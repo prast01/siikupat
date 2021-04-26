@@ -7,13 +7,19 @@ class M_rok extends CI_Model
 
     public function get_sub_kegiatan($kode_seksi)
     {
-        // if ($kode_seksi != "DJ001") {
         $data = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
-        // } else {
-        //     $data = $this->db->get_where("tb_sub_kegiatan")->result();
-        // }
+        $hsl = array();
+        $no = 0;
+        foreach ($data as $key) {
+            $hsl[$no++] = array(
+                "id_sub_kegiatan" => $key->id_sub_kegiatan,
+                "nama_sub_kegiatan" => $key->nama_sub_kegiatan,
+                "kode_seksi" => $key->kode_seksi,
+                "cek_rak" => $this->_cek_rak($key->id_sub_kegiatan),
+            );
+        }
 
-        return $data;
+        return $hsl;
     }
 
     public function get_sub_kegiatan_bagi()
@@ -124,13 +130,21 @@ class M_rok extends CI_Model
         }
     }
 
-
-    public function get_sisa_bulan_lalu($id_sub, $bln_sblm, $kode_seksi)
+    public function get_sisa_bulan_lalu($id_sub, $bln, $kode_seksi)
     {
+
+        if ($bln > 1) {
+            $bln_sblm = $bln - 1;
+        } else {
+            $bln_sblm = 0;
+        }
+
         if ($bln_sblm > 0) {
             $total = 0;
-            for ($i = 1; $i < $bln_sblm; $i++) {
-                $bln = sprintf("%02s", $i);
+            for ($i = 1; $i <= $bln_sblm; $i++) {
+
+                $s = date("Y") . "-" . $i . "-01";
+                $bln = date("m", strtotime($s));
                 $tbl = "b" . $bln;
 
                 $valid = $this->db->query("SELECT $tbl as cek FROM tb_rok_valid WHERE id_sub_kegiatan='$id_sub' AND kode_seksi='$kode_seksi'")->row();
@@ -142,12 +156,24 @@ class M_rok extends CI_Model
                 }
             }
 
-            return $total;
+            return number_format($total, 0, ",", ".");
         } else {
             return 0;
         }
     }
 
+    public function get_data_rak($id_sub_kegiatan, $bln)
+    {
+        $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+        $kolom = "b" . $bln;
+
+        if ($data->num_rows() > 0) {
+            $hsl = $data->row();
+            return number_format($hsl->$kolom, 0, ",", ".");
+        } else {
+            return 0;
+        }
+    }
     // CRUD
     public function save($post)
     {
@@ -379,6 +405,17 @@ class M_rok extends CI_Model
         $sisa = $rekening->pagu_rekening - (($real->nominal + $rok->nominal) - $nominal_lama);
 
         if ($sisa < $nominal) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    private function _cek_rak($id_sub_kegiatan)
+    {
+        $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan])->num_rows();
+
+        if ($data > 0) {
             return 1;
         } else {
             return 0;

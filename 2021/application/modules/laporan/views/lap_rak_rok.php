@@ -31,7 +31,7 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Laporan RAK x ROK</h5>
+                            <h5 class="card-title m-0"><?= $laporan; ?></h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -63,13 +63,12 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered datatable">
+                                        <table class="table table-sm table-bordered datatable">
                                             <thead>
                                                 <tr>
                                                     <th width="3%">No</th>
-                                                    <th width="40%">Nama Sub Kegiatan</th>
-                                                    <th width="20%">Pelaksana</th>
-                                                    <th width="10%">Sumber</th>
+                                                    <th width="10%">Nama Sub Kegiatan</th>
+                                                    <th width="10%">Pelaksana</th>
                                                     <?php foreach ($bln as $row => $val) : ?>
                                                         <th><?= $val; ?></th>
                                                     <?php endforeach; ?>
@@ -78,28 +77,14 @@
                                             <tbody>
                                                 <?php $no = 1; ?>
                                                 <?php foreach ($sub_kegiatan as $row => $val) : ?>
-                                                    <?php $show = ($val["baris"] > 1) ? 1 : 0; ?>
                                                     <tr>
-                                                        <td><?= $no; ?></td>
+                                                        <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td><?= $val["nama"]; ?></td>
-                                                        <td><?= $val["data"][0]["sumber"]; ?></td>
-                                                        <?php foreach ($bln as $row2 => $val) : ?>
-                                                            <td><?= $val; ?></td>
+                                                        <?php foreach ($bln as $row2 => $val2) : ?>
+                                                            <td align="right"><?= $val[$row2]; ?></td>
                                                         <?php endforeach; ?>
                                                     </tr>
-                                                    <?php if ($show) : ?>
-                                                        <tr>
-                                                            <td><?= $no; ?></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td><?= $val["data"][1]["sumber"]; ?></td>
-                                                            <?php foreach ($bln as $row => $val) : ?>
-                                                                <td><?= $val; ?></td>
-                                                            <?php endforeach; ?>
-                                                        </tr>
-                                                    <?php endif; ?>
-                                                    <?php $no++; ?>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>

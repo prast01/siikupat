@@ -33,6 +33,7 @@ class M_laporan extends CI_Model
                 "nama_sub_kegiatan" => $row->nama_sub_kegiatan,
                 "nama" => $row->nama,
                 "sisa" => $this->_get_sisa_bulan_lalu($row->id_sub_kegiatan, $bln_sblm, $row->kode_seksi),
+                "rak" => $this->_get_data_rak($row->id_sub_kegiatan, sprintf("%02s", $bulan)),
                 "rok" => $this->_get_rok($row->id_sub_kegiatan, $bulan, $row->kode_seksi),
                 "realisasi" => $this->_get_real($row->id_sub_kegiatan, $bulan, $row->kode_seksi),
                 "valid" => $this->_get_valid($row->id_sub_kegiatan, $bulan, $row->kode_seksi),
@@ -51,6 +52,7 @@ class M_laporan extends CI_Model
                         "nama_sub_kegiatan" => $row->nama_sub_kegiatan,
                         "nama" => $row2->nama,
                         "sisa" => $this->_get_sisa_bulan_lalu($row->id_sub_kegiatan, $bln_sblm, $row2->kode_seksi),
+                        "rak" => $this->_get_data_rak($row->id_sub_kegiatan, sprintf("%02s", $bulan)),
                         "rok" => $this->_get_rok($row->id_sub_kegiatan, $bulan, $row2->kode_seksi),
                         "realisasi" => $this->_get_real($row->id_sub_kegiatan, $bulan, $row2->kode_seksi),
                         "valid" => $this->_get_valid($row->id_sub_kegiatan, $bulan, $row2->kode_seksi),
@@ -333,7 +335,7 @@ class M_laporan extends CI_Model
         return $hsl;
     }
 
-    public function get_sub_kegiatan_rak_rok($kode_bidang, $kode_seksi)
+    public function get_sub_kegiatan_rak($kode_bidang, $kode_seksi)
     {
         $this->db->from("tb_sub_kegiatan");
         $this->db->join("tb_user", "tb_sub_kegiatan.kode_seksi = tb_user.kode_seksi");
@@ -344,7 +346,7 @@ class M_laporan extends CI_Model
             $this->db->where("tb_user.kode_seksi", $kode_seksi);
         }
         $this->db->where("tb_user.kode_bidang !=", "DK005");
-        $this->db->group_by('tb_sub_kegiatan.kode_sub_kegiatan');
+        $this->db->order_by('tb_sub_kegiatan.kode_sub_kegiatan', 'ASC');
         $this->db->order_by('tb_sub_kegiatan.id_sub_kegiatan', 'ASC');
 
         $data_sub = $this->db->get()->result();
@@ -356,8 +358,59 @@ class M_laporan extends CI_Model
                 "kode_sub_kegiatan" => $key->kode_sub_kegiatan,
                 "nama_sub_kegiatan" => $key->nama_sub_kegiatan,
                 "nama" => $key->nama,
-                "baris" => $this->_get_row($key->kode_sub_kegiatan, $key->kode_seksi),
-                "data" => $this->_get_row_data($key->kode_sub_kegiatan, $key->kode_seksi),
+                "01" => $this->_get_data_rak($key->id_sub_kegiatan, "01"),
+                "02" => $this->_get_data_rak($key->id_sub_kegiatan, "02"),
+                "03" => $this->_get_data_rak($key->id_sub_kegiatan, "03"),
+                "04" => $this->_get_data_rak($key->id_sub_kegiatan, "04"),
+                "05" => $this->_get_data_rak($key->id_sub_kegiatan, "05"),
+                "06" => $this->_get_data_rak($key->id_sub_kegiatan, "06"),
+                "07" => $this->_get_data_rak($key->id_sub_kegiatan, "07"),
+                "08" => $this->_get_data_rak($key->id_sub_kegiatan, "08"),
+                "09" => $this->_get_data_rak($key->id_sub_kegiatan, "09"),
+                "10" => $this->_get_data_rak($key->id_sub_kegiatan, "10"),
+                "11" => $this->_get_data_rak($key->id_sub_kegiatan, "11"),
+                "12" => $this->_get_data_rak($key->id_sub_kegiatan, "12")
+            );
+        }
+
+        return $hsl;
+    }
+
+    public function get_sub_kegiatan_rok($kode_bidang, $kode_seksi)
+    {
+        $this->db->from("tb_sub_kegiatan");
+        $this->db->join("tb_user", "tb_sub_kegiatan.kode_seksi = tb_user.kode_seksi");
+        if ($kode_bidang != "") {
+            $this->db->where("tb_user.kode_bidang", $kode_bidang);
+        }
+        if ($kode_seksi != "") {
+            $this->db->where("tb_user.kode_seksi", $kode_seksi);
+        }
+        $this->db->where("tb_user.kode_bidang !=", "DK005");
+        $this->db->order_by('tb_sub_kegiatan.kode_sub_kegiatan', 'ASC');
+        $this->db->order_by('tb_sub_kegiatan.id_sub_kegiatan', 'ASC');
+
+        $data_sub = $this->db->get()->result();
+
+        $hsl = array();
+        $no = 0;
+        foreach ($data_sub as $key) {
+            $hsl[$no++] = array(
+                "kode_sub_kegiatan" => $key->kode_sub_kegiatan,
+                "nama_sub_kegiatan" => $key->nama_sub_kegiatan,
+                "nama" => $key->nama,
+                "01" => $this->_get_data_rok($key->id_sub_kegiatan, "01", $key->kode_seksi),
+                "02" => $this->_get_data_rok($key->id_sub_kegiatan, "02", $key->kode_seksi),
+                "03" => $this->_get_data_rok($key->id_sub_kegiatan, "03", $key->kode_seksi),
+                "04" => $this->_get_data_rok($key->id_sub_kegiatan, "04", $key->kode_seksi),
+                "05" => $this->_get_data_rok($key->id_sub_kegiatan, "05", $key->kode_seksi),
+                "06" => $this->_get_data_rok($key->id_sub_kegiatan, "06", $key->kode_seksi),
+                "07" => $this->_get_data_rok($key->id_sub_kegiatan, "07", $key->kode_seksi),
+                "08" => $this->_get_data_rok($key->id_sub_kegiatan, "08", $key->kode_seksi),
+                "09" => $this->_get_data_rok($key->id_sub_kegiatan, "09", $key->kode_seksi),
+                "10" => $this->_get_data_rok($key->id_sub_kegiatan, "10", $key->kode_seksi),
+                "11" => $this->_get_data_rok($key->id_sub_kegiatan, "11", $key->kode_seksi),
+                "12" => $this->_get_data_rok($key->id_sub_kegiatan, "12", $key->kode_seksi)
             );
         }
 
@@ -489,73 +542,26 @@ class M_laporan extends CI_Model
         return $data;
     }
 
-    private function _get_row($kode_sub_kegiatan, $kode_seksi)
+    private function _get_data_rak($id_sub_kegiatan, $bln)
     {
-        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_sub_kegiatan" => $kode_sub_kegiatan, "kode_seksi" => $kode_seksi])->num_rows();
-        return $data;
-    }
-
-    private function _get_row_data($kode_sub_kegiatan, $kode_seksi)
-    {
-        $this->db->order_by("id_sub_kegiatan", "ASC");
-        $data = $this->db->get_where("tb_sub_kegiatan", ["kode_sub_kegiatan" => $kode_sub_kegiatan, "kode_seksi" => $kode_seksi]);
-
-        $hsl = array();
-
-        if ($data->num_rows() > 1) {
-            $val = $data->result();
-            $no = 0;
-            foreach ($val as $key) {
-                $smb = explode("-", $key->nama_sub_kegiatan);
-                $sumber = ($smb[1] != null) ? $smb[1] : "";
-                $hsl[$no++] = array(
-                    "sumber" => $sumber,
-                    "b01" => $this->_get_data_bulan($key->id_sub_kegiatan, "01"),
-                    "b02" => $this->_get_data_bulan($key->id_sub_kegiatan, "02"),
-                    "b03" => $this->_get_data_bulan($key->id_sub_kegiatan, "03"),
-                    "b04" => $this->_get_data_bulan($key->id_sub_kegiatan, "04"),
-                    "b05" => $this->_get_data_bulan($key->id_sub_kegiatan, "05"),
-                    "b06" => $this->_get_data_bulan($key->id_sub_kegiatan, "06"),
-                    "b07" => $this->_get_data_bulan($key->id_sub_kegiatan, "07"),
-                    "b08" => $this->_get_data_bulan($key->id_sub_kegiatan, "08"),
-                    "b09" => $this->_get_data_bulan($key->id_sub_kegiatan, "09"),
-                    "b10" => $this->_get_data_bulan($key->id_sub_kegiatan, "10"),
-                    "b11" => $this->_get_data_bulan($key->id_sub_kegiatan, "11"),
-                    "b12" => $this->_get_data_bulan($key->id_sub_kegiatan, "12")
-                );
-            }
-        } else {
-            $key = $data->row();
-            $smb = explode("-", $key->nama_sub_kegiatan);
-            $sumber = ($smb[1] != null) ? $smb[1] : "";
-            $hsl[0] = array(
-                "sumber" => $sumber,
-                "b01" => $this->_get_data_bulan($key->id_sub_kegiatan, "01"),
-                "b02" => $this->_get_data_bulan($key->id_sub_kegiatan, "02"),
-                "b03" => $this->_get_data_bulan($key->id_sub_kegiatan, "03"),
-                "b04" => $this->_get_data_bulan($key->id_sub_kegiatan, "04"),
-                "b05" => $this->_get_data_bulan($key->id_sub_kegiatan, "05"),
-                "b06" => $this->_get_data_bulan($key->id_sub_kegiatan, "06"),
-                "b07" => $this->_get_data_bulan($key->id_sub_kegiatan, "07"),
-                "b08" => $this->_get_data_bulan($key->id_sub_kegiatan, "08"),
-                "b09" => $this->_get_data_bulan($key->id_sub_kegiatan, "09"),
-                "b10" => $this->_get_data_bulan($key->id_sub_kegiatan, "10"),
-                "b11" => $this->_get_data_bulan($key->id_sub_kegiatan, "11"),
-                "b12" => $this->_get_data_bulan($key->id_sub_kegiatan, "12")
-            );
-        }
-
-        return $hsl;
-    }
-
-    private function _get_data_bulan($id_sub_kegiatan, $bln)
-    {
-        $kolom = "b" . $bln;
         $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+        $kolom = "b" . $bln;
 
         if ($data->num_rows() > 0) {
-            $x = $data->row();
-            return $x->$kolom;
+            $hsl = $data->row();
+            return number_format($hsl->$kolom, 0, ",", ".");
+        } else {
+            return 0;
+        }
+    }
+
+    private function _get_data_rok($id_sub_kegiatan, $bln, $kode_seksi)
+    {
+        $data = $this->db->query("SELECT SUM(nominal) as total FROM tb_rok WHERE id_sub_kegiatan='$id_sub_kegiatan' AND kode_seksi='$kode_seksi' AND bulan='$bln'");
+
+        if ($data->num_rows() > 0) {
+            $hsl = $data->row();
+            return number_format($hsl->total, 0, ",", ".");
         } else {
             return 0;
         }

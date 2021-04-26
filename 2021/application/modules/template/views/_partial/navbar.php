@@ -60,9 +60,6 @@
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 							<li>
-								<a tabindex="-1" href="<?php echo site_url('../rak-rok'); ?>" class="dropdown-item">RAK x ROK</a>
-							</li>
-							<li>
 								<a tabindex="-1" href="<?php echo site_url('../realisasi-rok'); ?>" class="dropdown-item">Realisasi ROK</a>
 							</li>
 							<?php //if ($kode_bidang == "XXXX") : 
@@ -97,15 +94,23 @@
 									</li>
 								</ul>
 							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../laporan-rak'); ?>" class="dropdown-item">Laporan RAK</a>
+							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../laporan-rok'); ?>" class="dropdown-item">Laporan ROK</a>
+							</li>
 						</ul>
 					</li>
 				<?php endif; ?>
 				<!-- RAK -->
-				<?php if ($kode_seksi != "XXXX") : ?>
-					<li class="nav-item">
-						<a href="<?php echo site_url('../rak'); ?>" class="nav-link">RAK</a>
-					</li>
-				<?php endif; ?>
+				<?php //if ($kode_seksi != "XXXX") : 
+				?>
+				<li class="nav-item">
+					<a href="<?php echo site_url('../rak'); ?>" class="nav-link">RAK</a>
+				</li>
+				<?php //endif; 
+				?>
 				<!-- PENGATURAN -->
 				<?php if ($nama == "super" || $kode_seksi == "DJ001" || $kode_bidang == "DK005") : ?>
 					<li class="nav-item dropdown">

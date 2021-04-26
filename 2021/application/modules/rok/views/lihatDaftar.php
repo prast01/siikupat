@@ -64,6 +64,9 @@
                                                 <span class="fa fa-check"></span> Validasi ROK
                                             </a>
                                         <?php endif; ?>
+                                        <a href="<?= site_url("../rok/cetak/" . $id . "/" . $bln . "/" . $kode_seksi); ?>" class="btn btn-success text-white" target="_blank">
+                                            <span class="fa fa-print"></span> Cetak ROK
+                                        </a>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="table-responsive">

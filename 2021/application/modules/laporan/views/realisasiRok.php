@@ -74,14 +74,15 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%" rowspan="2">No</th>
-                                                    <th rowspan="2" width="40%">Nama Sub Kegiatan</th>
+                                                    <th rowspan="2" width="30%">Nama Sub Kegiatan</th>
                                                     <th rowspan="2">Pelaksana</th>
                                                     <th rowspan="2" width="10%">Sisa Realisasi</th>
-                                                    <th colspan="2">Bulan</th>
+                                                    <th colspan="3">Bulan</th>
                                                     <th rowspan="2" width="5%">Status</th>
                                                     <th rowspan="2" width="5%">Aksi</th>
                                                 </tr>
                                                 <tr>
+                                                    <th width="10%">RAK</th>
                                                     <th width="10%">ROK</th>
                                                     <th width="10%">Realisasi</th>
                                                 </tr>
@@ -107,6 +108,7 @@
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td><?= $val["nama"]; ?></td>
                                                         <td align="right"><?= $val["sisa"]; ?></td>
+                                                        <td align="right"><?= $val["rak"]; ?></td>
                                                         <td align="right"><?= $val["rok"]; ?></td>
                                                         <td align="right"><?= $val["realisasi"]; ?></td>
                                                         <td><?= $st; ?></td>
