@@ -306,27 +306,28 @@ class M_service extends CI_Model
     // PRIVATE
     private function _get_antrian_spj($kode_bidang, $status)
     {
-        if ($status == 1) {
-            $where = array(
-                "kode_bidang" => $kode_bidang,
-                "status_spj" => $status,
-                "status_verif" => 0,
-                "hapus" => 0,
-            );
-        } elseif ($status == 2) {
-            $where = array(
-                "kode_bidang" => $kode_bidang,
-                "status_spj" => $status,
-                "hapus" => 0,
-            );
-        } elseif ($status == 3) {
-            $where = array(
-                "kode_bidang" => $kode_bidang,
-                "status_spj" => $status,
-                "status_verif" => 0,
-                "hapus" => 0,
-            );
-        }
+        // if ($status == 1) {
+        $where = array(
+            "kode_bidang" => $kode_bidang,
+            "status_spj" => $status,
+            "status_verif" => 0,
+            "hapus" => 0,
+        );
+        // } elseif ($status == 2) {
+        //     $where = array(
+        //         "kode_bidang" => $kode_bidang,
+        //         "status_spj" => $status,
+        //         "status_verif" => 0,
+        //         "hapus" => 0,
+        //     );
+        // } elseif ($status == 3) {
+        //     $where = array(
+        //         "kode_bidang" => $kode_bidang,
+        //         "status_spj" => $status,
+        //         "status_verif" => 0,
+        //         "hapus" => 0,
+        //     );
+        // }
 
         $data = $this->db->get_where("view_spj_verif_bidang", $where)->num_rows();
 
