@@ -8,8 +8,8 @@ class Logout extends MY_Controller
 
     public function index()
     {
-        if ($this->session->userdata("id_user") != '') {
-            $this->session->unset_userdata('id_user');
+        if ($this->session->userdata("id_user_pusk") != '') {
+            $this->session->unset_userdata('id_user_pusk');
             $this->session->unset_userdata('nama');
             $this->session->unset_userdata('nama_kepala');
             $this->session->unset_userdata('nip_kepala');

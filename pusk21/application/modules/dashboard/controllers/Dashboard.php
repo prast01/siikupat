@@ -15,7 +15,7 @@ class Dashboard extends MY_Controller
 
     public function index()
     {
-        if ($this->session->userdata("id_user") == "") {
+        if ($this->session->userdata("id_user_pusk") == "") {
             redirect("../");
         }
 
@@ -26,7 +26,7 @@ class Dashboard extends MY_Controller
 
     public function data($id_data)
     {
-        if ($this->session->userdata("id_user") == "") {
+        if ($this->session->userdata("id_user_pusk") == "") {
             redirect("../");
         }
         $model = $this->M_dashboard;

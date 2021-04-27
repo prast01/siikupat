@@ -67,6 +67,9 @@
                                                                 <button class="btn btn-sm btn-primary" onclick="modalDefault('Ubah Pengguna', 'ubahUser/<?= $key->id_user; ?>')">
                                                                     <span class="fa fa-edit"></span>
                                                                 </button>
+                                                                <button class="btn btn-sm btn-warning" onclick="modalDefault('Ubah Sandi', 'ubahSandi/<?= $key->id_user; ?>')">
+                                                                    <span class="fa fa-lock"></span>
+                                                                </button>
                                                                 <a href="<?= site_url("../pengaturan/hapusUser/" . $key->id_user); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">
                                                                     <span class="fa fa-trash"></span>
                                                                 </a>

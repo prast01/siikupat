@@ -47,26 +47,36 @@ class M_pengaturan extends CI_Model
         }
     }
 
-    public function edit($post, $id_data)
+    public function edit($post, $id_user)
     {
-        if ($post["nama_data"] == "") {
-            return array("res" => 0, "msg" => "Nama Data harus diisi.");
+        if ($post["kode_pusk"] == "") {
+            return array("res" => 0, "msg" => "Kode Puskesmas harus diisi.");
         }
 
-        if ($post["alias"] == "") {
-            return array("res" => 0, "msg" => "Nama Alias harus diisi.");
+        if ($post["nama"] == "") {
+            return array("res" => 0, "msg" => "Nama Puskesmas harus diisi.");
         }
 
-        $where = array(
-            "id_data" => $id_data
-        );
+        if ($post["nama_kepala"] == "") {
+            return array("res" => 0, "msg" => "Nama Kepala Puskesmas harus diisi.");
+        }
+
+        if ($post["nip_kepala"] == "") {
+            return array("res" => 0, "msg" => "NIP Kepala Puskesmas harus diisi.");
+        }
 
         $data = array(
-            "nama_data" => $post["nama_data"],
-            "alias" => $post["alias"],
+            "kode_pusk" => $post["kode_pusk"],
+            "nama" => ucwords($post["nama"]),
+            "nama_kepala" => $post["nama_kepala"],
+            "nip_kepala" => $post["nip_kepala"],
         );
 
-        $hsl = $this->db->update("tb_data", $data, $where);
+        $where = array(
+            "id_user" => $id_user
+        );
+
+        $hsl = $this->db->update("tb_user", $data, $where);
         if ($hsl) {
             return array("res" => 1, "msg" => "Data Berhasil Disimpan.");
         } else {
@@ -74,13 +84,35 @@ class M_pengaturan extends CI_Model
         }
     }
 
-    public function hapus($id_data)
+    public function ubahSandi($post, $id_user)
     {
-        $where = array(
-            "id_data" => $id_data
+        if ($post["sandi"] == "") {
+            return array("res" => 0, "msg" => "Sandi Baru harus diisi.");
+        }
+
+        $data = array(
+            "sandi" => $post["sandi"],
         );
 
-        $hsl = $this->db->delete("tb_data", $where);
+        $where = array(
+            "id_user" => $id_user
+        );
+
+        $hsl = $this->db->update("tb_user", $data, $where);
+        if ($hsl) {
+            return array("res" => 1, "msg" => "Data Berhasil Disimpan.");
+        } else {
+            return array("res" => 1, "msg" => "Data Gagal Disimpan.");
+        }
+    }
+
+    public function hapus($id_user)
+    {
+        $where = array(
+            "id_user" => $id_user
+        );
+
+        $hsl = $this->db->delete("tb_user", $where);
         if ($hsl) {
             return array("res" => 1, "msg" => "Data Berhasil Dihapus.");
         } else {

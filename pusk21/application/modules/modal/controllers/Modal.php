@@ -13,7 +13,7 @@ class Modal extends MY_Controller
         $this->load->model('M_modal');
     }
 
-    // Data
+    // User
     public function tambahUser()
     {
         if ($this->session->userdata('id_user') == '') {
@@ -34,6 +34,18 @@ class Modal extends MY_Controller
         );
 
         $this->load->view('ubahUser', $data);
+    }
+
+    public function ubahSandi($id_user)
+    {
+        if ($this->session->userdata('id_user') == '') {
+            redirect('../', 'refresh');
+        }
+        $data = array(
+            "id_user" => $id_user
+        );
+
+        $this->load->view('ubahSandi', $data);
     }
 }
 

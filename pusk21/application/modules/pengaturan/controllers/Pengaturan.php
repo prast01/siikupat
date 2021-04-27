@@ -19,7 +19,7 @@ class Pengaturan extends MY_Controller
 
     public function pengguna()
     {
-        if ($this->session->userdata("id_user") == "") {
+        if ($this->session->userdata("id_user_pusk") == "") {
             redirect("../");
         }
 
@@ -35,7 +35,7 @@ class Pengaturan extends MY_Controller
     // CRUD
     public function tambahUser()
     {
-        if ($this->session->userdata("id_user") == "") {
+        if ($this->session->userdata("id_user_pusk") == "") {
             redirect("../");
         }
 
@@ -53,16 +53,16 @@ class Pengaturan extends MY_Controller
         redirect("../pengaturan/pengguna");
     }
 
-    public function ubahData($id_data)
+    public function ubahUser($id_user)
     {
-        if ($this->session->userdata("id_akun") == "") {
+        if ($this->session->userdata("id_user_pusk") == "") {
             redirect("../");
         }
 
         $model = $this->M_pengaturan;
         $post = $this->input->post();
 
-        $hasil = $model->edit($post, $id_data);
+        $hasil = $model->edit($post, $id_user);
 
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);
@@ -70,18 +70,38 @@ class Pengaturan extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
         }
 
-        redirect("../pengaturan/data");
+        redirect("../pengaturan/pengguna");
     }
 
-    public function hapusData($id_data)
+    public function ubahSandi($id_user)
     {
-        if ($this->session->userdata("id_akun") == "") {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_pengaturan;
+        $post = $this->input->post();
+
+        $hasil = $model->ubahSandi($post, $id_user);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+        }
+
+        redirect("../pengaturan/pengguna");
+    }
+
+    public function hapusUser($id_user)
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
             redirect("../");
         }
 
         $model = $this->M_pengaturan;
 
-        $hasil = $model->hapus($id_data);
+        $hasil = $model->hapus($id_user);
 
         if ($hasil['res']) {
             $this->session->set_flashdata('sukses', $hasil['msg']);
@@ -89,7 +109,7 @@ class Pengaturan extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
         }
 
-        redirect("../pengaturan/data");
+        redirect("../pengaturan/pengguna");
     }
 }
 
