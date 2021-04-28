@@ -342,7 +342,7 @@ function get_seksi(id){
             console.log(data)
             var html = '';
             var i;
-            html += '<option value="" selected>Semua</option>';
+            html += '<option value="all" selected>Semua</option>';
             if(data.length != 0){
                 for(i=0; i<data.length; i++){
                     html += '<option value=' + data[i].kode_seksi + '>' + data[i].nama + '</option>';
