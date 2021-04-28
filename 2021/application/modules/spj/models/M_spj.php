@@ -355,7 +355,7 @@ class M_spj extends CI_Model
             }
         } else {
             $dokumen_spj = $post["dokumen_old"];
-            $st_verif = 1;
+            $st_verif = ($post["status_spj"] == 1) ? 0 : 1;
         }
 
         if ($post["id_rok"] == "") {
