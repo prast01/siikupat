@@ -1,3 +1,30 @@
+<?php
+
+function tgl_indo($tgl)
+{
+    $tgl_split = explode("-", $tgl);
+    $arr_bln = array(
+        "01" => "Januari",
+        "02" => "Februari",
+        "03" => "Maret",
+        "04" => "April",
+        "05" => "Mei",
+        "06" => "Juni",
+        "07" => "Juli",
+        "08" => "Agustus",
+        "09" => "September",
+        "10" => "Oktober",
+        "11" => "November",
+        "12" => "Desember",
+    );
+
+    $tahun = $tgl_split[0];
+    $bulan = $arr_bln[$tgl_split[1]];
+    $hari = $tgl_split[2];
+
+    return $hari . " " . $bulan . " " . $tahun;
+}
+?>
 <div class="content-wrapper">
     <div class="content-header">
         <div class="container">
@@ -31,7 +58,7 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Realisasi Penyerapan Anggaran</h5>
+                            <h5 class="card-title m-0">Realisasi Penyerapan Anggaran s.d. <span class="text-danger"><?= tgl_indo(date("Y-m-d")); ?></span></h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -69,7 +96,7 @@
                                                         <td align="right"><?= number_format($row->pagu_anggaran, 0, ",", "."); ?></td>
                                                         <td align="right"><?= number_format($row->real_anggaran, 0, ",", "."); ?></td>
                                                         <td align="right"><?= number_format($row->sisa_anggaran, 0, ",", "."); ?></td>
-                                                        <td><?= $row->persen_anggaran; ?></td>
+                                                        <td><?= $row->persen_anggaran; ?>%</td>
                                                         <td>
                                                             <a class="btn btn-primary btn-sm" href="<?= site_url("../realisasi/" . $row->kode_seksi); ?>">
                                                                 <span class="fa fa-book"></span> Lihat Detail
@@ -79,12 +106,15 @@
                                                 <?php endforeach; ?>
                                             </tbody>
                                             <tfoot>
+                                                <?php
+                                                $persen = ($total_r / $total_p) * 100;
+                                                ?>
                                                 <tr>
-                                                    <td colspan="2" align="right">Total</td>
-                                                    <td align="right"><?= number_format($total_p, 0, ",", "."); ?></td>
-                                                    <td align="right"><?= number_format($total_r, 0, ",", "."); ?></td>
-                                                    <td align="right"><?= number_format($total_s, 0, ",", "."); ?></td>
-                                                    <td colspan="2"></td>
+                                                    <td colspan="2" align="right"><b>JUMLAH</b></td>
+                                                    <td align="right"><b><?= number_format($total_p, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($total_r, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($total_s, 0, ",", "."); ?></b></td>
+                                                    <td colspan="2"><b><?= number_format($persen, 2, ".", ","); ?>%</b></td>
                                                 </tr>
                                             </tfoot>
                                         </table>

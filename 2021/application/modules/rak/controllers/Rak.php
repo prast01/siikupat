@@ -24,12 +24,12 @@ class Rak extends MY_Controller
         if (isset($_POST["kode_bidang"])) {
             $kode_bidang = $_POST["kode_bidang"];
         } else {
-            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "all";
         }
         if (isset($_POST["kode_seksi"])) {
             $kode_seksi = $_POST["kode_seksi"];
         } else {
-            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
         }
 
         $data["kode_bidang"] = $kode_bidang;
@@ -68,6 +68,33 @@ class Rak extends MY_Controller
         $data["lock"] = $lock->nilai_pengaturan;
 
         $this->template("detail", $data);
+    }
+
+    public function cetak($kode_bidang, $kode_seksi)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_rak;
+        $data["bln"] = array(
+            "01" => "Jan",
+            "02" => "Feb",
+            "03" => "Mar",
+            "04" => "Apr",
+            "05" => "Mei",
+            "06" => "Jun",
+            "07" => "Jul",
+            "08" => "Ags",
+            "09" => "Sep",
+            "10" => "Okt",
+            "11" => "Nov",
+            "12" => "Des"
+        );
+
+        $data["sub_kegiatan"] = $model->get_sub_kegiatan_cetak($kode_bidang, $kode_seksi);
+
+        $this->load->view('cetak', $data);
+        // echo json_encode($data);
     }
 }
 

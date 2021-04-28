@@ -8,10 +8,10 @@ class M_rak extends CI_Model
     {
         $this->db->from("tb_sub_kegiatan");
         $this->db->join("tb_user", "tb_sub_kegiatan.kode_seksi = tb_user.kode_seksi");
-        if ($kode_bidang != "") {
+        if ($kode_bidang != "all") {
             $this->db->where("tb_user.kode_bidang", $kode_bidang);
         }
-        if ($kode_seksi != "") {
+        if ($kode_seksi != "all") {
             $this->db->where("tb_user.kode_seksi", $kode_seksi);
         }
         $this->db->where("tb_user.kode_bidang !=", "DK005");
@@ -44,7 +44,7 @@ class M_rak extends CI_Model
 
     public function get_seksi($kode_bidang)
     {
-        if ($kode_bidang == "") {
+        if ($kode_bidang == "all") {
             $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang !=" => "DK005"])->result();
         } else {
             $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang" => $kode_bidang])->result();
@@ -77,6 +77,47 @@ class M_rak extends CI_Model
                 "kode_bulan" => $key,
                 "nama_bulan" => $val,
                 "rak" => $this->_get_rak($id_sub_kegiatan, $key),
+            );
+        }
+
+        return $hsl;
+    }
+
+    public function get_sub_kegiatan_cetak($kode_bidang, $kode_seksi)
+    {
+        $this->db->from("tb_sub_kegiatan");
+        $this->db->join("tb_user", "tb_sub_kegiatan.kode_seksi = tb_user.kode_seksi");
+        if ($kode_bidang != "all") {
+            $this->db->where("tb_user.kode_bidang", $kode_bidang);
+        }
+        if ($kode_seksi != "all") {
+            $this->db->where("tb_user.kode_seksi", $kode_seksi);
+        }
+        $this->db->where("tb_user.kode_bidang !=", "DK005");
+        $this->db->order_by('tb_sub_kegiatan.kode_sub_kegiatan', 'ASC');
+
+        $data_sub = $this->db->get()->result();
+
+        $hsl = array();
+        $no = 0;
+        foreach ($data_sub as $row) {
+            $id_sub_kegiatan = $row->id_sub_kegiatan;
+            $hsl[$no++] = array(
+                "id_sub_kegiatan" => $row->id_sub_kegiatan,
+                "nama_sub_kegiatan" => $row->nama_sub_kegiatan,
+                "nama" => $row->nama,
+                "01" => $this->_get_data_rak($id_sub_kegiatan, "01"),
+                "02" => $this->_get_data_rak($id_sub_kegiatan, "02"),
+                "03" => $this->_get_data_rak($id_sub_kegiatan, "03"),
+                "04" => $this->_get_data_rak($id_sub_kegiatan, "04"),
+                "05" => $this->_get_data_rak($id_sub_kegiatan, "05"),
+                "06" => $this->_get_data_rak($id_sub_kegiatan, "06"),
+                "07" => $this->_get_data_rak($id_sub_kegiatan, "07"),
+                "08" => $this->_get_data_rak($id_sub_kegiatan, "08"),
+                "09" => $this->_get_data_rak($id_sub_kegiatan, "09"),
+                "10" => $this->_get_data_rak($id_sub_kegiatan, "10"),
+                "11" => $this->_get_data_rak($id_sub_kegiatan, "11"),
+                "12" => $this->_get_data_rak($id_sub_kegiatan, "12")
             );
         }
 
@@ -148,6 +189,19 @@ class M_rak extends CI_Model
             $x = $data->row();
 
             return $x->$kolom;
+        } else {
+            return 0;
+        }
+    }
+
+    private function _get_data_rak($id_sub_kegiatan, $bln)
+    {
+        $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+        $kolom = "b" . $bln;
+
+        if ($data->num_rows() > 0) {
+            $hsl = $data->row();
+            return number_format($hsl->$kolom, 0, ",", ".");
         } else {
             return 0;
         }

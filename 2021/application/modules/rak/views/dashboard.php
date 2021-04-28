@@ -36,13 +36,13 @@
                         <div class="card-body">
                             <div class="row">
                                 <?php if ($this->session->userdata("kode_seksi") == "XXXX") : ?>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-8 mb-3">
                                         <form action="" method="post">
                                             <div class="form-group row">
                                                 <label class="col-form-label col-lg-1">Filter</label>
                                                 <div class="col-lg-3">
                                                     <select name="kode_bidang" class="form-control select2" style="width: 100%;" onchange="get_seksi(this.value)">
-                                                        <option <?= ($kode_bidang == "") ? "selected" : ""; ?> value="">Semua</option>
+                                                        <option <?= ($kode_bidang == "all") ? "selected" : ""; ?> value="all">Semua</option>
                                                         <?php foreach ($bidang as $key) : ?>
                                                             <option <?= ($key->kode_bidang == $kode_bidang) ? "selected" : ""; ?> value="<?= $key->kode_bidang; ?>"><?= $key->nama_bidang; ?></option>
                                                         <?php endforeach; ?>
@@ -50,7 +50,7 @@
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <select name="kode_seksi" id="kode_seksi" class="form-control select2" style="width: 100%;">
-                                                        <option <?= ($kode_bidang == "") ? "selected" : ""; ?> value="">Semua</option>
+                                                        <option <?= ($kode_bidang == "all") ? "selected" : ""; ?> value="all">Semua</option>
                                                         <?php foreach ($seksi as $key) : ?>
                                                             <option <?= ($key->kode_seksi == $kode_seksi) ? "selected" : ""; ?> value="<?= $key->kode_seksi; ?>"><?= $key->nama; ?></option>
                                                         <?php endforeach; ?>
@@ -59,8 +59,19 @@
                                                 <div class="col-lg-1">
                                                     <button class="btn btn-success" name="lihat">Lihat</button>
                                                 </div>
+                                                <div class="col-lg-2">
+                                                    <a href="<?= site_url("../rak/cetak/" . $kode_bidang . "/" . $kode_seksi); ?>" target="_blank" class="btn btn-success">
+                                                        <span class="fa fa-print"></span> Cetak RAK
+                                                    </a>
+                                                </div>
                                             </div>
                                         </form>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="col-lg-2 mb-3">
+                                        <a href="<?= site_url("../rak/cetak/" . $kode_bidang . "/" . $kode_seksi); ?>" target="_blank" class="btn btn-success">
+                                            <span class="fa fa-print"></span> Cetak RAK
+                                        </a>
                                     </div>
                                 <?php endif; ?>
                                 <div class="col-lg-12">
