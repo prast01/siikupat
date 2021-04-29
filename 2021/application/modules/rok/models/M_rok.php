@@ -156,24 +156,25 @@ class M_rok extends CI_Model
                 }
             }
 
-            return number_format($total, 0, ",", ".");
+            return $total;
         } else {
             return 0;
         }
     }
 
-    public function get_data_rak($id_sub_kegiatan, $bln)
+    public function get_rincian($id_sub_kegiatan, $bln)
     {
-        $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
-        $kolom = "b" . $bln;
+        $hsl = array(
+            "pagu" => $this->_get_pagu($id_sub_kegiatan),
+            "rak_tw" => $this->_get_rak_tw($id_sub_kegiatan, $bln),
+            "rak_bln_ini" => $this->_get_rak_bln_ini($id_sub_kegiatan, $bln),
+            "realisasi" => $this->_get_realisasi($id_sub_kegiatan),
+            "persen" => $this->_get_persen($id_sub_kegiatan, $bln),
+        );
 
-        if ($data->num_rows() > 0) {
-            $hsl = $data->row();
-            return number_format($hsl->$kolom, 0, ",", ".");
-        } else {
-            return 0;
-        }
+        return $hsl;
     }
+
     // CRUD
     public function save($post)
     {
@@ -417,6 +418,123 @@ class M_rok extends CI_Model
 
         if ($data > 0) {
             return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    private function _get_pagu($id_sub_kegiatan)
+    {
+        $data = $this->db->query("SELECT SUM(pagu_rekening) as total FROM tb_rekening WHERE id_sub_kegiatan='$id_sub_kegiatan'")->row();
+
+        return $data->total;
+    }
+
+    private function _get_rak_tw($id_sub_kegiatan, $bln)
+    {
+        if ($bln >= 1) {
+            if ($bln >= 1 && $bln <= 3) {
+                $tw = "I";
+                $bln_2 = 3;
+            } elseif ($bln >= 4 && $bln <= 6) {
+                $tw = "II";
+                $bln_2 = 6;
+            } elseif ($bln >= 7 && $bln <= 9) {
+                $tw = "III";
+                $bln_2 = 9;
+            } elseif ($bln >= 10 && $bln <= 12) {
+                $tw = "IV";
+                $bln_2 = 12;
+            }
+
+            $total = 0;
+            for ($i = 1; $i <= $bln_2; $i++) {
+                $kolom = "b" . sprintf("%02s", $i);
+                $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+
+                if ($data->num_rows() > 0) {
+                    $x = $data->row();
+
+                    $total = $total + $x->$kolom;
+                } else {
+                    $total = $total + 0;
+                }
+            }
+
+            return array("tw" => $tw, "nominal" => $total);
+        } else {
+            $bln_2 = 3;
+            $total = 0;
+            for ($i = 1; $i <= $bln_2; $i++) {
+                $kolom = "b" . sprintf("%02s", $i);
+                $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+
+                if ($data->num_rows() > 0) {
+                    $x = $data->row();
+
+                    $total = $total + $x->$kolom;
+                } else {
+                    $total = $total + 0;
+                }
+            }
+            return array("tw" => "I", "nominal" => $total);
+        }
+    }
+
+    private function _get_rak_bln_ini($id_sub_kegiatan, $bln)
+    {
+        if ($bln >= 1) {
+
+            $total = 0;
+            for ($i = 1; $i <= $bln; $i++) {
+                $kolom = "b" . sprintf("%02s", $i);
+                $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+
+                if ($data->num_rows() > 0) {
+                    $x = $data->row();
+
+                    $total = $total + $x->$kolom;
+                } else {
+                    $total = $total + 0;
+                }
+            }
+
+            return $total;
+        } else {
+            return 0;
+        }
+    }
+
+    private function _get_realisasi($id_sub_kegiatan)
+    {
+        $data = $this->db->query("SELECT SUM(nominal) as total FROM tb_spj WHERE id_sub_kegiatan='$id_sub_kegiatan' AND status_spj='4'")->row();
+
+        return $data->total;
+    }
+
+    public function _get_persen($id_sub_kegiatan, $bln)
+    {
+        if ($bln > 1) {
+
+            $total = 0;
+            for ($i = 1; $i <= $bln; $i++) {
+                $kolom = "b" . sprintf("%02s", $i);
+                $data = $this->db->get_where("tb_rak", ["id_sub_kegiatan" => $id_sub_kegiatan]);
+
+                if ($data->num_rows() > 0) {
+                    $x = $data->row();
+
+                    $total = $total + $x->$kolom;
+                } else {
+                    $total = $total + 0;
+                }
+            }
+
+            $real = $this->_get_realisasi($id_sub_kegiatan);
+
+            $persen = ($real / $total) * 100;
+
+            return $persen;
         } else {
             return 0;
         }

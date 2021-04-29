@@ -88,7 +88,7 @@
                                                         <td width="33%">
                                                             <p class="my-0">Sisa <span class="text-danger">ROK</span> s.d Bulan kemarin :</p>
                                                             <h3 class="py-2 my-0 text-danger">
-                                                                <?= $jml_sisa; ?>
+                                                                <?= number_format($jml_sisa, 0, ",", "."); ?>
                                                             </h3>
                                                         </td>
                                                     </tr>

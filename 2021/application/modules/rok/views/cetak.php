@@ -103,9 +103,9 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
     <br>
     <table style="border-collapse:collapse;" border="1" width="100%">
         <tr>
-            <td width="15%" valign="top">Kegiatan</td>
+            <td width="20%" valign="top">Kegiatan</td>
             <td valign="top"><?= $kegiatan->kode_kegiatan . " - " . $kegiatan->nama_kegiatan; ?></td>
-            <td width="30%" rowspan="4" align="center" valign="middle">
+            <td width="30%" rowspan="6" align="center" valign="middle">
                 <img src="<?= site_url("../temp/" . $namafile); ?>" width="80px" style="padding: 5px 5px 5px 5px; border: 1px solid">
             </td>
         </tr>
@@ -119,10 +119,18 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
         </tr>
         <tr>
             <td valign="top">Bulan</td>
-            <td valign="top"><?= $bulan[$bln]; ?></td>
+            <td valign="top"><b><?= $bulan[$bln]; ?></b></td>
+        </tr>
+        <tr>
+            <td valign="top">Pagu Sub Kegiatan</td>
+            <td valign="top"><b><?= number_format($rincian["pagu"], 0, ",", "."); ?></b></td>
+        </tr>
+        <tr>
+            <td valign="top">RAK s.d. TW <?= $rincian["rak_tw"]["tw"]; ?></td>
+            <td valign="top"><b><?= number_format($rincian["rak_tw"]["nominal"], 0, ",", "."); ?></b></td>
         </tr>
     </table>
-    <br><br>
+    <br>
     <table style="border-collapse:collapse;" border="1" width="100%">
         <thead>
             <tr>
@@ -171,7 +179,7 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
         </tbody>
     </table>
     <?php if ($kegiatan->bagi != 1) : ?>
-        <br>
+        <!-- <br>
         <table style="border-collapse:collapse;" border="1" width="50%">
             <tbody>
                 <tr>
@@ -183,12 +191,66 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
                     <td align="center"><b><?= $sisa; ?></b></td>
                 </tr>
             </tbody>
-        </table>
+        </table> -->
     <?php endif; ?>
+    <br>
+    <table border="0" style="border-collapse: collapse;" width="100%">
+        <tr>
+            <td width="45%" style="vertical-align: top;">
+                <table style="border-collapse: collapse;" border="0" width="100%">
+                    <tr>
+                        <td width="59%">Target s.d. bulan ini</td>
+                        <td width="1%">:</td>
+                        <td align="right"><b><?= number_format($rincian["rak_bln_ini"], 0, ",", "."); ?></b></td>
+                    </tr>
+                    <tr>
+                        <td>Realisasi s.d. bulan lalu</td>
+                        <td>:</td>
+                        <td align="right"><b><?= number_format($rincian["realisasi"], 0, ",", "."); ?></b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Persen s.d. bulan lalu</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><b><?= number_format($rincian["persen"], 2, ",", "."); ?>%</b><br>(Target 100%)</td>
+                    </tr>
+                </table>
+            </td>
+            <td></td>
+            <td width="45%" style="vertical-align: top;">
+                <table style="border-collapse: collapse;" border="0" width="100%">
+                    <tr>
+                        <td width="59%">Sisa ROK bulan kemarin</td>
+                        <td width="1%">:</td>
+                        <td align="right"><b><?= number_format($sisa, 0, ",", "."); ?></b></td>
+                    </tr>
+                    <tr>
+                        <td>RAK bulan ini</td>
+                        <td>:</td>
+                        <td align="right"><b style="text-decoration: underline;"><?= number_format($rak, 0, ",", "."); ?></b></td>
+                    </tr>
+                    <tr>
+                        <td align="right"><b>Jumlah (a)</b></td>
+                        <td></td>
+                        <td align="right"><b><?= number_format($rak + $sisa, 0, ",", "."); ?></b></td>
+                    </tr>
+                    <tr>
+                        <td>ROK bulan ini (b)</td>
+                        <td>:</td>
+                        <td align="right"><b><?= number_format($total, 0, ",", "."); ?></b></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">Persentase (a dan b)</td>
+                        <td valign="top">:</td>
+                        <td valign="top"><b><?= number_format(($total / ($rak + $sisa)) * 100, 2, ",", "."); ?>%</b><br>(Target 100%)</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
     <br>
     <table border="0" width="100%">
         <tr>
-            <td width="35%">
+            <td width="40%">
                 <table border="1" style="border-collapse:collapse;" width="100%">
                     <tr>
                         <td align="center" colspan="4"><b>PERSETUJUAN</b></td>
@@ -221,8 +283,8 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
                 </table>
             </td>
             <td></td>
-            <td width="40%">
-                <p style="margin-bottom:-10px">Jepara, <?php echo date("d-m-Y"); ?></p>
+            <td width="40%" style="vertical-align: top;">
+                <p style="margin-bottom:-10px; margin-top: 0;">Jepara, <?php echo date("d-m-Y"); ?></p>
                 <p style="margin-bottom:-10px">Kepala Dinas Kesehatan</p>
                 <p>Kabupaten Jepara</p>
                 <br><br>
