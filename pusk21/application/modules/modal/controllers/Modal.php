@@ -16,7 +16,7 @@ class Modal extends MY_Controller
     // User
     public function tambahUser()
     {
-        if ($this->session->userdata('id_user') == '') {
+        if ($this->session->userdata('id_user_pusk') == '') {
             redirect('../', 'refresh');
         }
 
@@ -25,7 +25,7 @@ class Modal extends MY_Controller
 
     public function ubahUser($id_user)
     {
-        if ($this->session->userdata('id_user') == '') {
+        if ($this->session->userdata('id_user_pusk') == '') {
             redirect('../', 'refresh');
         }
         $model = $this->M_modal;
@@ -38,7 +38,7 @@ class Modal extends MY_Controller
 
     public function ubahSandi($id_user)
     {
-        if ($this->session->userdata('id_user') == '') {
+        if ($this->session->userdata('id_user_pusk') == '') {
             redirect('../', 'refresh');
         }
         $data = array(
@@ -46,6 +46,20 @@ class Modal extends MY_Controller
         );
 
         $this->load->view('ubahSandi', $data);
+    }
+
+    // belanja
+    public function tambahBelanja($jenis)
+    {
+        if ($this->session->userdata('id_user_pusk') == '') {
+            redirect('../', 'refresh');
+        }
+
+        $data = array(
+            "jenis" => $jenis,
+        );
+
+        $this->load->view('tambahBelanja', $data);
     }
 }
 

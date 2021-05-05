@@ -65,7 +65,7 @@ $(function () {
     if (dash === "dashboard") {
         GetChartData();
     }
-
+    
 });
 
 // MODAL

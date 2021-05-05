@@ -24,15 +24,18 @@ $kode_pusk = $this->session->userdata("kode_pusk");
 					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Belanja</a>
 					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 						<li>
-							<a tabindex="-1" href="<?php echo site_url('../'); ?>" class="dropdown-item">Operasional Puskesmas</a>
+							<a tabindex="-1" href="<?php echo site_url('../belanja-apbd'); ?>" class="dropdown-item">Operasional Puskesmas</a>
 						</li>
 						<li>
-							<a tabindex="-1" href="<?php echo site_url('../'); ?>" class="dropdown-item">BOK Puskesmas</a>
+							<a tabindex="-1" href="<?php echo site_url('../belanja-bok'); ?>" class="dropdown-item">BOK Puskesmas</a>
 						</li>
 						<li>
-							<a tabindex="-1" href="<?php echo site_url('../'); ?>" class="dropdown-item">BLUD Puskesmas</a>
+							<a tabindex="-1" href="<?php echo site_url('../belanja-blud'); ?>" class="dropdown-item">BLUD Puskesmas</a>
 						</li>
 					</ul>
+				</li>
+				<li class="nav-item">
+					<a href="<?php echo site_url('../'); ?>" class="nav-link">Pendapatan</a>
 				</li>
 				<!-- <li class="nav-item dropdown">
 					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
@@ -59,6 +62,9 @@ $kode_pusk = $this->session->userdata("kode_pusk");
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 							<li>
 								<a tabindex="-1" href="<?php echo site_url('../pengguna'); ?>" class="dropdown-item">Pengguna</a>
+							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../anggaran'); ?>" class="dropdown-item">Anggaran</a>
 							</li>
 						</ul>
 					</li>

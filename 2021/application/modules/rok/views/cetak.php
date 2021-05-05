@@ -228,20 +228,24 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
                         <td>:</td>
                         <td align="right"><b style="text-decoration: underline;"><?= number_format($rak, 0, ",", "."); ?></b></td>
                     </tr>
+                    <?php
+                    $jml_a = $rak + $sisa;
+                    ?>
                     <tr>
                         <td align="right"><b>Jumlah (a)</b></td>
                         <td></td>
-                        <td align="right"><b><?= number_format($rak + $sisa, 0, ",", "."); ?></b></td>
+                        <td align="right"><b><?= number_format($jml_a, 0, ",", "."); ?></b></td>
                     </tr>
                     <tr>
                         <td>ROK bulan ini (b)</td>
                         <td>:</td>
                         <td align="right"><b><?= number_format($total, 0, ",", "."); ?></b></td>
                     </tr>
+                    <?php $persen = ($jml_a > 0) ? ($total / $jml_a) * 100 : 0; ?>
                     <tr>
                         <td valign="top">Persentase (a dan b)</td>
                         <td valign="top">:</td>
-                        <td valign="top"><b><?= number_format(($total / ($rak + $sisa)) * 100, 2, ",", "."); ?>%</b><br>(Target 100%)</td>
+                        <td valign="top"><b><?= number_format($persen, 2, ",", "."); ?>%</b><br>(Target 100%)</td>
                     </tr>
                 </table>
             </td>

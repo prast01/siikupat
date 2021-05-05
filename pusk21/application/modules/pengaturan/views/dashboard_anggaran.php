@@ -31,7 +31,7 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Data Aktifitas API</h5>
+                            <h5 class="card-title m-0">Daftar Puskesmas</h5>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -41,19 +41,27 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No</th>
-                                                    <th width="20%">Alamat IP</th>
-                                                    <th>Pesan</th>
-                                                    <th width="10%">Created At</th>
+                                                    <th width="15%">Kode Puskesmas</th>
+                                                    <th>Nama Puskesmas</th>
+                                                    <th width="20%">Pagu Anggaran</th>
+                                                    <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($aktif as $key) : ?>
+                                                <?php foreach ($data as $key => $val) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $key->alamat_ip; ?></td>
-                                                        <td><?= $key->pesan; ?></td>
-                                                        <td><?= $key->created_at; ?></td>
+                                                        <td><?= $val["kode_pusk"]; ?></td>
+                                                        <td><?= $val["nama"]; ?></td>
+                                                        <td align="right"><?= $val["pagu"]; ?></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <a href="<?= site_url("../anggaran_detail/" . $val['id_user']); ?>" class="btn btn-sm btn-primary">
+                                                                    <span class="fa fa-book"></span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>

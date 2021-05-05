@@ -12,6 +12,24 @@ class M_pengaturan extends CI_Model
         return $data;
     }
 
+    public function get_all_pusk()
+    {
+        $data = $this->db->get_where("tb_user", ["kode_pusk !=" => "super"])->result();
+
+        $hsl = array();
+        $no = 0;
+        foreach ($data as $key) {
+            $hsl[$no++] = array(
+                "id_user" => $key->id_user,
+                "nama" => $key->nama,
+                "kode_pusk" => $key->kode_pusk,
+                "pagu" => number_format(0, 0, ",", ".")
+            );
+        }
+
+        return $hsl;
+    }
+
     // CRUD
     public function save($post)
     {

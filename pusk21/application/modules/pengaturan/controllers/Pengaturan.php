@@ -32,6 +32,21 @@ class Pengaturan extends MY_Controller
         $this->template("dashboard_user", $data);
     }
 
+    public function anggaran()
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_pengaturan;
+
+        $data = array(
+            "data" => $model->get_all_pusk(),
+        );
+
+        $this->template("dashboard_anggaran", $data);
+    }
+
     // CRUD
     public function tambahUser()
     {
