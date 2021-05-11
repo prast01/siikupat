@@ -31,39 +31,61 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar Puskesmas</h5>
+                            <h5 class="card-title m-0">Realisasi Pendapatan</h5>
                         </div>
                         <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <button class="btn btn-success" onclick="modalXl('Tambah Pendapatan', 'tambahPendapatan/<?= $kode_pusk; ?>')">
+                                        <span class="fa fa-plus"></span> Tambah Data
+                                    </button>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered datatable">
+                                        <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No</th>
-                                                    <th width="15%">Kode Puskesmas</th>
-                                                    <th>Nama Puskesmas</th>
-                                                    <th width="20%">Pagu Anggaran</th>
-                                                    <th width="5%">Aksi</th>
+                                                    <th>Pendapatan Bulan</th>
+                                                    <th width="20%">Realisasi Anggaran</th>
+                                                    <th width="10%">Aksi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php $no = 1; ?>
-                                                <?php foreach ($data as $key => $val) : ?>
+                                                <?php $jumlah = 0; ?>
+                                                <?php foreach ($realisasi as $key => $val) : ?>
+                                                    <?php $jumlah = $jumlah + $val["realisasi"]; ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $val["kode_pusk"]; ?></td>
-                                                        <td><?= $val["nama"]; ?></td>
-                                                        <td align="right"><?= $val["pagu"]; ?></td>
+                                                        <td>Realisasi Bulan <?= $val["bulan"]; ?></td>
+                                                        <td align="right"><?= number_format($val["realisasi"], 0, ",", "."); ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../anggaran/" . $val['kode_pusk']); ?>" class="btn btn-sm btn-primary">
-                                                                    <span class="fa fa-book"></span>
+                                                                <button class="btn btn-sm btn-warning text-white" onclick="modalXl('Ubah Pendapatan', 'ubahPendapatan/<?= $kode_pusk . '/' . $val['kode_bulan']; ?>')">
+                                                                    <span class="fa fa-edit"></span>
+                                                                </button>
+                                                                <a href="<?= site_url("../Pendapatan/hapusPendapatan/" . $kode_pusk . "/" . $val["kode_bulan"]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus?')">
+                                                                    <span class="fa fa-trash"></span>
+                                                                </a>
+                                                                <a href="<?= site_url("../Pendapatan/print/" . $kode_pusk . "/" . $val["kode_bulan"]); ?>" class="btn btn-sm btn-success" target="_blank">
+                                                                    <span class="fa fa-print"></span>
                                                                 </a>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
+                                                <tr>
+                                                    <td colspan="2" align="right">
+                                                        <b>JUMLAH</b>
+                                                    </td>
+                                                    <td align="right">
+                                                        <b><?= number_format($jumlah, 0, ",", "."); ?></b>
+                                                    </td>
+                                                    <td></td>
+                                                </tr>
                                             </tbody>
                                         </table>
 

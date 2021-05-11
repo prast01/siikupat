@@ -18,7 +18,7 @@ $kode_pusk = $this->session->userdata("kode_pusk");
 		<div class="collapse navbar-collapse order-3" id="navbarCollapse">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="<?php echo site_url('../'); ?>" class="nav-link">Beranda</a>
+					<a href="<?php echo site_url('../'); ?>" class="nav-link">Dashboard</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Belanja</a>
@@ -34,8 +34,16 @@ $kode_pusk = $this->session->userdata("kode_pusk");
 						</li>
 					</ul>
 				</li>
-				<li class="nav-item">
-					<a href="<?php echo site_url('../'); ?>" class="nav-link">Pendapatan</a>
+				<li class="nav-item dropdown">
+					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pendapatan</a>
+					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+						<li>
+							<a tabindex="-1" href="<?php echo site_url('../pagu-pendapatan'); ?>" class="dropdown-item">Pagu Pendapatan</a>
+						</li>
+						<li>
+							<a tabindex="-1" href="<?php echo site_url('../realisasi-pendapatan'); ?>" class="dropdown-item">Realisasi Pendapatan</a>
+						</li>
+					</ul>
 				</li>
 				<!-- <li class="nav-item dropdown">
 					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>

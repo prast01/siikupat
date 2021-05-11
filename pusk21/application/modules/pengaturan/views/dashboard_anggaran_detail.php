@@ -31,9 +31,19 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar Puskesmas</h5>
+                            <h5 class="card-title m-0">Daftar Sub Kegiatan</h5>
                         </div>
                         <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <a href="<?= site_url("../anggaran"); ?>" class="btn btn-warning text-white">
+                                        <span class="fa fa-arrow-left"></span> Kembali
+                                    </a>
+                                    <button class="btn btn-success" onclick="modalDefault('Tambah Sub Kegiatan', 'tambahSubKegiatan/<?= $kode_pusk; ?>')">
+                                        <span class="fa fa-plus"></span> Tambah Data
+                                    </button>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
@@ -41,8 +51,9 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No</th>
-                                                    <th width="15%">Kode Puskesmas</th>
-                                                    <th>Nama Puskesmas</th>
+                                                    <th width="15%">Kode Sub Kegiatan</th>
+                                                    <th>Nama Sub Kegiatan</th>
+                                                    <th width="5%">Sumber</th>
                                                     <th width="20%">Pagu Anggaran</th>
                                                     <th width="5%">Aksi</th>
                                                 </tr>
@@ -52,13 +63,20 @@
                                                 <?php foreach ($data as $key => $val) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $val["kode_pusk"]; ?></td>
-                                                        <td><?= $val["nama"]; ?></td>
+                                                        <td><?= $val["kode_sub_kegiatan"]; ?></td>
+                                                        <td><?= $val["nama_sub_kegiatan"]; ?></td>
+                                                        <td><?= $val["jenis_sumber"]; ?></td>
                                                         <td align="right"><?= $val["pagu"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../anggaran/" . $val['kode_pusk']); ?>" class="btn btn-sm btn-primary">
+                                                                <a href="<?= site_url("../rekening/" . $val['kode_pusk'] . "/" . $val["id_sub_kegiatan"]); ?>" class="btn btn-sm btn-primary">
                                                                     <span class="fa fa-book"></span>
+                                                                </a>
+                                                                <button class="btn btn-sm btn-warning text-white" onclick="modalDefault('Ubah Sub Kegiatan', 'ubahSubKegiatan/<?= $kode_pusk . '/' . $val['id_sub_kegiatan']; ?>')">
+                                                                    <span class="fa fa-edit"></span>
+                                                                </button>
+                                                                <a href="<?= site_url("../pengaturan/hapusSub/" . $val['kode_pusk'] . "/" . $val["id_sub_kegiatan"]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus?')">
+                                                                    <span class="fa fa-trash"></span>
                                                                 </a>
                                                             </div>
                                                         </td>

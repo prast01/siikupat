@@ -31,9 +31,19 @@
                 <div class="col-lg-12">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h5 class="card-title m-0">Daftar Puskesmas</h5>
+                            <h5 class="card-title m-0">Daftar Rekening</h5>
                         </div>
                         <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <a href="<?= site_url("../anggaran/" . $kode_pusk); ?>" class="btn btn-warning text-white">
+                                        <span class="fa fa-arrow-left"></span> Kembali
+                                    </a>
+                                    <button class="btn btn-success" onclick="modalDefault('Tambah Rekening', 'tambahRekening/<?= $kode_pusk; ?>/<?= $id_sub_kegiatan; ?>')">
+                                        <span class="fa fa-plus"></span> Tambah Data
+                                    </button>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
@@ -41,9 +51,9 @@
                                             <thead>
                                                 <tr>
                                                     <th width="5%">No</th>
-                                                    <th width="15%">Kode Puskesmas</th>
-                                                    <th>Nama Puskesmas</th>
-                                                    <th width="20%">Pagu Anggaran</th>
+                                                    <th width="15%">Kode Rekening</th>
+                                                    <th>Nama Rekening</th>
+                                                    <th width="20%">Pagu Rekening</th>
                                                     <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -52,13 +62,16 @@
                                                 <?php foreach ($data as $key => $val) : ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
-                                                        <td><?= $val["kode_pusk"]; ?></td>
-                                                        <td><?= $val["nama"]; ?></td>
-                                                        <td align="right"><?= $val["pagu"]; ?></td>
+                                                        <td><?= $val["kode_rekening"]; ?></td>
+                                                        <td><?= $val["nama_rekening"]; ?></td>
+                                                        <td align="right"><?= $val["pagu_rekening"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
-                                                                <a href="<?= site_url("../anggaran/" . $val['kode_pusk']); ?>" class="btn btn-sm btn-primary">
-                                                                    <span class="fa fa-book"></span>
+                                                                <button class="btn btn-sm btn-warning text-white" onclick="modalDefault('Ubah Rekening', 'ubahRekening/<?= $kode_pusk . '/' . $val['id_rekening']; ?>')">
+                                                                    <span class="fa fa-edit"></span>
+                                                                </button>
+                                                                <a href="<?= site_url("../pengaturan/hapusRek/" . $kode_pusk . "/" . $val["id_sub_kegiatan"] . "/" . $val["id_rekening"]); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus?')">
+                                                                    <span class="fa fa-trash"></span>
                                                                 </a>
                                                             </div>
                                                         </td>

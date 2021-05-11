@@ -57,6 +57,10 @@ $route['translate_uri_dashes'] = FALSE;
 // CUSTOME
 $route['pengguna'] = 'pengaturan/pengguna';
 $route['anggaran'] = 'pengaturan/anggaran';
+$route['anggaran/(:any)'] = 'pengaturan/anggaran_detail/$1';
+$route['rekening/(:any)/(:any)'] = 'pengaturan/rekening/$1/$2';
 $route['belanja-apbd'] = 'belanja/beranda/apbd';
 $route['belanja-bok'] = 'belanja/beranda/bok';
 $route['belanja-blud'] = 'belanja/beranda/blud';
+$route['pagu-pendapatan'] = 'pendapatan/pagu';
+$route['realisasi-pendapatan'] = 'pendapatan/realisasi';

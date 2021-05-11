@@ -8,7 +8,7 @@
 	<?php
 	// echo strtoupper(SITE_NAME);
 	if ($this->uri->segment(1)) {
-		$judul = explode('_', $this->uri->segment(1));
+		$judul = explode('-', $this->uri->segment(1));
 		if (isset($judul[1])) {
 			$judul2 = $judul[1];
 		} else {
