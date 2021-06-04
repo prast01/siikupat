@@ -171,12 +171,20 @@
                                                             $total_samping2 = $total_samping2 + $val[$row2];
                                                             $persen_bln = ($val["rak" . $row2] != 0) ? ($val[$row2] / $val["rak" . $row2]) * 100 : 0;
 
-                                                            $color = ($persen_bln >= 75) ? "text-success" : "text-danger";
+                                                            $p_bln = ($val["rak" . $row2] == 0 && $val[$row2] != 0) ? 100 : $persen_bln;
+
+                                                            $bln = date("m");
+                                                            if ($row2 > $bln) {
+                                                                $color = "";
+                                                            } else {
+                                                                $color = ($p_bln >= 75) ? "text-success" : "text-danger";
+                                                            }
+
                                                             ?>
                                                             <td align="right" class="<?= $color; ?>">
                                                                 <?= number_format($val["rak" . $row2], 0, ",", "."); ?> <br>
                                                                 <?= number_format($val[$row2], 0, ",", "."); ?> <br>
-                                                                <?= number_format($persen_bln, 2, ",", "."); ?>% <br>
+                                                                <?= number_format($p_bln, 2, ",", "."); ?>% <br>
                                                             </td>
                                                         <?php endforeach; ?>
                                                         <td align="right">
