@@ -456,7 +456,7 @@ class Laporan extends MY_Controller
         $data["seksi"] = $model->get_seksi($kode_bidang);
 
         $this->template("lap_kinerja", $data);
-        // echo json_encode($data["kode_seksi"]);
+        // echo json_encode($data["bln"]);
     }
 }
 

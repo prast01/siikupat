@@ -173,8 +173,8 @@
 
                                                             $p_bln = ($val["rak" . $row2] == 0 && $val[$row2] != 0) ? 100 : $persen_bln;
 
-                                                            $bln = date("m");
-                                                            if ($row2 > $bln) {
+                                                            $blns = date("m");
+                                                            if ($row2 > $blns) {
                                                                 $color = "";
                                                             } else {
                                                                 $color = ($p_bln >= 75) ? "text-success" : "text-danger";
