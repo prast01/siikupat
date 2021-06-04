@@ -15,6 +15,17 @@ class M_service extends CI_Model
 
         return $data;
     }
+
+    public function get_rekening($id_sub_kegiatan)
+    {
+        $this->db->select("*");
+        $this->db->from("tb_rekening");
+        $this->db->where("id_sub_kegiatan", $id_sub_kegiatan);
+
+        $data = $this->db->get()->result();
+
+        return $data;
+    }
 }
 
 /* End of file M_service.php */

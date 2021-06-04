@@ -36,9 +36,15 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-lg-6">
-                                    <a href="<?= site_url("../anggaran/" . $kode_pusk); ?>" class="btn btn-warning text-white">
-                                        <span class="fa fa-arrow-left"></span> Kembali
-                                    </a>
+                                    <?php if ($kode_pusk != "super") : ?>
+                                        <a href="<?= site_url("../sub-kegiatan/" . $kode_pusk); ?>" class="btn btn-warning text-white">
+                                            <span class="fa fa-arrow-left"></span> Kembali
+                                        </a>
+                                    <?php else : ?>
+                                        <a href="<?= site_url("../anggaran/" . $kode_pusk); ?>" class="btn btn-warning text-white">
+                                            <span class="fa fa-arrow-left"></span> Kembali
+                                        </a>
+                                    <?php endif; ?>
                                     <button class="btn btn-success" onclick="modalDefault('Tambah Rekening', 'tambahRekening/<?= $kode_pusk; ?>/<?= $id_sub_kegiatan; ?>')">
                                         <span class="fa fa-plus"></span> Tambah Data
                                     </button>
@@ -53,7 +59,8 @@
                                                     <th width="5%">No</th>
                                                     <th width="15%">Kode Rekening</th>
                                                     <th>Nama Rekening</th>
-                                                    <th width="20%">Pagu Rekening</th>
+                                                    <th width="15%">Pagu Rekening</th>
+                                                    <th width="15%">Realisasi Rekening</th>
                                                     <th width="5%">Aksi</th>
                                                 </tr>
                                             </thead>
@@ -65,6 +72,7 @@
                                                         <td><?= $val["kode_rekening"]; ?></td>
                                                         <td><?= $val["nama_rekening"]; ?></td>
                                                         <td align="right"><?= $val["pagu_rekening"]; ?></td>
+                                                        <td align="right"><?= $val["realisasi_rekening"]; ?></td>
                                                         <td>
                                                             <div class="btn-group">
                                                                 <button class="btn btn-sm btn-warning text-white" onclick="modalDefault('Ubah Rekening', 'ubahRekening/<?= $kode_pusk . '/' . $val['id_rekening']; ?>')">

@@ -11,6 +11,7 @@ class M_login extends CI_Model
         $this->db->select("nama");
         $this->db->from("tb_user");
         $this->db->where("kode_seksi != ", "XXXX");
+        $this->db->where("kode_bidang != ", "DK005");
         $this->db->like("nama", $term);
 
         $data = $this->db->get()->result();

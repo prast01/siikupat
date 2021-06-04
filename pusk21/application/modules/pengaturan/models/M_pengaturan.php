@@ -66,7 +66,8 @@ class M_pengaturan extends CI_Model
                 "id_rekening" => $key->id_rekening,
                 "kode_rekening" => $key->kode_rekening,
                 "nama_rekening" => $key->nama_rekening,
-                "pagu_rekening" => number_format($key->pagu_rekening, 0, ",", ".")
+                "pagu_rekening" => number_format($key->pagu_rekening, 0, ",", "."),
+                "realisasi_rekening" => number_format($key->realisasi_rekening, 0, ",", "."),
             );
         }
 
@@ -272,11 +273,18 @@ class M_pengaturan extends CI_Model
             return array("res" => 0, "msg" => "Pagu Rekening harus diisi.");
         }
 
+        if ($post["realisasi_rekening"] == "") {
+            $real = 0;
+        } else {
+            $real = $post["realisasi_rekening"];
+        }
+
         $data = array(
             "id_sub_kegiatan" => $post["id_sub_kegiatan"],
             "kode_rekening" => $post["kode_rekening"],
             "nama_rekening" => $post["nama_rekening"],
             "pagu_rekening" => $post["pagu_rekening"],
+            "realisasi_rekening" => $real,
         );
 
         $hsl = $this->db->insert("tb_rekening", $data);
@@ -308,6 +316,7 @@ class M_pengaturan extends CI_Model
             "kode_rekening" => $post["kode_rekening"],
             "nama_rekening" => $post["nama_rekening"],
             "pagu_rekening" => $post["pagu_rekening"],
+            "realisasi_rekening" => $post["realisasi_rekening"],
         );
 
         $hsl = $this->db->update("tb_rekening", $data, $where);
@@ -356,6 +365,10 @@ class M_pengaturan extends CI_Model
         } else {
             return 0;
         }
+    }
+
+    private function _cek_realisasi($id_rekening)
+    {
     }
 }
 

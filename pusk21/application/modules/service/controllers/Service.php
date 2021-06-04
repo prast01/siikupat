@@ -34,6 +34,29 @@ class Service extends MY_Controller
 
         echo json_encode($hsl);
     }
+
+    public function get_rekening($id_sub_kegiatan)
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_service;
+
+        $data = $model->get_rekening($id_sub_kegiatan);
+
+        $no = 0;
+        $hsl = array();
+        foreach ($data as $row) {
+            $hsl[$no++] = array(
+                "id_rekening" => $row->id_rekening,
+                "kode_rekening" => $row->kode_rekening,
+                "nama_rekening" => $row->nama_rekening,
+            );
+        }
+
+        echo json_encode($hsl);
+    }
 }
 
 /* End of file Service.php */

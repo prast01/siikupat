@@ -48,7 +48,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <select name="kode_bidang" class="form-control select2" style="width: 100%;" onchange="get_seksi(this.value)">
-                                                    <option <?= ($kode_bidang == "") ? "selected" : ""; ?> value="">Semua</option>
+                                                    <option <?= ($kode_bidang == "all") ? "selected" : ""; ?> value="all">Semua</option>
                                                     <?php foreach ($bidang as $key) : ?>
                                                         <option <?= ($key->kode_bidang == $kode_bidang) ? "selected" : ""; ?> value="<?= $key->kode_bidang; ?>"><?= $key->nama_bidang; ?></option>
                                                     <?php endforeach; ?>
@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="col-lg-3">
                                                 <select name="kode_seksi" id="kode_seksi" class="form-control select2" style="width: 100%;">
-                                                    <option <?= ($kode_bidang == "") ? "selected" : ""; ?> value="">Semua</option>
+                                                    <option <?= ($kode_seksi == "all") ? "selected" : ""; ?> value="all">Semua</option>
                                                     <?php foreach ($seksi as $key) : ?>
                                                         <option <?= ($key->kode_seksi == $kode_seksi) ? "selected" : ""; ?> value="<?= $key->kode_seksi; ?>"><?= $key->nama; ?></option>
                                                     <?php endforeach; ?>

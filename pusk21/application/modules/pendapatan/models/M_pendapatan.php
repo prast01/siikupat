@@ -158,21 +158,47 @@ class M_pendapatan extends CI_Model
 
     public function savePendapatan($post, $kode_pusk)
     {
+        if ($post["bulan"] == "") {
+            return array("res" => 0, "msg" => "Bulan Belum dipilih");
+        }
+
         $jml = count($post["id_jenis_pendapatan"]);
 
         $cek = $this->_cek_pendapatan($kode_pusk, $post["bulan"]);
 
         if ($cek) {
+
+            if (empty($_FILES['rek_koran']['name'])) {
+                return array("res" => 0, "msg" => "Wajib Melampirkan Rekening Koran");
+            } else {
+                $hasil = json_decode($this->_uploadFile("koran"), true);
+
+                if ($hasil["res"]) {
+                    $dokumen = $hasil["name_file"];
+                } else {
+                    return array("res" => 0, "msg" => "File tidak Dijinkan. Error : " . $hasil["msg"]);
+                }
+            }
+
             for ($i = 0; $i < $jml; $i++) {
                 $datax = array(
                     "kode_pusk" => $kode_pusk,
+                    "kode_unik" => $post["unik"],
                     "bulan" => $post["bulan"],
                     "id_jenis_pendapatan" => $post["id_jenis_pendapatan"][$i],
                     "real_pendapatan" => $post["real_pendapatan"][$i],
                 );
 
-                $this->db->insert("tb_real_pendapatan", $datax);
+                $this->db->insert("tb_real_pendapatan_detail", $datax);
             }
+
+            $dt = array(
+                "kode_pusk" => $kode_pusk,
+                "rek_koran" => $dokumen,
+                "kode_unik" => $post["unik"],
+                "bulan" => $post["bulan"],
+            );
+            $this->db->insert("tb_real_pendapatan", $dt);
 
             return array("res" => 1, "msg" => "Data Berhasil Disimpan.");
         } else {
@@ -182,6 +208,35 @@ class M_pendapatan extends CI_Model
 
     public function editPendapatan($post, $kode_pusk)
     {
+        if ($post["bulan"] == "") {
+            return array("res" => 0, "msg" => "Bulan Belum dipilih");
+        }
+
+        if ($post["upload"] == 1) {
+            if (empty($_FILES['rek_koran']['name'])) {
+                return array("res" => 0, "msg" => "Wajib Melampirkan Rekening Koran");
+            } else {
+                $hasil = json_decode($this->_uploadFile("koran"), true);
+
+                if ($hasil["res"]) {
+                    $dokumen = $hasil["name_file"];
+                    $this->_deleteFile($post["dok_old"]);
+                } else {
+                    return array("res" => 0, "msg" => "File tidak Dijinkan. Error : " . $hasil["msg"]);
+                }
+            }
+
+            $wh = array(
+                "kode_pusk" => $kode_pusk,
+                "bulan" => $post["bulan"],
+            );
+            $dt = array(
+                "rek_koran" => $dokumen,
+            );
+            $this->db->update("tb_real_pendapatan", $dt, $wh);
+        }
+
+
         $jml = count($post["id_realisasi"]);
 
         for ($i = 0; $i < $jml; $i++) {
@@ -193,8 +248,9 @@ class M_pendapatan extends CI_Model
                 "real_pendapatan" => $post["real_pendapatan"][$i],
             );
 
-            $this->db->update("tb_real_pendapatan", $datax, $where);
+            $this->db->update("tb_real_pendapatan_detail", $datax, $where);
         }
+
 
         return array("res" => 1, "msg" => "Data Berhasil Disimpan.");
     }
@@ -206,8 +262,13 @@ class M_pendapatan extends CI_Model
             "kode_pusk" => $kode_pusk,
         );
 
-        $hsl = $this->db->delete("tb_real_pendapatan", $where);
+        $dt = $this->db->get_where("tb_real_pendapatan", $where)->row();
+
+        $this->_deleteFile($dt->rek_koran);
+
+        $hsl = $this->db->delete("tb_real_pendapatan_detail", $where);
         if ($hsl) {
+            $this->db->delete("tb_real_pendapatan", $where);
             return array("res" => 1, "msg" => "Data Berhasil Dihapus.");
         } else {
             return array("res" => 1, "msg" => "Data Gagal Dihapus.");
@@ -230,7 +291,7 @@ class M_pendapatan extends CI_Model
 
     private function _get_realisasi($kode_pusk, $bulan)
     {
-        $data = $this->db->query("SELECT SUM(real_pendapatan) as total FROM tb_real_pendapatan WHERE kode_pusk='$kode_pusk' AND bulan='$bulan'")->row();
+        $data = $this->db->query("SELECT SUM(real_pendapatan) as total FROM tb_real_pendapatan_detail WHERE kode_pusk='$kode_pusk' AND bulan='$bulan'")->row();
 
         return $data->total;
     }
@@ -244,6 +305,29 @@ class M_pendapatan extends CI_Model
         } else {
             return 1;
         }
+    }
+
+    private function _uploadFile($name)
+    {
+        $config['upload_path'] = './upload/koran/';
+        $config['file_name'] = $name . '-' . date("Ymd His");
+        $config['allowed_types'] = 'pdf';
+        $config['max_size']  = '10000';
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('rek_koran')) {
+            $msg = array("res" => 0, "msg" => $this->upload->display_errors());
+        } else {
+            $msg = array("res" => 1, "name_file" => $this->upload->data('file_name'));
+        }
+
+        return json_encode($msg);
+    }
+
+    private function _deleteFile($name)
+    {
+        return unlink("./upload/koran/" . $name);
     }
 }
 

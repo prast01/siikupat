@@ -241,7 +241,7 @@ QRCode::png($text, $tempdir . $namafile, QR_ECLEVEL_H, $ukuran, $padding);
                         <td>:</td>
                         <td align="right"><b><?= number_format($total, 0, ",", "."); ?></b></td>
                     </tr>
-                    <?php $persen = ($jml_a > 0) ? ($total / $jml_a) * 100 : 0; ?>
+                    <?php $persen = ($jml_a > 0) ? ($jml_a / $total) * 100 : 0; ?>
                     <tr>
                         <td valign="top">Persentase (a dan b)</td>
                         <td valign="top">:</td>

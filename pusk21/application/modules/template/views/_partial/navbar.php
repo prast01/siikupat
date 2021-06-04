@@ -20,31 +20,36 @@ $kode_pusk = $this->session->userdata("kode_pusk");
 				<li class="nav-item">
 					<a href="<?php echo site_url('../'); ?>" class="nav-link">Dashboard</a>
 				</li>
-				<li class="nav-item dropdown">
-					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Belanja</a>
-					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-						<li>
-							<a tabindex="-1" href="<?php echo site_url('../belanja-apbd'); ?>" class="dropdown-item">Operasional Puskesmas</a>
-						</li>
-						<li>
-							<a tabindex="-1" href="<?php echo site_url('../belanja-bok'); ?>" class="dropdown-item">BOK Puskesmas</a>
-						</li>
-						<li>
-							<a tabindex="-1" href="<?php echo site_url('../belanja-blud'); ?>" class="dropdown-item">BLUD Puskesmas</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item dropdown">
-					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pendapatan</a>
-					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-						<li>
-							<a tabindex="-1" href="<?php echo site_url('../pagu-pendapatan'); ?>" class="dropdown-item">Pagu Pendapatan</a>
-						</li>
-						<li>
-							<a tabindex="-1" href="<?php echo site_url('../realisasi-pendapatan'); ?>" class="dropdown-item">Realisasi Pendapatan</a>
-						</li>
-					</ul>
-				</li>
+				<?php if ($kode_pusk != "super") : ?>
+					<li class="nav-item dropdown">
+						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Belanja</a>
+						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../belanja-apbd'); ?>" class="dropdown-item">Operasional Puskesmas</a>
+							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../belanja-bok'); ?>" class="dropdown-item">BOK Puskesmas</a>
+							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../belanja-blud'); ?>" class="dropdown-item">BLUD Puskesmas</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item dropdown">
+						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pendapatan</a>
+						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../pagu-pendapatan'); ?>" class="dropdown-item">Pagu Pendapatan</a>
+							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../realisasi-pendapatan'); ?>" class="dropdown-item">Realisasi Pendapatan</a>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a href="<?php echo site_url('../sub-kegiatan/' . $kode_pusk); ?>" class="nav-link">Sub Kegiatan</a>
+					</li>
+				<?php endif; ?>
 				<!-- <li class="nav-item dropdown">
 					<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Menu</a>
 					<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -73,6 +78,9 @@ $kode_pusk = $this->session->userdata("kode_pusk");
 							</li>
 							<li>
 								<a tabindex="-1" href="<?php echo site_url('../anggaran'); ?>" class="dropdown-item">Anggaran</a>
+							</li>
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../informasi'); ?>" class="dropdown-item">Informasi</a>
 							</li>
 						</ul>
 					</li>

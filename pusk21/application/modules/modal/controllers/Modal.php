@@ -189,6 +189,7 @@ class Modal extends MY_Controller
             "kode_pusk" => $kode_pusk,
             "kode_bulan" => $kode_bulan,
             "bulan" => $bulan,
+            "rek_koran" => $model->get_rek_koran($kode_pusk, $kode_bulan),
             "pendapatan" => $model->get_jenis_pendapatan($kode_pusk),
         );
 
@@ -202,11 +203,40 @@ class Modal extends MY_Controller
             redirect('../', 'refresh');
         }
 
+        $model = $this->M_modal;
+        $kode_pusk = $this->session->userdata("kode_pusk");
+
         $data = array(
             "jenis" => $jenis,
+            "pendapatan" => $model->get_jenis_pendapatan($kode_pusk),
+            "sub_kegiatan" => $model->get_sub_kegiatan($kode_pusk, $jenis),
+            "rekening_blud" => $model->get_rekening_blud($kode_pusk, $jenis),
         );
 
         $this->load->view('tambahBelanja', $data);
+    }
+
+    public function ubahBelanja($jenis, $id_belanja)
+    {
+        if ($this->session->userdata('id_user_pusk') == '') {
+            redirect('../', 'refresh');
+        }
+
+        $model = $this->M_modal;
+        $kode_pusk = $this->session->userdata("kode_pusk");
+
+        $belanja = $model->get_belanja($id_belanja);
+
+        $data = array(
+            "jenis" => $jenis,
+            "pendapatan" => $model->get_jenis_pendapatan($kode_pusk),
+            "sub_kegiatan" => $model->get_sub_kegiatan($kode_pusk, $jenis),
+            "rekening_blud" => $model->get_rekening_blud($kode_pusk, $jenis),
+            "belanja" => $belanja,
+            "rekening" => $model->get_rekening($belanja->id_sub_kegiatan, $jenis),
+        );
+
+        $this->load->view('ubahBelanja', $data);
     }
 }
 

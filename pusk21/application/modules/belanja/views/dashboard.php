@@ -68,11 +68,32 @@
                                             <thead>
                                                 <tr>
                                                     <th width="15%">No SPJ</th>
+                                                    <th width="15%">Tgl Belanja</th>
                                                     <th>Uraian</th>
                                                     <th width="15%">Nominal</th>
                                                     <th width="10%">Aksi</th>
                                                 </tr>
                                             </thead>
+                                            <tbody>
+                                                <?php foreach ($belanja as $key => $val) : ?>
+                                                    <tr>
+                                                        <td><?= $val["no_spj"]; ?></td>
+                                                        <td><?= $val["tgl_belanja"]; ?></td>
+                                                        <td><?= $val["uraian"]; ?></td>
+                                                        <td><?= number_format($val["nominal"], 0, ",", "."); ?></td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-sm btn-warning text-white" onclick="modalDefault('Ubah Belanja', 'ubahBelanja/<?= $judul . '/' . $val['id_belanja']; ?>')">
+                                                                    <span class="fa fa-edit"></span>
+                                                                </button>
+                                                                <a href="<?= site_url("../belanja/hapusBelanja/" . $val["id_belanja"] . "/" . $judul); ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin Hapus?')">
+                                                                    <span class="fa fa-trash"></span>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>

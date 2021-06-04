@@ -18,6 +18,8 @@ class Belanja extends MY_Controller
             redirect("../");
         }
 
+        $model = $this->M_belanja;
+
         $bln = (isset($_POST["bulan"])) ? $_POST["bulan"] : date("m");
 
         $bulan = array(
@@ -39,9 +41,73 @@ class Belanja extends MY_Controller
             "judul" => strtoupper($jenis),
             "bln" => $bln,
             "arr_bln" => $bulan,
+            "belanja" => $model->get_belanja($bln, $jenis),
         );
 
         $this->template("dashboard", $data);
+        // echo json_encode($data);
+    }
+
+    // CRUD
+    public function tambahBelanja($jenis)
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_belanja;
+        $kode_pusk = $this->session->userdata("kode_pusk");
+        $post = $this->input->post();
+
+        $hasil = $model->saveBelanja($post, $kode_pusk, $jenis);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+        }
+
+        redirect("../belanja-" . strtolower($jenis));
+    }
+
+    public function ubahBelanja($jenis)
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_belanja;
+        $kode_pusk = $this->session->userdata("kode_pusk");
+        $post = $this->input->post();
+
+        $hasil = $model->editBelanja($post, $kode_pusk, $jenis);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+        }
+
+        redirect("../belanja-" . strtolower($jenis));
+    }
+
+    public function hapusBelanja($id_belanja, $jenis)
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_belanja;
+
+        $hasil = $model->hapusBelanja($id_belanja, $jenis);
+
+        if ($hasil['res']) {
+            $this->session->set_flashdata('sukses', $hasil['msg']);
+        } else {
+            $this->session->set_flashdata('gagal', $hasil['msg']);
+        }
+
+        redirect("../belanja-" . strtolower($jenis));
     }
 }
 

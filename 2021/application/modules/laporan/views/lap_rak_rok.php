@@ -67,26 +67,78 @@
                                             <thead>
                                                 <tr>
                                                     <th width="3%">No</th>
-                                                    <th width="10%">Nama Sub Kegiatan</th>
-                                                    <th width="10%">Pelaksana</th>
+                                                    <th width="8%">Nama Sub Kegiatan</th>
+                                                    <th width="7%">Pelaksana</th>
                                                     <?php foreach ($bln as $row => $val) : ?>
                                                         <th><?= $val; ?></th>
                                                     <?php endforeach; ?>
+                                                    <th>Jumlah</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $no = 1; ?>
+                                                <?php
+                                                $no = 1;
+                                                $total_all = 0;
+                                                $b_1 = 0;
+                                                $b_2 = 0;
+                                                $b_3 = 0;
+                                                $b_4 = 0;
+                                                $b_5 = 0;
+                                                $b_6 = 0;
+                                                $b_7 = 0;
+                                                $b_8 = 0;
+                                                $b_9 = 0;
+                                                $b_10 = 0;
+                                                $b_11 = 0;
+                                                $b_12 = 0;
+                                                ?>
                                                 <?php foreach ($sub_kegiatan as $row => $val) : ?>
+                                                    <?php
+                                                    $total_samping = 0;
+                                                    $b_01 = $b_01 + $val["01"];
+                                                    $b_02 = $b_02 + $val["02"];
+                                                    $b_03 = $b_03 + $val["03"];
+                                                    $b_04 = $b_04 + $val["04"];
+                                                    $b_05 = $b_05 + $val["05"];
+                                                    $b_06 = $b_06 + $val["06"];
+                                                    $b_07 = $b_07 + $val["07"];
+                                                    $b_08 = $b_08 + $val["08"];
+                                                    $b_09 = $b_09 + $val["09"];
+                                                    $b_10 = $b_10 + $val["10"];
+                                                    $b_11 = $b_11 + $val["11"];
+                                                    $b_12 = $b_12 + $val["12"];
+                                                    ?>
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td><?= $val["nama"]; ?></td>
                                                         <?php foreach ($bln as $row2 => $val2) : ?>
-                                                            <td align="right"><?= $val[$row2]; ?></td>
+                                                            <?php
+                                                            $total_samping = $total_samping + $val[$row2];
+                                                            ?>
+                                                            <td align="right"><?= number_format($val[$row2], 0, ",", "."); ?></td>
                                                         <?php endforeach; ?>
+                                                        <td align="right"><?= number_format($total_samping, 0, ",", "."); ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td align="right" colspan="3"><b>JUMLAH</b></td>
+                                                    <td align="right"><b><?= number_format($b_01, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_02, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_03, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_04, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_05, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_06, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_07, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_08, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_09, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_10, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_11, 0, ",", "."); ?></b></td>
+                                                    <td align="right"><b><?= number_format($b_12, 0, ",", "."); ?></b></td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>

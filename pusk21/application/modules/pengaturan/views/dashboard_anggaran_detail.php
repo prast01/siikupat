@@ -36,9 +36,11 @@
                         <div class="card-body">
                             <div class="row mb-3">
                                 <div class="col-lg-6">
-                                    <a href="<?= site_url("../anggaran"); ?>" class="btn btn-warning text-white">
-                                        <span class="fa fa-arrow-left"></span> Kembali
-                                    </a>
+                                    <?php if ($kode_pusk == "super") : ?>
+                                        <a href="<?= site_url("../anggaran"); ?>" class="btn btn-warning text-white">
+                                            <span class="fa fa-arrow-left"></span> Kembali
+                                        </a>
+                                    <?php endif; ?>
                                     <button class="btn btn-success" onclick="modalDefault('Tambah Sub Kegiatan', 'tambahSubKegiatan/<?= $kode_pusk; ?>')">
                                         <span class="fa fa-plus"></span> Tambah Data
                                     </button>

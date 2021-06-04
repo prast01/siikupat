@@ -94,11 +94,14 @@
 									</li>
 								</ul>
 							</li>
-							<li>
+							<!-- <li>
 								<a tabindex="-1" href="<?php echo site_url('../laporan-rak'); ?>" class="dropdown-item">Laporan RAK</a>
 							</li>
 							<li>
 								<a tabindex="-1" href="<?php echo site_url('../laporan-rok'); ?>" class="dropdown-item">Laporan ROK</a>
+							</li> -->
+							<li>
+								<a tabindex="-1" href="<?php echo site_url('../laporan-kinerja'); ?>" class="dropdown-item">Laporan Kinerja</a>
 							</li>
 						</ul>
 					</li>

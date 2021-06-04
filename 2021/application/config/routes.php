@@ -67,3 +67,5 @@ $route['pulihkan-spj'] = "lain/pulih";
 $route['bk-0'] = "laporan/bk_0";
 $route['laporan-rak'] = "laporan/rak";
 $route['laporan-rok'] = "laporan/rok";
+$route['laporan-kinerja'] = "laporan/kinerja";
+$route['laporan-kinerja/(:any)'] = "laporan/kinerja/$1";

@@ -15,6 +15,7 @@
                 <option value="" disabled>Pilih</option>
                 <option <?= ($data->jenis_sumber == "APBD") ? "selected" : ""; ?> value="APBD">APBD</option>
                 <option <?= ($data->jenis_sumber == "BOK") ? "selected" : ""; ?> value="BOK">BOK</option>
+                <option <?= ($data->jenis_sumber == "BLUD") ? "selected" : ""; ?> value="BLUD">BLUD</option>
             </select>
         </div>
     </div>

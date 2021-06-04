@@ -80,6 +80,19 @@ class Pengaturan extends MY_Controller
         $this->template("dashboard_rekening", $data);
     }
 
+    public function informasi()
+    {
+        if ($this->session->userdata("id_user_pusk") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_pengaturan;
+
+        $data = array();
+
+        $this->template("dashboard_info", $data);
+    }
+
     // CRUD
     // USER
     public function tambahUser()
@@ -179,7 +192,11 @@ class Pengaturan extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
         }
 
-        redirect("../anggaran/" . $kode_pusk);
+        if ($kode_pusk == "super") {
+            redirect("../anggaran/" . $kode_pusk);
+        } else {
+            redirect("../sub-kegiatan/" . $kode_pusk);
+        }
     }
 
     public function ubahSub($kode_pusk)
@@ -199,7 +216,11 @@ class Pengaturan extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
         }
 
-        redirect("../anggaran/" . $kode_pusk);
+        if ($kode_pusk == "super") {
+            redirect("../anggaran/" . $kode_pusk);
+        } else {
+            redirect("../sub-kegiatan/" . $kode_pusk);
+        }
     }
 
     public function hapusSub($kode_pusk, $id_sub_kegiatan)
@@ -218,7 +239,11 @@ class Pengaturan extends MY_Controller
             $this->session->set_flashdata('gagal', $hasil['msg']);
         }
 
-        redirect("../anggaran/" . $kode_pusk);
+        if ($kode_pusk == "super") {
+            redirect("../anggaran/" . $kode_pusk);
+        } else {
+            redirect("../sub-kegiatan/" . $kode_pusk);
+        }
     }
 
     public function tambahRek($kode_pusk)

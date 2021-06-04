@@ -49,11 +49,12 @@ class M_service extends CI_Model
     {
         $kode_seksi = $this->session->userdata("kode_seksi");
         $kode_bidang = $this->session->userdata("kode_bidang");
-        if ($kode_bidang == "DK005") {
-            $this->db->where("kode_seksi", $kode_seksi);
-        } elseif ($kode_seksi != "XXXX" && $kode_bidang != "DK005") {
-            $this->db->not_like("nama", "PKM");
-        }
+        // $this->db->where("kode_seksi", $kode_seksi);
+        // if ($kode_bidang == "DK005") {
+        //     $this->db->where("kode_seksi", $kode_seksi);
+        // } elseif ($kode_seksi != "XXXX" && $kode_bidang != "DK005") {
+        //     $this->db->not_like("nama", "PKM");
+        // }
 
         $this->db->order_by("persen_anggaran", "DESC");
         $data = $this->db->get("tb_realisasi_seksi")->result();
@@ -203,8 +204,12 @@ class M_service extends CI_Model
 
     public function get_seksi($kode_bidang)
     {
-        if ($kode_bidang == "") {
-            $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
+        if ($kode_bidang == "all") {
+            if ($this->uri->segment(1) != "laporan-kinerja") {
+                $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang !=" => "DK005"])->result();
+            } else {
+                $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
+            }
         } else {
             $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang" => $kode_bidang])->result();
         }

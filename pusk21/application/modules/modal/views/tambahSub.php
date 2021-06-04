@@ -14,6 +14,7 @@
                 <option value="" selected disabled>Pilih</option>
                 <option value="APBD">APBD</option>
                 <option value="BOK">BOK</option>
+                <option value="BLUD">BLUD</option>
             </select>
         </div>
     </div>

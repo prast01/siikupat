@@ -17,6 +17,11 @@
             <label>Pagu Rekening</label>
             <input type="number" name="pagu_rekening" class="form-control" placeholder="Pagu Rekening" value="<?= $data->pagu_rekening; ?>">
         </div>
+        <div class="form-group">
+            <label>Realisasi Rekening</label>
+            <input type="number" name="realisasi_rekening" class="form-control" placeholder="Realisasi Rekening" value="<?= $data->realisasi_rekening; ?>">
+            <span class="text-sm text-danger">* Isi Realisasi, jika sudah terdapat Realisasi Belanja.</span>
+        </div>
 
     </div>
     <div class="modal-footer justify-content-between">

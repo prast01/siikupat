@@ -199,7 +199,7 @@ class M_dashboard extends CI_Model
 
     private function update()
     {
-        $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX"])->result();
+        $data = $this->db->get_where("tb_user", ["kode_seksi !=" => "XXXX", "kode_bidang !=" => "DK005"])->result();
 
         // $this->db->truncate('tb_realisasi_seksi');
         foreach ($data as $row) {

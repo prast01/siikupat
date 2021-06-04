@@ -27,12 +27,12 @@ class Laporan extends MY_Controller
         if (isset($_POST["kode_bidang"])) {
             $kode_bidang = $_POST["kode_bidang"];
         } else {
-            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "all";
         }
         if (isset($_POST["kode_seksi"])) {
             $kode_seksi = $_POST["kode_seksi"];
         } else {
-            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
         }
 
 
@@ -71,12 +71,12 @@ class Laporan extends MY_Controller
         if (isset($_POST["kode_bidang"])) {
             $kode_bidang = $_POST["kode_bidang"];
         } else {
-            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "all";
         }
         if (isset($_POST["kode_seksi"])) {
             $kode_seksi = $_POST["kode_seksi"];
         } else {
-            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
         }
 
 
@@ -115,12 +115,12 @@ class Laporan extends MY_Controller
         if (isset($_POST["kode_bidang"])) {
             $kode_bidang = $_POST["kode_bidang"];
         } else {
-            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "all";
         }
         if (isset($_POST["kode_seksi"])) {
             $kode_seksi = $_POST["kode_seksi"];
         } else {
-            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
         }
 
 
@@ -158,12 +158,12 @@ class Laporan extends MY_Controller
         if (isset($_POST["kode_bidang"])) {
             $kode_bidang = $_POST["kode_bidang"];
         } else {
-            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "";
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "all";
         }
         if (isset($_POST["kode_seksi"])) {
             $kode_seksi = $_POST["kode_seksi"];
         } else {
-            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "";
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
         }
 
 
@@ -406,6 +406,57 @@ class Laporan extends MY_Controller
 
         $this->template("lap_rak_rok", $data);
         // echo json_encode($data);
+    }
+
+    public function kinerja($detail = "")
+    {
+        error_reporting(E_NOTICE ^ E_ALL);
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+        $model = $this->M_laporan;
+        if (isset($_POST["kode_bidang"])) {
+            $kode_bidang = $_POST["kode_bidang"];
+        } else {
+            $kode_bidang = ($this->session->userdata("kode_bidang") != "XXXX") ? $this->session->userdata("kode_bidang") : "all";
+        }
+        if (isset($_POST["kode_seksi"])) {
+            $kode_seksi = $_POST["kode_seksi"];
+        } else {
+            $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
+        }
+
+        $data["detail"] = ($detail == "") ? 0 : 1;
+        $data["kode_bidang"] = $kode_bidang;
+        $data["kode_seksi"] = $kode_seksi;
+        $data["bln"] = array(
+            "01" => "Jan",
+            "02" => "Feb",
+            "03" => "Mar",
+            "04" => "Apr",
+            "05" => "Mei",
+            "06" => "Jun",
+            "07" => "Jul",
+            "08" => "Ags",
+            "09" => "Sep",
+            "10" => "Okt",
+            "11" => "Nov",
+            "12" => "Des"
+        );
+
+        if ($data["detail"]) {
+            $data["judul"] = "Pelaksana";
+            $data["kinerja"] = $model->get_kinerja($kode_bidang, $kode_seksi);
+        } else {
+            $data["judul"] = "SKPD";
+            $data["kinerja"] = $model->get_kinerja_all();
+        }
+
+        $data["bidang"] = $model->get_bidang();
+        $data["seksi"] = $model->get_seksi($kode_bidang);
+
+        $this->template("lap_kinerja", $data);
+        // echo json_encode($data["kode_seksi"]);
     }
 }
 
