@@ -107,7 +107,11 @@ function tgl_indo($tgl)
                                             </tbody>
                                             <tfoot>
                                                 <?php
+                                                // if ($total_p > 0) {
                                                 $persen = ($total_r / $total_p) * 100;
+                                                // } else {
+                                                //     $persen = 0;
+                                                // }
                                                 ?>
                                                 <tr>
                                                     <td colspan="2" align="right"><b>JUMLAH</b></td>
