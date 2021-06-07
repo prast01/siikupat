@@ -67,6 +67,11 @@
                                         </form>
                                     </div>
                                 <?php endif; ?>
+                                <?php if ($detail && $kode_bidang == "DK005") : ?>
+                                    <div class="col-lg-3">
+                                        <a href="<?= site_url("../laporan-kinerja/faskes"); ?>" class="btn btn-primary">Update Data</a>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-lg-3">
                                     <h4>Catatan :</h4>
                                     <ul>
@@ -74,11 +79,6 @@
                                         <li>R => Realisasi Anggaran</li>
                                     </ul>
                                 </div>
-                                <?php if ($detail && $kode_bidang == "DK005") : ?>
-                                    <div class="col-lg-3">
-                                        <a href="<?= site_url("../laporan-kinerja/faskes"); ?>" class="btn btn-primary">Update Data</a>
-                                    </div>
-                                <?php endif; ?>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-sm table-bordered datatable">
