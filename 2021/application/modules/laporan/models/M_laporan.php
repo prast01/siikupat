@@ -536,6 +536,40 @@ class M_laporan extends CI_Model
         return $hsl;
     }
 
+    // CRUD
+    public function simpan_realisasi_faskes($post)
+    {
+        for ($i = 0; $i < count($post["bulan"]); $i++) {
+            $where = array(
+                "kode_seksi" => $post["kode_seksi"],
+                "bulan" => $post["bulan"][$i],
+            );
+
+            $cek = $this->db->get_where("tb_realisasi_faskes", $where)->num_rows();
+            if ($cek == 0) {
+                $data = array(
+                    "kode_seksi" => $post["kode_seksi"],
+                    "bulan" => $post["bulan"][$i],
+                    "rak" => $post["rak"][$i],
+                    "realisasi" => $post["realisasi"][$i],
+                );
+                $hsl = $this->db->insert("tb_realisasi_faskes", $data);
+            } else {
+                $data = array(
+                    "rak" => $post["rak"][$i],
+                    "realisasi" => $post["realisasi"][$i],
+                );
+                $hsl = $this->db->update("tb_realisasi_faskes", $data, $where);
+            }
+        }
+
+        if ($hsl) {
+            return array("res" => 1, "msg" => "Data Berhasil Disimpan");
+        } else {
+            return array("res" => 0, "msg" => "Data Gagal Disimpan");
+        }
+    }
+
     // PRIVATE
     private function _get_sisa_bulan_lalu($id_sub, $bln_sblm, $kode_seksi)
     {
@@ -690,7 +724,9 @@ class M_laporan extends CI_Model
     {
         $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer)='$bln' AND status_spj='4'")->row();
 
-        return $data->jumlah;
+        $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln'")->row();
+
+        return $data->jumlah + $data2->jumlah;
     }
 
     private function _get_data_rak_all($bln)
@@ -698,8 +734,9 @@ class M_laporan extends CI_Model
         $kolom = "b" . $bln;
 
         $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak")->row();
+        $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln'")->row();
 
-        return $data->jumlah;
+        return $data->jumlah + $data2->jumlah;
     }
 
     public function _get_data_realisasi_seksi($kode_seksi, $bln)
@@ -741,16 +778,24 @@ class M_laporan extends CI_Model
 
     public function _get_data_realisasi_faskes($kode_seksi, $bln)
     {
-        $total = 0;
+        $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln' AND kode_seksi='$kode_seksi'")->row();
 
-        return $total;
+        if ($data2->jumlah != "") {
+            return $data2->jumlah;
+        } else {
+            return 0;
+        }
     }
 
     public function _get_data_rak_all_faskes($kode_seksi, $bln)
     {
-        $total = 0;
+        $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln' AND kode_seksi='$kode_seksi'")->row();
 
-        return $total;
+        if ($data2->jumlah != "") {
+            return $data2->jumlah;
+        } else {
+            return 0;
+        }
     }
 }
 

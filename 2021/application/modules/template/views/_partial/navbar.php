@@ -20,7 +20,7 @@
 					<a href="<?php echo site_url('../'); ?>" class="nav-link">Beranda</a>
 				</li>
 				<!-- SPJ -->
-				<?php if ($kode_bidang != "XXXX") : ?>
+				<?php if ($kode_bidang != "XXXX" && $kode_bidang != "DK005") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">SPJ</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -59,41 +59,39 @@
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Laporan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-							<li>
-								<a tabindex="-1" href="<?php echo site_url('../realisasi-rok'); ?>" class="dropdown-item">Realisasi ROK</a>
-							</li>
-							<?php //if ($kode_bidang == "XXXX") : 
-							?>
-							<li class="dropdown-submenu dropdown-hover">
-								<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">SPJ</a>
-								<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-									<li>
-										<a tabindex="-1" href="<?php echo site_url('../verifikasi-spj'); ?>" class="dropdown-item">Verifikasi</a>
-									</li>
-									<li>
-										<a tabindex="-1" href="<?php echo site_url('../pembukuan-spj'); ?>" class="dropdown-item">Pembukuan</a>
-									</li>
-									<li>
-										<a tabindex="-1" href="<?php echo site_url('../transfer-spj'); ?>" class="dropdown-item">Transfer</a>
-									</li>
-								</ul>
-							</li>
-							<?php //endif; 
-							?>
-							<li class="dropdown-submenu dropdown-hover">
-								<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Buku Kas</a>
-								<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-									<li>
-										<a tabindex="-1" href="<?php echo site_url('../bk-0'); ?>" class="dropdown-item">Umum Standar</a>
-									</li>
-									<li>
-										<a tabindex="-1" href="<?php echo site_url('../bk-1'); ?>" class="dropdown-item">Per Sub Kegiatan</a>
-									</li>
-									<li>
-										<a tabindex="-1" href="<?php echo site_url('../bk-2'); ?>" class="dropdown-item">Per Rekening</a>
-									</li>
-								</ul>
-							</li>
+							<?php if ($kode_bidang != "DK005") : ?>
+								<li>
+									<a tabindex="-1" href="<?php echo site_url('../realisasi-rok'); ?>" class="dropdown-item">Realisasi ROK</a>
+								</li>
+								<li class="dropdown-submenu dropdown-hover">
+									<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">SPJ</a>
+									<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+										<li>
+											<a tabindex="-1" href="<?php echo site_url('../verifikasi-spj'); ?>" class="dropdown-item">Verifikasi</a>
+										</li>
+										<li>
+											<a tabindex="-1" href="<?php echo site_url('../pembukuan-spj'); ?>" class="dropdown-item">Pembukuan</a>
+										</li>
+										<li>
+											<a tabindex="-1" href="<?php echo site_url('../transfer-spj'); ?>" class="dropdown-item">Transfer</a>
+										</li>
+									</ul>
+								</li>
+								<li class="dropdown-submenu dropdown-hover">
+									<a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Buku Kas</a>
+									<ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+										<li>
+											<a tabindex="-1" href="<?php echo site_url('../bk-0'); ?>" class="dropdown-item">Umum Standar</a>
+										</li>
+										<li>
+											<a tabindex="-1" href="<?php echo site_url('../bk-1'); ?>" class="dropdown-item">Per Sub Kegiatan</a>
+										</li>
+										<li>
+											<a tabindex="-1" href="<?php echo site_url('../bk-2'); ?>" class="dropdown-item">Per Rekening</a>
+										</li>
+									</ul>
+								</li>
+							<?php endif; ?>
 							<!-- <li>
 								<a tabindex="-1" href="<?php echo site_url('../laporan-rak'); ?>" class="dropdown-item">Laporan RAK</a>
 							</li>
@@ -107,15 +105,13 @@
 					</li>
 				<?php endif; ?>
 				<!-- RAK -->
-				<?php //if ($kode_seksi != "XXXX") : 
-				?>
-				<li class="nav-item">
-					<a href="<?php echo site_url('../rak'); ?>" class="nav-link">RAK</a>
-				</li>
-				<?php //endif; 
-				?>
+				<?php if ($kode_bidang != "DK005") : ?>
+					<li class="nav-item">
+						<a href="<?php echo site_url('../rak'); ?>" class="nav-link">RAK</a>
+					</li>
+				<?php endif; ?>
 				<!-- PENGATURAN -->
-				<?php if ($nama == "super" || $kode_seksi == "DJ001" || $kode_bidang == "DK005") : ?>
+				<?php if ($nama == "super" || $kode_seksi == "DJ001" || $kode_bidang != "DK005") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengaturan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -123,11 +119,6 @@
 							<?php if ($kode_seksi == "DJ001" || $nama == "super") : ?>
 								<li>
 									<a tabindex="-1" href="<?php echo site_url('../user'); ?>" class="dropdown-item">Pengguna</a>
-								</li>
-							<?php endif; ?>
-							<?php if ($kode_bidang == "DK005") : ?>
-								<li>
-									<a tabindex="-1" href="<?php echo site_url('../kegiatan'); ?>" class="dropdown-item">Kegiatan</a>
 								</li>
 							<?php endif; ?>
 							<?php if ($kode_seksi == "XXXX") : ?>

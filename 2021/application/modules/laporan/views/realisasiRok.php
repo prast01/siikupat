@@ -108,7 +108,7 @@
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td><?= $val["nama"]; ?></td>
                                                         <td align="right"><?= $val["sisa"]; ?></td>
-                                                        <td align="right"><?= $val["rak"]; ?></td>
+                                                        <td align="right"><?= number_format($val["rak"], 0, ",", "."); ?></td>
                                                         <td align="right"><?= $val["rok"]; ?></td>
                                                         <td align="right"><?= $val["realisasi"]; ?></td>
                                                         <td><?= $st; ?></td>

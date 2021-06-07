@@ -414,6 +414,7 @@ class Laporan extends MY_Controller
         if ($this->session->userdata("id_user") == "") {
             redirect("../");
         }
+
         $model = $this->M_laporan;
         if (isset($_POST["kode_bidang"])) {
             $kode_bidang = $_POST["kode_bidang"];
@@ -426,7 +427,18 @@ class Laporan extends MY_Controller
             $kode_seksi = ($this->session->userdata("kode_seksi") != "XXXX") ? $this->session->userdata("kode_seksi") : "all";
         }
 
+        if (isset($_POST["simpan"])) {
+            $post = $this->input->post();
+            $hasil = $model->simpan_realisasi_faskes($post);
+            if ($hasil['res']) {
+                $this->session->set_flashdata('sukses', $hasil['msg']);
+            } else {
+                $this->session->set_flashdata('gagal', $hasil['msg']);
+            }
+        }
+
         $data["detail"] = ($detail == "") ? 0 : 1;
+        $data["show"] = (isset($_POST["cari"]) || isset($_POST["simpan"])) ? 1 : 0;
         $data["kode_bidang"] = $kode_bidang;
         $data["kode_seksi"] = $kode_seksi;
         $data["bln"] = array(
@@ -455,7 +467,12 @@ class Laporan extends MY_Controller
         $data["bidang"] = $model->get_bidang();
         $data["seksi"] = $model->get_seksi($kode_bidang);
 
-        $this->template("lap_kinerja", $data);
+        if ($detail == "faskes") {
+            $this->template("lap_kinerja_faskes", $data);
+        } else {
+            $this->template("lap_kinerja", $data);
+        }
+
         // echo json_encode($data["bln"]);
     }
 }
