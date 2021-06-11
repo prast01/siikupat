@@ -119,7 +119,7 @@
 		}
 
 		.cb-slideshow li:nth-child(6) span {
-			background-image: url(assets/img/img6.jpg);
+			background-image: url(assets/img/img6.jpeg);
 			-webkit-animation-delay: 30s;
 			-moz-animation-delay: 30s;
 			-o-animation-delay: 30s;
@@ -136,41 +136,6 @@
 			animation-delay: 36s;
 		}
 
-		/* .cb-slideshow li:nth-child(2) div {
-			-webkit-animation-delay: 8s;
-			-moz-animation-delay: 8s;
-			-o-animation-delay: 8s;
-			-ms-animation-delay: 8s;
-			animation-delay: 8s;
-		}
-		.cb-slideshow li:nth-child(3) div {
-			-webkit-animation-delay: 12s;
-			-moz-animation-delay: 12s;
-			-o-animation-delay: 12s;
-			-ms-animation-delay: 12s;
-			animation-delay: 12s;
-		}
-		.cb-slideshow li:nth-child(4) div {
-			-webkit-animation-delay: 18s;
-			-moz-animation-delay: 18s;
-			-o-animation-delay: 18s;
-			-ms-animation-delay: 18s;
-			animation-delay: 18s;
-		}
-		.cb-slideshow li:nth-child(5) div {
-			-webkit-animation-delay: 24s;
-			-moz-animation-delay: 24s;
-			-o-animation-delay: 24s;
-			-ms-animation-delay: 24s;
-			animation-delay: 24s;
-		}
-		.cb-slideshow li:nth-child(6) div {
-			-webkit-animation-delay: 30s;
-			-moz-animation-delay: 30s;
-			-o-animation-delay: 30s;
-			-ms-animation-delay: 30s;
-			animation-delay: 30s;
-		} */
 		@-webkit-keyframes imageAnimation {
 			0% {
 				opacity: 0;
@@ -539,7 +504,7 @@
 						<h4 class="text-white mt-3">Tahun 2020</h4>
 					</div>
 					<div class="col-md-3 col-sm-6 text-center">
-						<a href="http://sikupat.mi-kes.net/2021/" class="element" target="_blank">
+						<a href="http://sikupat.sikdkk.jepara.go.id/2021/" class="element" target="_blank">
 							<img src="assets/logo/keuangan.png" width="100px">
 						</a>
 						<h4 class="text-white mt-3">Tahun 2021</h4>
