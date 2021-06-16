@@ -36,14 +36,14 @@
                         <div class="card-body">
                             <div class="row">
                                 <?php if ($detail) : ?>
-                                    <div class="col-lg-6 mb-3">
+                                    <div class="col-lg-5 mb-3">
                                         <form action="" method="post">
                                             <div class="form-group row">
                                                 <div class="col-lg-2">
                                                     <a href="<?= site_url("../laporan-kinerja"); ?>" class="btn btn-warning text-white">Kembali</a>
                                                 </div>
                                                 <label class="col-form-label col-lg-1">Filter</label>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
                                                     <select name="kode_bidang" class="form-control select2" style="width: 100%;" onchange="get_seksi(this.value)">
                                                         <option <?= ($kode_bidang == "all") ? "selected" : ""; ?> value="all">Semua</option>
                                                         <?php foreach ($bidang as $key) : ?>
@@ -52,7 +52,7 @@
                                                         <option <?= ("DK005" == $kode_bidang) ? "selected" : ""; ?> value="DK005">Faskes</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
                                                     <select name="kode_seksi" id="kode_seksi" class="form-control select2" style="width: 100%;">
                                                         <option <?= ($kode_seksi == "all") ? "selected" : ""; ?> value="all">Semua</option>
                                                         <?php foreach ($seksi as $key) : ?>
@@ -67,18 +67,23 @@
                                         </form>
                                     </div>
                                 <?php endif; ?>
-                                <?php if ($detail && $kode_bidang == "DK005") : ?>
+                                <?php if ($detail && $this->session->userdata("kode_bidang") == "DK005") : ?>
                                     <div class="col-lg-3">
                                         <a href="<?= site_url("../laporan-kinerja/faskes"); ?>" class="btn btn-primary">Update Data</a>
                                     </div>
                                 <?php endif; ?>
-                                <div class="col-lg-3">
-                                    <h4>Catatan :</h4>
-                                    <ul>
+                                <div class="col-lg-2">
+                                    <h4 class="ml-3">Catatan :</h4>
+                                    <ul class="ml-3">
                                         <li>A => Anggaran RAK</li>
                                         <li>R => Realisasi Anggaran</li>
                                     </ul>
                                 </div>
+                                <?php if ($detail) : ?>
+                                    <div class="col-lg-2">
+                                        <a href="<?= site_url("../grafik-kinerja"); ?>" target="_blank" class="btn btn-success">Lihat Grafik</a>
+                                    </div>
+                                <?php endif; ?>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-sm table-bordered datatable">

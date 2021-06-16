@@ -739,7 +739,7 @@ class M_laporan extends CI_Model
         return $data->jumlah + $data2->jumlah;
     }
 
-    public function _get_data_realisasi_seksi($kode_seksi, $bln)
+    private function _get_data_realisasi_seksi($kode_seksi, $bln)
     {
         $data = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
 
@@ -757,7 +757,7 @@ class M_laporan extends CI_Model
         return $total;
     }
 
-    public function _get_data_rak_all_seksi($kode_seksi, $bln)
+    private function _get_data_rak_all_seksi($kode_seksi, $bln)
     {
         $data = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
 
@@ -776,7 +776,7 @@ class M_laporan extends CI_Model
         return $total;
     }
 
-    public function _get_data_realisasi_faskes($kode_seksi, $bln)
+    private function _get_data_realisasi_faskes($kode_seksi, $bln)
     {
         $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln' AND kode_seksi='$kode_seksi'")->row();
 
@@ -787,7 +787,7 @@ class M_laporan extends CI_Model
         }
     }
 
-    public function _get_data_rak_all_faskes($kode_seksi, $bln)
+    private function _get_data_rak_all_faskes($kode_seksi, $bln)
     {
         $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln' AND kode_seksi='$kode_seksi'")->row();
 

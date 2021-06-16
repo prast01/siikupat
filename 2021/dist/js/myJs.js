@@ -85,8 +85,45 @@ $(function () {
         });
     };
 
+    var GetChartData2 = function () {
+        $.ajax({
+            url: url + "service/data_kinerja",
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                var label = [];
+                var value = [];
+                for (var i in data) {
+                    label.push(data[i].nama);
+                    value.push(data[i].persen);
+                }
+                var ctx = $('#barChart').get(0).getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: 'Persentase (%)',
+                            backgroundColor: 'rgb(252, 116, 101)',
+                            borderColor: 'rgb(255, 255, 255)',
+                            data: value
+                        }]
+                    },
+                    options: barChartOptions
+                });
+
+                console.log(chart.data.datasets);
+            }
+        });
+    };
+
     if (dash === "dashboard") {
         GetChartData();
+    }
+
+    if (dash === "grafik-kinerja") {
+        GetChartData2();
     }
 
     if (dash === "spj") {
@@ -401,4 +438,76 @@ function getAntrianVerif(waktu) {
             }
         });
     }, waktu);
+}
+
+function getGrafikKinerja() {
+    var barChartOptions = {
+        responsive              : true,
+        maintainAspectRatio     : false,
+        datasetFill             : false
+    }
+    var bulan = $("#bulan").val();
+    $.ajax({
+        url: url + "service/data_kinerja/" + bulan,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $('#barChart').remove(); // this is my <canvas> element
+            $('#barContainer').append('<canvas id="barChart" style="height:530px; min-height:230px"></canvas>');
+            // console.log(data);
+            var label = [];
+            var value = [];
+            for (var i in data) {
+                label.push(data[i].nama);
+                value.push(data[i].persen);
+            }
+            var ctx = $('#barChart').get(0).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Persentase (%)',
+                        backgroundColor: 'rgb(252, 116, 101)',
+                        borderColor: 'rgb(255, 255, 255)',
+                        data: value
+                    }]
+                },
+                options: barChartOptions
+            });
+            
+            // chart.data.labels.pop();
+            // chart.data.datasets.forEach((dataset) => {
+            //     dataset.data.pop();
+            // });
+            // for (var i in data) {
+            //     chart.data.labels.push(data[i].nama);
+            //     value.push(data[i].persen);
+            // }
+            // chart.data.datasets = [{
+            //     label: 'Persentase (%)',
+            //     backgroundColor: 'rgb(252, 116, 101)',
+            //     borderColor: 'rgb(255, 255, 255)',
+            //     data: value
+            // }];
+            // console.log(chart.data.datasets);
+            // chart.update();
+        }
+    });
+}
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    // chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    // chart.update();
 }

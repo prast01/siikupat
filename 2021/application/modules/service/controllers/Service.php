@@ -242,6 +242,16 @@ class Service extends MY_Controller
         echo json_encode($post);
     }
 
+    public function data_kinerja($bulan = "")
+    {
+        $bln = ($bulan == "") ? date("m") : $bulan;
+
+        $model = $this->M_service;
+        $data = $model->get_data_kinerja($bln);
+
+        echo json_encode($data);
+    }
+
     private function _cek_inputan($post)
     {
         $data = $this->db->get_where("tb_rok", $post)->num_rows();
