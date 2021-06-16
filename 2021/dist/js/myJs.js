@@ -2,7 +2,7 @@ var base_url = $(location).attr("pathname");
 base_url.indexOf(1);
 base_url.toLowerCase();
 base_url =
-  window.location.origin === "http://sikupat.sikdkk.jepara.go.id"
+  window.location.origin === "http://sikupat.mi-kes.net"
     ? base_url.split("/")[1] + "/"
     : base_url.split("/")[1] + "/" + base_url.split("/")[2] + "/";
 var url = window.location.origin + "/" + base_url;
@@ -11,7 +11,7 @@ var dash = $(location).attr("pathname");
 dash.indexOf(1);
 dash.toLowerCase();
 dash =
-  window.location.origin === "http://sikupat.sikdkk.jepara.go.id"
+  window.location.origin === "http://sikupat.mi-kes.net"
     ? dash.split("/")[2]
     : dash.split("/")[3];
 
