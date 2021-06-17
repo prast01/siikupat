@@ -504,7 +504,10 @@
 						<h4 class="text-white mt-3">Tahun 2020</h4>
 					</div>
 					<div class="col-md-3 col-sm-6 text-center">
-						<a href="http://sikupat.sikdkk.jepara.go.id/2021/" class="element" target="_blank">
+						<!-- <a href="http://sikupat.sikdkk.jepara.go.id/2021/" class="element" target="_blank">
+							<img src="assets/logo/keuangan.png" width="100px">
+						</a> -->
+						<a href="http://sikupat.mi-kes.net/2021/" class="element" target="_blank">
 							<img src="assets/logo/keuangan.png" width="100px">
 						</a>
 						<h4 class="text-white mt-3">Tahun 2021</h4>
