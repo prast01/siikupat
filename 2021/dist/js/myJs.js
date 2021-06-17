@@ -118,12 +118,49 @@ $(function () {
         });
     };
 
+    var GetChartData3 = function () {
+        $.ajax({
+            url: url + "service/data_kinerja_akumulasi",
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                var label = [];
+                var value = [];
+                for (var i in data) {
+                    label.push(data[i].nama);
+                    value.push(data[i].persen);
+                }
+                var ctx = $('#barChart').get(0).getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: label,
+                        datasets: [{
+                            label: 'Persentase (%)',
+                            backgroundColor: 'rgb(252, 116, 101)',
+                            borderColor: 'rgb(255, 255, 255)',
+                            data: value
+                        }]
+                    },
+                    options: barChartOptions
+                });
+
+                console.log(chart.data.datasets);
+            }
+        });
+    };
+
     if (dash === "dashboard") {
         GetChartData();
     }
 
     if (dash === "grafik-kinerja") {
         GetChartData2();
+    }
+
+    if (dash === "grafik-kinerja-akumulasi") {
+        GetChartData3();
     }
 
     if (dash === "spj") {
@@ -446,9 +483,25 @@ function getGrafikKinerja() {
         maintainAspectRatio     : false,
         datasetFill             : false
     }
+    var arr_bln = {
+        "01" : "Januari",
+        "02" : "Februari",
+        "03" : "Maret",
+        "04" : "April",
+        "05" : "Mei",
+        "06" : "Juni",
+        "07" : "Juli",
+        "08" : "Agustus",
+        "09" : "September",
+        "10" : "Oktober",
+        "11" : "November",
+        "12" : "Desember"
+    };
+    var kode_bidang = $("#kode_bidang").val();
     var bulan = $("#bulan").val();
+    var bulan_terpilih = arr_bln[bulan];
     $.ajax({
-        url: url + "service/data_kinerja/" + bulan,
+        url: url + "service/data_kinerja/" + kode_bidang + "/" + bulan,
         method: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -476,38 +529,64 @@ function getGrafikKinerja() {
                 options: barChartOptions
             });
             
-            // chart.data.labels.pop();
-            // chart.data.datasets.forEach((dataset) => {
-            //     dataset.data.pop();
-            // });
-            // for (var i in data) {
-            //     chart.data.labels.push(data[i].nama);
-            //     value.push(data[i].persen);
-            // }
-            // chart.data.datasets = [{
-            //     label: 'Persentase (%)',
-            //     backgroundColor: 'rgb(252, 116, 101)',
-            //     borderColor: 'rgb(255, 255, 255)',
-            //     data: value
-            // }];
-            // console.log(chart.data.datasets);
-            // chart.update();
+            $("#namaBulan").html(bulan_terpilih.toUpperCase());
         }
     });
 }
 
-function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
+function getGrafikKinerjaAkumulasi() {
+    var barChartOptions = {
+        responsive              : true,
+        maintainAspectRatio     : false,
+        datasetFill             : false
+    }
+    var arr_bln = {
+        "01" : "Januari",
+        "02" : "Februari",
+        "03" : "Maret",
+        "04" : "April",
+        "05" : "Mei",
+        "06" : "Juni",
+        "07" : "Juli",
+        "08" : "Agustus",
+        "09" : "September",
+        "10" : "Oktober",
+        "11" : "November",
+        "12" : "Desember"
+    };
+    var kode_bidang = $("#kode_bidang").val();
+    var bulan = $("#bulan").val();
+    var bulan_terpilih = arr_bln[bulan];
+    $.ajax({
+        url: url + "service/data_kinerja_akumulasi/" + kode_bidang + "/" + bulan,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            $('#barChart').remove(); // this is my <canvas> element
+            $('#barContainer').append('<canvas id="barChart" style="height:530px; min-height:230px"></canvas>');
+            // console.log(data);
+            var label = [];
+            var value = [];
+            for (var i in data) {
+                label.push(data[i].nama);
+                value.push(data[i].persen);
+            }
+            var ctx = $('#barChart').get(0).getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Persentase (%)',
+                        backgroundColor: 'rgb(252, 116, 101)',
+                        borderColor: 'rgb(255, 255, 255)',
+                        data: value
+                    }]
+                },
+                options: barChartOptions
+            });
+            
+            $("#namaBulan").html(bulan_terpilih.toUpperCase());
+        }
     });
-    // chart.update();
-}
-
-function removeData(chart) {
-    chart.data.labels.pop();
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-    });
-    // chart.update();
 }

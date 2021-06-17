@@ -466,7 +466,7 @@ class M_laporan extends CI_Model
         } else {
             $this->db->where("kode_seksi !=", "XXXX");
         }
-        $this->db->order_by('kode_seksi', 'ASC');
+        $this->db->order_by('kode_seksi', 'DESC');
 
         $data_pelaksana = $this->db->get()->result();
 

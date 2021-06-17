@@ -81,7 +81,8 @@
                                 </div>
                                 <?php if ($detail) : ?>
                                     <div class="col-lg-2">
-                                        <a href="<?= site_url("../grafik-kinerja"); ?>" target="_blank" class="btn btn-success">Lihat Grafik</a>
+                                        <a href="<?= site_url("../grafik-kinerja"); ?>" target="_blank" class="btn btn-success">Grafik Bulanan</a>
+                                        <a href="<?= site_url("../grafik-kinerja-akumulasi"); ?>" target="_blank" class="btn btn-success">Grafik Akumulasi</a>
                                     </div>
                                 <?php endif; ?>
                                 <div class="col-lg-12">

@@ -308,9 +308,12 @@ class M_service extends CI_Model
         return $hsl;
     }
 
-    public function get_data_kinerja($bulan)
+    public function get_data_kinerja($kode_bidang, $bulan)
     {
         $this->db->from("tb_user");
+        if ($kode_bidang != "all") {
+            $this->db->where("kode_bidang", $kode_bidang);
+        }
         $this->db->where("kode_seksi !=", "XXXX");
         $this->db->order_by('kode_seksi', 'ASC');
 
@@ -332,7 +335,41 @@ class M_service extends CI_Model
             }
         }
 
-        return $hsl;
+        $sort = $this->array_multi_subsort($hsl, 'persen');
+
+        return $sort;
+    }
+
+    public function get_data_kinerja_akumulasi($kode_bidang, $bulan)
+    {
+        $this->db->from("tb_user");
+        if ($kode_bidang != "all") {
+            $this->db->where("kode_bidang", $kode_bidang);
+        }
+        $this->db->where("kode_seksi !=", "XXXX");
+        $this->db->order_by('kode_seksi', 'ASC');
+
+        $data_pelaksana = $this->db->get()->result();
+
+        $no = 0;
+        $hsl = array();
+        foreach ($data_pelaksana as $key) {
+            if ($key->kode_bidang != "DK005") {
+                $hsl[$no++] = array(
+                    "nama" => $key->nama,
+                    "persen" => $this->_get_persen_kinerja_akumulasi($key->kode_seksi, $bulan)
+                );
+            } else {
+                $hsl[$no++] = array(
+                    "nama" => $key->nama,
+                    "persen" => $this->_get_persen_kinerja_faskes_akumulasi($key->kode_seksi, $bulan)
+                );
+            }
+        }
+
+        $sort = $this->array_multi_subsort($hsl, 'persen');
+
+        return $sort;
     }
 
     // PRIVATE
@@ -405,7 +442,7 @@ class M_service extends CI_Model
 
         if ($total_rak > 0 && $total_real >= 0) {
             $persen = ($total_real / $total_rak) * 100;
-        } elseif ($total_rak == 0 && $total_real == 0) {
+        } elseif ($total_rak == 0) {
             $persen = 0;
         } else {
             $persen = 100;
@@ -434,13 +471,102 @@ class M_service extends CI_Model
 
         if ($total_rak > 0 && $total_real >= 0) {
             $persen = ($total_real / $total_rak) * 100;
-        } elseif ($total_rak == 0 && $total_real == 0) {
+        } elseif ($total_rak == 0) {
             $persen = 0;
         } else {
             $persen = 100;
         }
 
         return number_format($persen, 2, ".", ",");
+    }
+
+    private function _get_persen_kinerja_akumulasi($kode_seksi, $bulan)
+    {
+        $data_real = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
+
+        $total_real = 0;
+        foreach ($data_real as $key) {
+            $data2 = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer) <= '$bulan' AND status_spj='4' AND id_sub_kegiatan='$key->id_sub_kegiatan'")->row();
+
+            if ($data2->jumlah != "") {
+                $total_real = $total_real + $data2->jumlah;
+            } else {
+                $total_real = $total_real + 0;
+            }
+        }
+
+        $total_rak = 0;
+        for ($i = 1; $i <= $bulan; $i++) {
+            $data_rak = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
+
+            $kolom = "b" . sprintf("%02s", $i);
+            foreach ($data_rak as $key) {
+                $data2 = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak WHERE id_sub_kegiatan='$key->id_sub_kegiatan'")->row();
+
+                if ($data2->jumlah != "") {
+                    $total_rak = $total_rak + $data2->jumlah;
+                } else {
+                    $total_rak = $total_rak + 0;
+                }
+            }
+        }
+
+        if ($total_rak > 0 && $total_real >= 0) {
+            $persen = ($total_real / $total_rak) * 100;
+        } elseif ($total_rak == 0) {
+            $persen = 0;
+        } else {
+            $persen = 100;
+        }
+
+        return number_format($persen, 2, ".", ",");
+    }
+
+    private function _get_persen_kinerja_faskes_akumulasi($kode_seksi, $bulan)
+    {
+        $data_real = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan <= '$bulan' AND kode_seksi='$kode_seksi'")->row();
+
+        if ($data_real->jumlah != "") {
+            $total_real = $data_real->jumlah;
+        } else {
+            $total_real = 0;
+        }
+
+        $data_rak = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan <= '$bulan' AND kode_seksi='$kode_seksi'")->row();
+
+        if ($data_rak->jumlah != "") {
+            $total_rak = $data_rak->jumlah;
+        } else {
+            $total_rak = 0;
+        }
+
+        if ($total_rak > 0 && $total_real >= 0) {
+            $persen = ($total_real / $total_rak) * 100;
+        } elseif ($total_rak == 0) {
+            $persen = 0;
+        } else {
+            $persen = 100;
+        }
+
+        return number_format($persen, 2, ".", ",");
+    }
+
+
+    private function array_multi_subsort($array, $subkey)
+    {
+        $b = array();
+        $c = array();
+
+        foreach ($array as $k => $v) {
+            $b[$k] = strtolower($v[$subkey]);
+        }
+
+        arsort($b);
+        foreach ($b as $key => $val) {
+            $c[] = $array[$key];
+        }
+
+        return $c;
     }
 }
 

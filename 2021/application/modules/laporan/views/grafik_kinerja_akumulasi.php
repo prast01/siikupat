@@ -56,7 +56,7 @@
                                                 </select>
                                             </div>
                                             <div class="col-lg-1">
-                                                <button class="btn btn-success" type="button" name="lihat" onclick="getGrafikKinerja()">Lihat</button>
+                                                <button class="btn btn-success" type="button" name="lihat" onclick="getGrafikKinerjaAkumulasi()">Lihat</button>
                                             </div>
                                         </div>
                                     </form>
@@ -64,7 +64,7 @@
                                 <div class="col-lg-12 mb-5">
                                     <h4 class="text-center">
                                         GRAFIK REALISASI PENYERAPAN<br>
-                                        DIBANDING RAK BULAN <span id="namaBulan"><?= strtoupper($bln[date("m")]); ?></span>
+                                        DIBANDING RAK SAMPAI DENGAN BULAN <span id="namaBulan"><?= strtoupper($bln[date("m")]); ?></span>
                                     </h4>
                                     <div class="chart" id="barContainer">
                                         <canvas id="barChart" style="height:530px; min-height:230px"></canvas>
