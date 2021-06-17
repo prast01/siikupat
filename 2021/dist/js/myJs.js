@@ -138,7 +138,7 @@ $(function () {
                         labels: label,
                         datasets: [{
                             label: 'Persentase (%)',
-                            backgroundColor: 'rgb(252, 116, 151)',
+                            backgroundColor: 'rgb(56, 132, 255)',
                             borderColor: 'rgb(255, 255, 255)',
                             data: value
                         }]
@@ -151,16 +151,44 @@ $(function () {
         });
     };
 
+    var GetChartData2_all = function () {
+        $.ajax({
+            url: url + "service/data_kinerja_all",
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data);
+                $("#total_real").html(data.total_real);
+                $("#total_rak").html(data.total_rak);
+            }
+        });
+    };
+
+    var GetChartData3_all = function () {
+        $.ajax({
+            url: url + "service/data_kinerja_akumulasi_all",
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // console.log(data);
+                $("#total_real").html(data.total_real);
+                $("#total_rak").html(data.total_rak);
+            }
+        });
+    };
+
     if (dash === "dashboard") {
         GetChartData();
     }
 
     if (dash === "grafik-kinerja") {
         GetChartData2();
+        GetChartData2_all();
     }
 
     if (dash === "grafik-kinerja-akumulasi") {
         GetChartData3();
+        GetChartData3_all();
     }
 
     if (dash === "spj") {
@@ -530,6 +558,7 @@ function getGrafikKinerja() {
             });
             
             $("#namaBulan").html(bulan_terpilih.toUpperCase());
+            getTotalKinerja("data_kinerja_all", kode_bidang, bulan);
         }
     });
 }
@@ -578,7 +607,7 @@ function getGrafikKinerjaAkumulasi() {
                     labels: label,
                     datasets: [{
                         label: 'Persentase (%)',
-                        backgroundColor: 'rgb(252, 116, 151)',
+                        backgroundColor: 'rgb(56, 132, 255)',
                         borderColor: 'rgb(255, 255, 255)',
                         data: value
                     }]
@@ -587,6 +616,20 @@ function getGrafikKinerjaAkumulasi() {
             });
             
             $("#namaBulan").html(bulan_terpilih.toUpperCase());
+            getTotalKinerja("data_kinerja_akumulasi_all", kode_bidang, bulan);
+        }
+    });
+}
+
+function getTotalKinerja(data, kode_bidang, bulan) {
+    $.ajax({
+        url: url + "service/" + data + "/" + kode_bidang + "/" + bulan,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            // console.log(data);
+            $("#total_real").html(data.total_real);
+            $("#total_rak").html(data.total_rak);
         }
     });
 }

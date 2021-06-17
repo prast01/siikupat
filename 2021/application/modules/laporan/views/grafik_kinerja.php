@@ -62,11 +62,39 @@
                                     </form>
                                 </div>
                                 <div class="col-lg-12 mb-5">
-                                    <h4 class="text-center">
-                                        GRAFIK REALISASI PENYERAPAN<br>
-                                        DIBANDING RAK BULAN <span id="namaBulan"><?= strtoupper($bln[date("m")]); ?></span> TAHUN <?= date("Y"); ?> <br>
-                                        <span class="text-sm">Update : <?= date("Y-m-d H:i:s"); ?></span>
-                                    </h4>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h4 class="text-center">
+                                                GRAFIK REALISASI PENYERAPAN<br>
+                                                DIBANDING RAK BULAN <span id="namaBulan"><?= strtoupper($bln[date("m")]); ?></span> TAHUN <?= date("Y"); ?> <br>
+                                                <span class="text-sm">Update : <?= date("Y-m-d H:i:s"); ?></span>
+                                            </h4>
+                                        </div>
+                                        <div class="col-lg-4 offset-lg-4">
+                                            <table class="table table-borderless">
+                                                <tr>
+                                                    <td width="20%" class="p-0">
+                                                        <h5 class="mb-2">TOTAL RAK</h5>
+                                                    </td>
+                                                    <td width="3%" class="p-0">
+                                                        <h5 class="mb-2">:</h5>
+                                                    </td>
+                                                    <td class="p-0">
+                                                        <h5 class="mb-2" id="total_rak">0</h5>
+                                                    </td>
+                                                    <td width="25%" class="p-0">
+                                                        <h5 class="mb-2">TOTAL REALISASI</h5>
+                                                    </td>
+                                                    <td width="3%" class="p-0">
+                                                        <h5 class="mb-2">:</h5>
+                                                    </td>
+                                                    <td class="p-0">
+                                                        <h5 class="mb-2" id="total_real">0</h5>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div class="chart" id="barContainer">
                                         <canvas id="barChart" style="height:530px; min-height:230px"></canvas>
                                     </div>

@@ -340,6 +340,18 @@ class M_service extends CI_Model
         return $sort;
     }
 
+    public function get_data_kinerja_all($kode_bidang, $bulan)
+    {
+        $total_real = $this->_get_kinerja_real($kode_bidang, $bulan);
+        $total_rak = $this->_get_kinerja_rak($kode_bidang, $bulan);
+        $hsl = array(
+            "total_real" => number_format($total_real, 0, ",", "."),
+            "total_rak" => number_format($total_rak, 0, ",", "."),
+        );
+
+        return $hsl;
+    }
+
     public function get_data_kinerja_akumulasi($kode_bidang, $bulan)
     {
         $this->db->from("tb_user");
@@ -370,6 +382,18 @@ class M_service extends CI_Model
         $sort = $this->array_multi_subsort($hsl, 'persen');
 
         return $sort;
+    }
+
+    public function get_data_kinerja_akumulasi_all($kode_bidang, $bulan)
+    {
+        $total_real = $this->_get_kinerja_akumulasi_real($kode_bidang, $bulan);
+        $total_rak = $this->_get_kinerja_akumulasi_rak($kode_bidang, $bulan);
+        $hsl = array(
+            "total_real" => number_format($total_real, 0, ",", "."),
+            "total_rak" => number_format($total_rak, 0, ",", "."),
+        );
+
+        return $hsl;
     }
 
     // PRIVATE
@@ -551,6 +575,118 @@ class M_service extends CI_Model
         return number_format($persen, 2, ".", ",");
     }
 
+    private function _get_kinerja_real($kode_bidang, $bulan)
+    {
+        if ($kode_bidang == "all") {
+            $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer)='$bulan' AND status_spj='4'")->row();
+
+            $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+
+            return $data->jumlah + $data2->jumlah;
+        } else {
+            $total = 0;
+            if ($kode_bidang != "DK005") {
+                $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer)='$bulan' AND status_spj='4' AND id_sub_kegiatan IN (SELECT a.id_sub_kegiatan FROM tb_sub_kegiatan a, tb_user b WHERE a.kode_seksi=b.kode_seksi AND b.kode_bidang='$kode_bidang')")->row();
+
+                $total = $data->jumlah;
+            } else {
+                $data = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+
+                $total = $data->jumlah;
+            }
+
+            return $total;
+        }
+    }
+
+    private function _get_kinerja_rak($kode_bidang, $bulan)
+    {
+        $kolom = "b" . $bulan;
+        if ($kode_bidang == "all") {
+            $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak")->row();
+            $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+
+            return $data->jumlah + $data2->jumlah;
+        } else {
+            $total = 0;
+            if ($kode_bidang != "DK005") {
+                $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak WHERE id_sub_kegiatan IN (SELECT a.id_sub_kegiatan FROM tb_sub_kegiatan a, tb_user b WHERE a.kode_seksi=b.kode_seksi AND b.kode_bidang='$kode_bidang')")->row();
+
+                $total = $data->jumlah;
+            } else {
+                $data = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+
+                $total = $data->jumlah;
+            }
+
+            return $total;
+        }
+    }
+
+    private function _get_kinerja_akumulasi_real($kode_bidang, $bulan)
+    {
+        if ($kode_bidang == "all") {
+            $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer) <='$bulan' AND status_spj='4'")->row();
+
+            $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan <='$bulan'")->row();
+
+            return $data->jumlah + $data2->jumlah;
+        } else {
+            $total = 0;
+            if ($kode_bidang != "DK005") {
+                $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer)<='$bulan' AND status_spj='4' AND id_sub_kegiatan IN (SELECT a.id_sub_kegiatan FROM tb_sub_kegiatan a, tb_user b WHERE a.kode_seksi=b.kode_seksi AND b.kode_bidang='$kode_bidang')")->row();
+
+                $total = $data->jumlah;
+            } else {
+                $data = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
+
+                $total = $data->jumlah;
+            }
+
+            return $total;
+        }
+    }
+
+    private function _get_kinerja_akumulasi_rak($kode_bidang, $bulan)
+    {
+        if ($kode_bidang == "all") {
+            $total_rak = 0;
+            for ($i = 1; $i <= $bulan; $i++) {
+                $kolom = "b" . sprintf("%02s", $i);
+                $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak")->row();
+                if ($data->jumlah != "") {
+                    $total_rak = $total_rak + $data->jumlah;
+                } else {
+                    $total_rak = $total_rak + 0;
+                }
+            }
+            $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
+
+            return $total_rak + $data2->jumlah;
+        } else {
+            $total = 0;
+            if ($kode_bidang != "DK005") {
+                $total_rak = 0;
+                for ($i = 1; $i <= $bulan; $i++) {
+                    $kolom = "b" . sprintf("%02s", $i);
+                    $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak WHERE id_sub_kegiatan IN (SELECT a.id_sub_kegiatan FROM tb_sub_kegiatan a, tb_user b WHERE a.kode_seksi=b.kode_seksi AND b.kode_bidang='$kode_bidang')")->row();
+                    if ($data->jumlah != "") {
+                        $total_rak = $total_rak + $data->jumlah;
+                    } else {
+                        $total_rak = $total_rak + 0;
+                    }
+                }
+
+                $total = $total_rak;
+            } else {
+                $data = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
+
+                $total = $data->jumlah;
+            }
+
+            return $total;
+        }
+    }
 
     private function array_multi_subsort($array, $subkey)
     {

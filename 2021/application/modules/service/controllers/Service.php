@@ -252,12 +252,32 @@ class Service extends MY_Controller
         echo json_encode($data);
     }
 
+    public function data_kinerja_all($kode_bidang = "all", $bulan = "")
+    {
+        $bln = ($bulan == "") ? date("m") : $bulan;
+
+        $model = $this->M_service;
+        $data = $model->get_data_kinerja_all($kode_bidang, $bln);
+
+        echo json_encode($data);
+    }
+
     public function data_kinerja_akumulasi($kode_bidang = "all", $bulan = "")
     {
         $bln = ($bulan == "") ? date("m") : $bulan;
 
         $model = $this->M_service;
         $data = $model->get_data_kinerja_akumulasi($kode_bidang, $bln);
+
+        echo json_encode($data);
+    }
+
+    public function data_kinerja_akumulasi_all($kode_bidang = "all", $bulan = "")
+    {
+        $bln = ($bulan == "") ? date("m") : $bulan;
+
+        $model = $this->M_service;
+        $data = $model->get_data_kinerja_akumulasi_all($kode_bidang, $bln);
 
         echo json_encode($data);
     }
