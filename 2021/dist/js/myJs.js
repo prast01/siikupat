@@ -138,7 +138,7 @@ $(function () {
                         labels: label,
                         datasets: [{
                             label: 'Persentase (%)',
-                            backgroundColor: 'rgb(252, 116, 101)',
+                            backgroundColor: 'rgb(252, 116, 151)',
                             borderColor: 'rgb(255, 255, 255)',
                             data: value
                         }]
@@ -578,7 +578,7 @@ function getGrafikKinerjaAkumulasi() {
                     labels: label,
                     datasets: [{
                         label: 'Persentase (%)',
-                        backgroundColor: 'rgb(252, 116, 101)',
+                        backgroundColor: 'rgb(252, 116, 151)',
                         borderColor: 'rgb(255, 255, 255)',
                         data: value
                     }]

@@ -15,7 +15,10 @@
 			$judul2 = '';
 		}
 		// echo " - ". ucfirst($judul[0].' '). ucfirst($judul2);
-		echo ucfirst($judul[0] . ' ') . ucfirst($judul2);
+		// echo ucfirst($judul[0] . ' ') . ucfirst($judul2);
+		for ($i = 0; $i < count($judul); $i++) {
+			echo ucfirst($judul[$i]) . " ";
+		}
 	}
 	?>
 </title>

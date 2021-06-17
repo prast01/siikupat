@@ -64,7 +64,8 @@
                                 <div class="col-lg-12 mb-5">
                                     <h4 class="text-center">
                                         GRAFIK REALISASI PENYERAPAN<br>
-                                        DIBANDING RAK BULAN <span id="namaBulan"><?= strtoupper($bln[date("m")]); ?></span>
+                                        DIBANDING RAK BULAN <span id="namaBulan"><?= strtoupper($bln[date("m")]); ?></span> TAHUN <?= date("Y"); ?> <br>
+                                        <span class="text-sm">Update : <?= date("Y-m-d H:i:s"); ?></span>
                                     </h4>
                                     <div class="chart" id="barContainer">
                                         <canvas id="barChart" style="height:530px; min-height:230px"></canvas>
