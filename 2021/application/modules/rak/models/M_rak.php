@@ -84,6 +84,16 @@ class M_rak extends CI_Model
         return $hsl;
     }
 
+    public function get_rekap($id_sub_kegiatan)
+    {
+        $hsl = array(
+            "pagu" => $this->_get_pagu($id_sub_kegiatan),
+            "rak" => $this->_get_total_rak($id_sub_kegiatan),
+        );
+
+        return $hsl;
+    }
+
     public function get_sub_kegiatan_cetak($kode_bidang, $kode_seksi)
     {
         $this->db->from("tb_sub_kegiatan");
@@ -213,6 +223,32 @@ class M_rak extends CI_Model
         $data = $this->db->query("SELECT SUM(pagu_rekening) as jumlah FROM tb_rekening WHERE id_sub_kegiatan='$id_sub_kegiatan'")->row();
 
         return $data->jumlah;
+    }
+
+    private function _get_total_rak($id_sub_kegiatan)
+    {
+        $bulan = array(
+            "01" => "Januari",
+            "02" => "Februari",
+            "03" => "Maret",
+            "04" => "April",
+            "05" => "Mei",
+            "06" => "Juni",
+            "07" => "Juli",
+            "08" => "Agustus",
+            "09" => "September",
+            "10" => "Oktober",
+            "11" => "November",
+            "12" => "Desember"
+        );
+
+        $total = 0;
+        foreach ($bulan as $key => $val) {
+            $hsl = $this->_get_rak($id_sub_kegiatan, $key);
+            $total = $total + $hsl;
+        }
+
+        return $total;
     }
 }
 

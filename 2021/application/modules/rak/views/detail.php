@@ -41,10 +41,45 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-12 mb-3">
+                                <div class="col-lg-2 mb-3">
                                     <a href="<?= site_url("../rak"); ?>" class="btn btn-warning text-white">
                                         <span class="fa fa-arrow-left"></span> Kembali
                                     </a>
+                                </div>
+                                <div class="col-lg-10">
+                                    <table class="table table-borderless">
+                                        <tr>
+                                            <td class="p-0" width="16%">
+                                                <h5 class="mb-2">Pagu Anggaran</h5>
+                                            </td>
+                                            <td class="p-0" width="2%">
+                                                <h5 class="mb-2">:</h5>
+                                            </td>
+                                            <td class="p-0" width="16%">
+                                                <h5 class="mb-2 text-bold"><?= number_format($rekap["pagu"], 0, ",", "."); ?></h5>
+                                            </td>
+                                            <td class="p-0" width="16%">
+                                                <h5 class="mb-2">Total RAK</h5>
+                                            </td>
+                                            <td class="p-0" width="2%">
+                                                <h5 class="mb-2">:</h5>
+                                            </td>
+                                            <td class="p-0" width="16%">
+                                                <h5 class="mb-2 text-bold"><?= number_format($rekap["rak"], 0, ",", "."); ?></h5>
+                                            </td>
+                                            <td class="p-0" width="16%">
+                                                <h5 class="mb-2">Selisih</h5>
+                                            </td>
+                                            <td class="p-0" width="2%">
+                                                <h5 class="mb-2">:</h5>
+                                            </td>
+                                            <?php $selisih = $rekap["pagu"] - $rekap["rak"]; ?>
+                                            <?php $warna = ($selisih > 0 || $selisih < 0) ? "text-danger" : ""; ?>
+                                            <td class="p-0" width="16%">
+                                                <h5 class="mb-2 text-bold <?= $warna; ?>"><?= number_format($selisih, 0, ",", "."); ?></h5>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                                 <div class="col-lg-12">
                                     <form action="" method="post">
