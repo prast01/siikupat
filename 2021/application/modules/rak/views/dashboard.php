@@ -79,17 +79,20 @@
                                         <table class="table table-bordered datatable">
                                             <thead>
                                                 <tr>
-                                                    <th rowspan="2" width="5%">No</th>
+                                                    <th rowspan="2" width="3%">No</th>
                                                     <th rowspan="2">Nama Sub Kegiatan</th>
-                                                    <th rowspan="2" width="10%">Subbag/Seksi/UPT</th>
-                                                    <th colspan="4">Triwulan</th>
-                                                    <th rowspan="2" width="5%">Aksi</th>
+                                                    <th rowspan="2" width="7%">Subbag/Seksi/UPT</th>
+                                                    <th colspan="5">Triwulan</th>
+                                                    <th rowspan="2" width="7%">Pagu Sub Kegiatan</th>
+                                                    <th rowspan="2" width="7%">Selisih</th>
+                                                    <th rowspan="2" width="3%">Aksi</th>
                                                 </tr>
                                                 <tr>
-                                                    <th width="10%">TW 1</th>
-                                                    <th width="10%">TW 2</th>
-                                                    <th width="10%">TW 3</th>
-                                                    <th width="10%">TW 4</th>
+                                                    <th width="7%">TW 1</th>
+                                                    <th width="7%">TW 2</th>
+                                                    <th width="7%">TW 3</th>
+                                                    <th width="7%">TW 4</th>
+                                                    <th width="7%">JUMLAH</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -99,10 +102,32 @@
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td><?= $val["nama"]; ?></td>
-                                                        <td align="right"><?= number_format($val["tw1"], 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($val["tw2"], 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($val["tw3"], 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($val["tw4"], 0, ",", "."); ?></td>
+                                                        <td align="right">
+                                                            <?= number_format($val["tw1"], 0, ",", "."); ?>
+                                                        </td>
+                                                        <td align="right">
+                                                            <?= number_format($val["tw2"], 0, ",", "."); ?>
+                                                        </td>
+                                                        <td align="right">
+                                                            <?= number_format($val["tw3"], 0, ",", "."); ?>
+                                                        </td>
+                                                        <td align="right">
+                                                            <?= number_format($val["tw4"], 0, ",", "."); ?>
+                                                        </td>
+                                                        <td align="right">
+                                                            <?php $jumlah = $val["tw1"] + $val["tw2"] + $val["tw3"] + $val["tw4"]; ?>
+                                                            <?= number_format($jumlah, 0, ",", "."); ?>
+                                                        </td>
+                                                        <td align="right">
+                                                            <?= number_format($val["pagu"], 0, ",", "."); ?>
+                                                        </td>
+                                                        <?php
+                                                        $selisih = $val["pagu"] - $jumlah;
+                                                        $warna = ($selisih > 0 || $selisih < 0) ? "text-danger" : "";
+                                                        ?>
+                                                        <td align="right" class="<?= $warna; ?>">
+                                                            <?= number_format($selisih, 0, ",", "."); ?>
+                                                        </td>
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a href="<?= site_url("../rak/detail/" . $val["id_sub_kegiatan"]); ?>" class="btn btn-primary btn-sm btn-flat">

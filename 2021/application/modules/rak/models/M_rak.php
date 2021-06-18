@@ -29,6 +29,7 @@ class M_rak extends CI_Model
                 "tw2" => $this->_get_tw(2, $id_sub_kegiatan),
                 "tw3" => $this->_get_tw(3, $id_sub_kegiatan),
                 "tw4" => $this->_get_tw(4, $id_sub_kegiatan),
+                "pagu" => $this->_get_pagu($id_sub_kegiatan),
             );
         }
 
@@ -205,6 +206,13 @@ class M_rak extends CI_Model
         } else {
             return 0;
         }
+    }
+
+    private function _get_pagu($id_sub_kegiatan)
+    {
+        $data = $this->db->query("SELECT SUM(pagu_rekening) as jumlah FROM tb_rekening WHERE id_sub_kegiatan='$id_sub_kegiatan'")->row();
+
+        return $data->jumlah;
     }
 }
 
