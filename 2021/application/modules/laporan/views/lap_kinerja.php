@@ -310,7 +310,19 @@
                                                             ?>
                                                             <?= number_format($persen_b_all_12, 2, ",", "."); ?>% <br>
                                                         </td>
-                                                        <td></td>
+                                                        <td align="right">
+                                                            <?php
+                                                            $t_rak_all = $rak_01 + $rak_02 + $rak_03 + $rak_04 + $rak_05 + $rak_06 + $rak_07 + $rak_08 + $rak_09 + $rak_10 + $rak_11 + $rak_12;
+
+                                                            $t_real_all = $b_01 + $b_02 + $b_03 + $b_04 + $b_05 + $b_06 + $b_07 + $b_08 + $b_09 + $b_10 + $b_11 + $b_12;
+                                                            ?>
+                                                            <b><?= number_format($t_rak_all, 0, ",", "."); ?></b> <br>
+                                                            <b><?= number_format($t_real_all, 0, ",", "."); ?></b> <br>
+                                                            <?php
+                                                            $persen_all_x = ($t_rak_all != 0) ? ($t_real_all / $t_rak_all) * 100 : 0;
+                                                            ?>
+                                                            <?= number_format($persen_all_x, 2, ",", "."); ?>% <br>
+                                                        </td>
                                                     </tr>
                                                 </tfoot>
                                             <?php endif; ?>
