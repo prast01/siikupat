@@ -348,7 +348,7 @@ class M_service extends CI_Model
         $hsl = array(
             "total_real" => number_format($total_real, 0, ",", "."),
             "total_rak" => number_format($total_rak, 0, ",", "."),
-            "total_persen" => number_format($persen, 0, ",", "."),
+            "total_persen" => number_format($persen, 2, ",", "."),
         );
 
         return $hsl;
@@ -394,7 +394,7 @@ class M_service extends CI_Model
         $hsl = array(
             "total_real" => number_format($total_real, 0, ",", "."),
             "total_rak" => number_format($total_rak, 0, ",", "."),
-            "total_persen" => number_format($persen, 0, ",", "."),
+            "total_persen" => number_format($persen, 2, ",", "."),
         );
 
         return $hsl;
