@@ -98,19 +98,17 @@
                                                         <td><?= number_format($val["persen"], 2, ".", ","); ?>%</td>
                                                     </tr>
                                                 <?php endforeach; ?>
-                                            </tbody>
-                                            <tfoot>
                                                 <?php
                                                 $persen = ($realisasi / $pagu_anggaran) * 100;
                                                 ?>
                                                 <tr>
-                                                    <th colspan="3"></th>
-                                                    <th align="right"><?= number_format($pagu_anggaran, 0, ".", ","); ?></th>
-                                                    <th align="right"><?= number_format($realisasi, 0, ".", ","); ?></th>
-                                                    <th align="right"><?= number_format($sisa, 0, ".", ","); ?></th>
-                                                    <th><?= number_format($persen, 2, ".", ","); ?>%</th>
+                                                    <td colspan="3"></td>
+                                                    <td align="right"><b><?= number_format($pagu_anggaran, 0, ".", ","); ?></b></td>
+                                                    <td align="right"><b><?= number_format($realisasi, 0, ".", ","); ?></b></td>
+                                                    <td align="right"><b><?= number_format($sisa, 0, ".", ","); ?></b></td>
+                                                    <td><b><?= number_format($persen, 2, ".", ","); ?>%</b></td>
                                                 </tr>
-                                            </tfoot>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
