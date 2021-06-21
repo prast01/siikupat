@@ -160,6 +160,7 @@ $(function () {
                 // console.log(data);
                 $("#total_real").html(data.total_real);
                 $("#total_rak").html(data.total_rak);
+                $("#total_persen").html(data.total_persen);
             }
         });
     };
@@ -173,6 +174,7 @@ $(function () {
                 // console.log(data);
                 $("#total_real").html(data.total_real);
                 $("#total_rak").html(data.total_rak);
+                $("#total_persen").html(data.total_persen);
             }
         });
     };
