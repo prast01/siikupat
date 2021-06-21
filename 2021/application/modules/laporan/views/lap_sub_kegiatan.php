@@ -102,7 +102,9 @@
                                                 $persen = ($realisasi / $pagu_anggaran) * 100;
                                                 ?>
                                                 <tr>
-                                                    <td colspan="3"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <td align="right"><b><?= number_format($pagu_anggaran, 0, ".", ","); ?></b></td>
                                                     <td align="right"><b><?= number_format($realisasi, 0, ".", ","); ?></b></td>
                                                     <td align="right"><b><?= number_format($sisa, 0, ".", ","); ?></b></td>
