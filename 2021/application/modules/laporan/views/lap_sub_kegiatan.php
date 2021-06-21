@@ -92,9 +92,9 @@
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
                                                         <td><?= $val["nama"]; ?></td>
-                                                        <td><?= number_format($val["pagu_anggaran"], 0, ".", ","); ?></td>
-                                                        <td><?= number_format($val["realisasi"], 0, ".", ","); ?></td>
-                                                        <td><?= number_format($val["sisa"], 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($val["pagu_anggaran"], 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($val["realisasi"], 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($val["sisa"], 0, ".", ","); ?></td>
                                                         <td><?= number_format($val["persen"], 2, ".", ","); ?>%</td>
                                                     </tr>
                                                 <?php endforeach; ?>
@@ -105,9 +105,9 @@
                                                 ?>
                                                 <tr>
                                                     <th colspan="3"></th>
-                                                    <th><?= number_format($pagu_anggaran, 0, ".", ","); ?></th>
-                                                    <th><?= number_format($realisasi, 0, ".", ","); ?></th>
-                                                    <th><?= number_format($sisa, 0, ".", ","); ?></th>
+                                                    <th align="right"><?= number_format($pagu_anggaran, 0, ".", ","); ?></th>
+                                                    <th align="right"><?= number_format($realisasi, 0, ".", ","); ?></th>
+                                                    <th align="right"><?= number_format($sisa, 0, ".", ","); ?></th>
                                                     <th><?= number_format($persen, 2, ".", ","); ?>%</th>
                                                 </tr>
                                             </tfoot>
