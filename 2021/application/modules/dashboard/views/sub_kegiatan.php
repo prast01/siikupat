@@ -66,10 +66,10 @@
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $val["nama_sub_kegiatan"]; ?></td>
-                                                        <td align="right"><?= number_format($val["pagu_anggaran"], 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($val["realisasi"], 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($val["sisa"], 0, ",", "."); ?></td>
-                                                        <td><?= number_format($val["persen"], 2, ",", "."); ?></td>
+                                                        <td align="right"><?= number_format($val["pagu_anggaran"], 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($val["realisasi"], 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($val["sisa"], 0, ".", ","); ?></td>
+                                                        <td><?= number_format($val["persen"], 2, ".", ","); ?>%</td>
                                                         <td>
                                                             <div class="btn-group">
                                                                 <a href="<?= site_url("../rekening/" . $val["kode_seksi"] . "/" . $val["id_sub_kegiatan"]); ?>" class="btn btn-primary btn-sm btn-flat">

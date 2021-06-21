@@ -99,6 +99,9 @@
 								<a tabindex="-1" href="<?php echo site_url('../laporan-rok'); ?>" class="dropdown-item">Laporan ROK</a>
 							</li> -->
 							<li>
+								<a tabindex="-1" href="<?php echo site_url('../laporan-sub-kegiatan'); ?>" class="dropdown-item">Laporan Sub Kegiatan</a>
+							</li>
+							<li>
 								<a tabindex="-1" href="<?php echo site_url('../laporan-kinerja'); ?>" class="dropdown-item">Laporan Kinerja</a>
 							</li>
 						</ul>
@@ -111,7 +114,7 @@
 					</li>
 				<?php endif; ?>
 				<!-- PENGATURAN -->
-				<?php if ($nama == "super" || $kode_seksi == "DJ001" || $kode_bidang != "DK005") : ?>
+				<?php if ($nama == "super" || $kode_seksi == "DJ001") : ?>
 					<li class="nav-item dropdown">
 						<a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pengaturan</a>
 						<ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">

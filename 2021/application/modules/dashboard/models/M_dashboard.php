@@ -132,7 +132,7 @@ class M_dashboard extends CI_Model
                 "tgl_kegiatan" => $row->tgl_kegiatan,
                 "uraian" => $row->uraian,
                 "nominal_real" => $row->nominal,
-                "nominal" => number_format($row->nominal, 0, ",", "."),
+                "nominal" => number_format($row->nominal, 0, ".", ","),
                 "pelaksana" => $this->get_pelaksana($row->kode_spj),
                 "status_spj" => $row->status_spj,
                 "nama_status" => $nama_status,

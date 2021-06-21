@@ -93,9 +93,9 @@ function tgl_indo($tgl)
                                                     <tr>
                                                         <td><?= $no++; ?></td>
                                                         <td><?= $row->nama; ?></td>
-                                                        <td align="right"><?= number_format($row->pagu_anggaran, 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($row->real_anggaran, 0, ",", "."); ?></td>
-                                                        <td align="right"><?= number_format($row->sisa_anggaran, 0, ",", "."); ?></td>
+                                                        <td align="right"><?= number_format($row->pagu_anggaran, 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($row->real_anggaran, 0, ".", ","); ?></td>
+                                                        <td align="right"><?= number_format($row->sisa_anggaran, 0, ".", ","); ?></td>
                                                         <td><?= $row->persen_anggaran; ?>%</td>
                                                         <td>
                                                             <a class="btn btn-primary btn-sm" href="<?= site_url("../realisasi/" . $row->kode_seksi); ?>">

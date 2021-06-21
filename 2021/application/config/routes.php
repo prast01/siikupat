@@ -71,3 +71,4 @@ $route['laporan-kinerja'] = "laporan/kinerja";
 $route['laporan-kinerja/(:any)'] = "laporan/kinerja/$1";
 $route['grafik-kinerja'] = "laporan/grafik_kinerja";
 $route['grafik-kinerja-akumulasi'] = "laporan/grafik_kinerja_akumulasi";
+$route['laporan-sub-kegiatan'] = "laporan/sub_kegiatan";

@@ -536,6 +536,37 @@ class M_laporan extends CI_Model
         return $hsl;
     }
 
+    public function get_lap_sub_kegiatan($kode_bidang, $kode_seksi)
+    {
+        $this->db->from("view_sub_kegiatan");
+        if ($kode_bidang != "all") {
+            $this->db->where("kode_bidang", $kode_bidang);
+        }
+        if ($kode_seksi != "all") {
+            $this->db->where("kode_seksi", $kode_seksi);
+        }
+        $data_sub = $this->db->get()->result();
+
+        $hsl = array();
+        $no = 0;
+        foreach ($data_sub as $row) {
+            $real = $this->_get_real_by_id($row->id_sub_kegiatan);
+            $sisa = $this->_get_sisa($row->pagu_anggaran, $real);
+            $persen = $this->_get_persen($row->pagu_anggaran, $real);
+            $hsl[$no++] = array(
+                "id_sub_kegiatan" => $row->id_sub_kegiatan,
+                "nama_sub_kegiatan" => $row->nama_sub_kegiatan,
+                "nama" => $row->nama,
+                "pagu_anggaran" => $row->pagu_anggaran,
+                "realisasi" => $real,
+                "sisa" => $sisa,
+                "persen" => $persen,
+            );
+        }
+
+        return $hsl;
+    }
+
     // CRUD
     public function simpan_realisasi_faskes($post)
     {
@@ -571,6 +602,35 @@ class M_laporan extends CI_Model
     }
 
     // PRIVATE
+
+    private function _get_real_by_id($id_sub_kegiatan)
+    {
+        $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE id_sub_kegiatan='$id_sub_kegiatan' AND status_spj='4' GROUP BY id_sub_kegiatan");
+
+        $total = 0;
+        if ($real->num_rows() > 0) {
+            $r = $real->row();
+            $total = $r->nominal;
+        }
+        return $total;
+    }
+
+    private function _get_sisa($pagu, $real)
+    {
+        $hsl = $pagu - $real;
+        return $hsl;
+    }
+
+    private function _get_persen($pagu, $real)
+    {
+        $hsl = 0;
+        if ($pagu > 0) {
+            $hsl = ($real / $pagu) * 100;
+        }
+
+        return $hsl;
+    }
+
     private function _get_sisa_bulan_lalu($id_sub, $bln_sblm, $kode_seksi)
     {
         if ($bln_sblm > 0) {
