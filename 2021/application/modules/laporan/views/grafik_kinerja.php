@@ -73,7 +73,7 @@
                                         <div class="col-lg-4 offset-lg-4">
                                             <table class="table table-borderless">
                                                 <tr>
-                                                    <td width="20%" class="p-0">
+                                                    <!-- <td width="20%" class="p-0">
                                                         <h5 class="mb-2">TOTAL RAK</h5>
                                                     </td>
                                                     <td width="3%" class="p-0">
@@ -90,6 +90,15 @@
                                                     </td>
                                                     <td class="p-0">
                                                         <h5 class="mb-2" id="total_real">0</h5>
+                                                    </td> -->
+                                                    <td width="40%" class="p-0">
+                                                        <h5 class="mb-2">PERSENTASE</h5>
+                                                    </td>
+                                                    <td width="3%" class="p-0">
+                                                        <h5 class="mb-2">:</h5>
+                                                    </td>
+                                                    <td class="p-0">
+                                                        <h5 class="mb-2" id="total_persen">0</h5>
                                                     </td>
                                                 </tr>
                                             </table>

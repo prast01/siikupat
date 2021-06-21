@@ -344,9 +344,11 @@ class M_service extends CI_Model
     {
         $total_real = $this->_get_kinerja_real($kode_bidang, $bulan);
         $total_rak = $this->_get_kinerja_rak($kode_bidang, $bulan);
+        $persen = ($total_real / $total_rak) * 100;
         $hsl = array(
             "total_real" => number_format($total_real, 0, ",", "."),
             "total_rak" => number_format($total_rak, 0, ",", "."),
+            "total_persen" => number_format($persen, 0, ",", "."),
         );
 
         return $hsl;
@@ -388,9 +390,11 @@ class M_service extends CI_Model
     {
         $total_real = $this->_get_kinerja_akumulasi_real($kode_bidang, $bulan);
         $total_rak = $this->_get_kinerja_akumulasi_rak($kode_bidang, $bulan);
+        $persen = ($total_real / $total_rak) * 100;
         $hsl = array(
             "total_real" => number_format($total_real, 0, ",", "."),
             "total_rak" => number_format($total_rak, 0, ",", "."),
+            "total_persen" => number_format($persen, 0, ",", "."),
         );
 
         return $hsl;
