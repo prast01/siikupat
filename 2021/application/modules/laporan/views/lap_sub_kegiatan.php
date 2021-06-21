@@ -98,19 +98,19 @@
                                                         <td><?= number_format($val["persen"], 2, ".", ","); ?>%</td>
                                                     </tr>
                                                 <?php endforeach; ?>
+                                            </tbody>
+                                            <tfoot>
                                                 <?php
                                                 $persen = ($realisasi / $pagu_anggaran) * 100;
                                                 ?>
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td colspan="3"></td>
                                                     <td align="right"><b><?= number_format($pagu_anggaran, 0, ".", ","); ?></b></td>
                                                     <td align="right"><b><?= number_format($realisasi, 0, ".", ","); ?></b></td>
                                                     <td align="right"><b><?= number_format($sisa, 0, ".", ","); ?></b></td>
                                                     <td><b><?= number_format($persen, 2, ".", ","); ?>%</b></td>
                                                 </tr>
-                                            </tbody>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
