@@ -328,10 +328,10 @@ class M_service extends CI_Model
                     "persen" => $this->_get_persen_kinerja($key->kode_seksi, $bulan)
                 );
             } else {
-                $hsl[$no++] = array(
-                    "nama" => $key->nama,
-                    "persen" => $this->_get_persen_kinerja_faskes($key->kode_seksi, $bulan)
-                );
+                // $hsl[$no++] = array(
+                //     "nama" => $key->nama,
+                //     "persen" => $this->_get_persen_kinerja_faskes($key->kode_seksi, $bulan)
+                // );
             }
         }
 
@@ -374,10 +374,10 @@ class M_service extends CI_Model
                     "persen" => $this->_get_persen_kinerja_akumulasi($key->kode_seksi, $bulan)
                 );
             } else {
-                $hsl[$no++] = array(
-                    "nama" => $key->nama,
-                    "persen" => $this->_get_persen_kinerja_faskes_akumulasi($key->kode_seksi, $bulan)
-                );
+                // $hsl[$no++] = array(
+                //     "nama" => $key->nama,
+                //     "persen" => $this->_get_persen_kinerja_faskes_akumulasi($key->kode_seksi, $bulan)
+                // );
             }
         }
 
@@ -584,9 +584,10 @@ class M_service extends CI_Model
         if ($kode_bidang == "all") {
             $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer)='$bulan' AND status_spj='4'")->row();
 
-            $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+            // $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
 
-            return $data->jumlah + $data2->jumlah;
+            // return $data->jumlah + $data2->jumlah;
+            return $data->jumlah;
         } else {
             $total = 0;
             if ($kode_bidang != "DK005") {
@@ -594,9 +595,9 @@ class M_service extends CI_Model
 
                 $total = $data->jumlah;
             } else {
-                $data = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+                // $data = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
 
-                $total = $data->jumlah;
+                // $total = $data->jumlah;
             }
 
             return $total;
@@ -608,9 +609,10 @@ class M_service extends CI_Model
         $kolom = "b" . $bulan;
         if ($kode_bidang == "all") {
             $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak")->row();
-            $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+            // $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
 
-            return $data->jumlah + $data2->jumlah;
+            // return $data->jumlah + $data2->jumlah;
+            return $data->jumlah;
         } else {
             $total = 0;
             if ($kode_bidang != "DK005") {
@@ -618,9 +620,9 @@ class M_service extends CI_Model
 
                 $total = $data->jumlah;
             } else {
-                $data = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
+                // $data = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bulan'")->row();
 
-                $total = $data->jumlah;
+                // $total = $data->jumlah;
             }
 
             return $total;
@@ -632,9 +634,10 @@ class M_service extends CI_Model
         if ($kode_bidang == "all") {
             $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer) <='$bulan' AND status_spj='4'")->row();
 
-            $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan <='$bulan'")->row();
+            // $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan <='$bulan'")->row();
 
-            return $data->jumlah + $data2->jumlah;
+            // return $data->jumlah + $data2->jumlah;
+            return $data->jumlah;
         } else {
             $total = 0;
             if ($kode_bidang != "DK005") {
@@ -642,9 +645,9 @@ class M_service extends CI_Model
 
                 $total = $data->jumlah;
             } else {
-                $data = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
+                // $data = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
 
-                $total = $data->jumlah;
+                // $total = $data->jumlah;
             }
 
             return $total;
@@ -664,9 +667,10 @@ class M_service extends CI_Model
                     $total_rak = $total_rak + 0;
                 }
             }
-            $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
+            // $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
 
-            return $total_rak + $data2->jumlah;
+            // return $total_rak + $data2->jumlah;
+            return $total_rak;
         } else {
             $total = 0;
             if ($kode_bidang != "DK005") {
@@ -683,9 +687,9 @@ class M_service extends CI_Model
 
                 $total = $total_rak;
             } else {
-                $data = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
+                // $data = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan<='$bulan'")->row();
 
-                $total = $data->jumlah;
+                // $total = $data->jumlah;
             }
 
             return $total;

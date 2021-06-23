@@ -476,6 +476,7 @@ class M_laporan extends CI_Model
             if ($key->kode_bidang != "DK005") {
                 $hsl[$no] = array(
                     "skpd" => $key->nama,
+                    "kode_seksi" => $key->kode_seksi,
                     "01" => $this->_get_data_realisasi_seksi($key->kode_seksi, "01"),
                     "02" => $this->_get_data_realisasi_seksi($key->kode_seksi, "02"),
                     "03" => $this->_get_data_realisasi_seksi($key->kode_seksi, "03"),
@@ -502,33 +503,33 @@ class M_laporan extends CI_Model
                     "rak12" => $this->_get_data_rak_all_seksi($key->kode_seksi, "12"),
                 );
             } else {
-                $hsl[$no] = array(
-                    "skpd" => $key->nama,
-                    "01" => $this->_get_data_realisasi_faskes($key->kode_seksi, "01"),
-                    "02" => $this->_get_data_realisasi_faskes($key->kode_seksi, "02"),
-                    "03" => $this->_get_data_realisasi_faskes($key->kode_seksi, "03"),
-                    "04" => $this->_get_data_realisasi_faskes($key->kode_seksi, "04"),
-                    "05" => $this->_get_data_realisasi_faskes($key->kode_seksi, "05"),
-                    "06" => $this->_get_data_realisasi_faskes($key->kode_seksi, "06"),
-                    "07" => $this->_get_data_realisasi_faskes($key->kode_seksi, "07"),
-                    "08" => $this->_get_data_realisasi_faskes($key->kode_seksi, "08"),
-                    "09" => $this->_get_data_realisasi_faskes($key->kode_seksi, "09"),
-                    "10" => $this->_get_data_realisasi_faskes($key->kode_seksi, "10"),
-                    "11" => $this->_get_data_realisasi_faskes($key->kode_seksi, "11"),
-                    "12" => $this->_get_data_realisasi_faskes($key->kode_seksi, "12"),
-                    "rak01" => $this->_get_data_rak_all_faskes($key->kode_seksi, "01"),
-                    "rak02" => $this->_get_data_rak_all_faskes($key->kode_seksi, "02"),
-                    "rak03" => $this->_get_data_rak_all_faskes($key->kode_seksi, "03"),
-                    "rak04" => $this->_get_data_rak_all_faskes($key->kode_seksi, "04"),
-                    "rak05" => $this->_get_data_rak_all_faskes($key->kode_seksi, "05"),
-                    "rak06" => $this->_get_data_rak_all_faskes($key->kode_seksi, "06"),
-                    "rak07" => $this->_get_data_rak_all_faskes($key->kode_seksi, "07"),
-                    "rak08" => $this->_get_data_rak_all_faskes($key->kode_seksi, "08"),
-                    "rak09" => $this->_get_data_rak_all_faskes($key->kode_seksi, "09"),
-                    "rak10" => $this->_get_data_rak_all_faskes($key->kode_seksi, "10"),
-                    "rak11" => $this->_get_data_rak_all_faskes($key->kode_seksi, "11"),
-                    "rak12" => $this->_get_data_rak_all_faskes($key->kode_seksi, "12"),
-                );
+                // $hsl[$no] = array(
+                //     "skpd" => $key->nama,
+                //     "01" => $this->_get_data_realisasi_faskes($key->kode_seksi, "01"),
+                //     "02" => $this->_get_data_realisasi_faskes($key->kode_seksi, "02"),
+                //     "03" => $this->_get_data_realisasi_faskes($key->kode_seksi, "03"),
+                //     "04" => $this->_get_data_realisasi_faskes($key->kode_seksi, "04"),
+                //     "05" => $this->_get_data_realisasi_faskes($key->kode_seksi, "05"),
+                //     "06" => $this->_get_data_realisasi_faskes($key->kode_seksi, "06"),
+                //     "07" => $this->_get_data_realisasi_faskes($key->kode_seksi, "07"),
+                //     "08" => $this->_get_data_realisasi_faskes($key->kode_seksi, "08"),
+                //     "09" => $this->_get_data_realisasi_faskes($key->kode_seksi, "09"),
+                //     "10" => $this->_get_data_realisasi_faskes($key->kode_seksi, "10"),
+                //     "11" => $this->_get_data_realisasi_faskes($key->kode_seksi, "11"),
+                //     "12" => $this->_get_data_realisasi_faskes($key->kode_seksi, "12"),
+                //     "rak01" => $this->_get_data_rak_all_faskes($key->kode_seksi, "01"),
+                //     "rak02" => $this->_get_data_rak_all_faskes($key->kode_seksi, "02"),
+                //     "rak03" => $this->_get_data_rak_all_faskes($key->kode_seksi, "03"),
+                //     "rak04" => $this->_get_data_rak_all_faskes($key->kode_seksi, "04"),
+                //     "rak05" => $this->_get_data_rak_all_faskes($key->kode_seksi, "05"),
+                //     "rak06" => $this->_get_data_rak_all_faskes($key->kode_seksi, "06"),
+                //     "rak07" => $this->_get_data_rak_all_faskes($key->kode_seksi, "07"),
+                //     "rak08" => $this->_get_data_rak_all_faskes($key->kode_seksi, "08"),
+                //     "rak09" => $this->_get_data_rak_all_faskes($key->kode_seksi, "09"),
+                //     "rak10" => $this->_get_data_rak_all_faskes($key->kode_seksi, "10"),
+                //     "rak11" => $this->_get_data_rak_all_faskes($key->kode_seksi, "11"),
+                //     "rak12" => $this->_get_data_rak_all_faskes($key->kode_seksi, "12"),
+                // );
             }
             $no++;
         }
@@ -561,6 +562,44 @@ class M_laporan extends CI_Model
                 "realisasi" => $real,
                 "sisa" => $sisa,
                 "persen" => $persen,
+            );
+        }
+
+        return $hsl;
+    }
+
+    public function get_kinerja_sub_kegiatan($kode_seksi)
+    {
+        $sub = $this->db->get_where("tb_sub_kegiatan", ["kode_seksi" => $kode_seksi])->result();
+        $no = 0;
+        $hsl = array();
+        foreach ($sub as $key) {
+            $hsl[$no++] = array(
+                "nama_sub" => $key->nama_sub_kegiatan,
+                "01" => $this->_get_real_sub($key->id_sub_kegiatan, "01"),
+                "02" => $this->_get_real_sub($key->id_sub_kegiatan, "02"),
+                "03" => $this->_get_real_sub($key->id_sub_kegiatan, "03"),
+                "04" => $this->_get_real_sub($key->id_sub_kegiatan, "04"),
+                "05" => $this->_get_real_sub($key->id_sub_kegiatan, "05"),
+                "06" => $this->_get_real_sub($key->id_sub_kegiatan, "06"),
+                "07" => $this->_get_real_sub($key->id_sub_kegiatan, "07"),
+                "08" => $this->_get_real_sub($key->id_sub_kegiatan, "08"),
+                "09" => $this->_get_real_sub($key->id_sub_kegiatan, "09"),
+                "10" => $this->_get_real_sub($key->id_sub_kegiatan, "10"),
+                "11" => $this->_get_real_sub($key->id_sub_kegiatan, "11"),
+                "12" => $this->_get_real_sub($key->id_sub_kegiatan, "12"),
+                "rak01" => $this->_get_data_rak($key->id_sub_kegiatan, "01"),
+                "rak02" => $this->_get_data_rak($key->id_sub_kegiatan, "02"),
+                "rak03" => $this->_get_data_rak($key->id_sub_kegiatan, "03"),
+                "rak04" => $this->_get_data_rak($key->id_sub_kegiatan, "04"),
+                "rak05" => $this->_get_data_rak($key->id_sub_kegiatan, "05"),
+                "rak06" => $this->_get_data_rak($key->id_sub_kegiatan, "06"),
+                "rak07" => $this->_get_data_rak($key->id_sub_kegiatan, "07"),
+                "rak08" => $this->_get_data_rak($key->id_sub_kegiatan, "08"),
+                "rak09" => $this->_get_data_rak($key->id_sub_kegiatan, "09"),
+                "rak10" => $this->_get_data_rak($key->id_sub_kegiatan, "10"),
+                "rak11" => $this->_get_data_rak($key->id_sub_kegiatan, "11"),
+                "rak12" => $this->_get_data_rak($key->id_sub_kegiatan, "12"),
             );
         }
 
@@ -784,9 +823,10 @@ class M_laporan extends CI_Model
     {
         $data = $this->db->query("SELECT SUM(nominal) as jumlah FROM tb_spj WHERE MONTH(tgl_transfer)='$bln' AND status_spj='4'")->row();
 
-        $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln'")->row();
+        // $data2 = $this->db->query("SELECT SUM(realisasi) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln'")->row();
 
-        return $data->jumlah + $data2->jumlah;
+        // return $data->jumlah + $data2->jumlah;
+        return $data->jumlah;
     }
 
     private function _get_data_rak_all($bln)
@@ -794,9 +834,10 @@ class M_laporan extends CI_Model
         $kolom = "b" . $bln;
 
         $data = $this->db->query("SELECT SUM($kolom) as jumlah FROM tb_rak")->row();
-        $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln'")->row();
+        // $data2 = $this->db->query("SELECT SUM(rak) as jumlah FROM tb_realisasi_faskes WHERE bulan='$bln'")->row();
 
-        return $data->jumlah + $data2->jumlah;
+        // return $data->jumlah + $data2->jumlah;
+        return $data->jumlah;
     }
 
     private function _get_data_realisasi_seksi($kode_seksi, $bln)
@@ -856,6 +897,18 @@ class M_laporan extends CI_Model
         } else {
             return 0;
         }
+    }
+
+    private function _get_real_sub($id_sub_kegiatan, $bln)
+    {
+        $real = $this->db->query("SELECT SUM(nominal) AS nominal FROM tb_spj WHERE id_sub_kegiatan='$id_sub_kegiatan' AND status_spj='4' AND MONTH(tgl_transfer)='$bln' GROUP BY id_sub_kegiatan");
+
+        $total = 0;
+        if ($real->num_rows() > 0) {
+            $r = $real->row();
+            $total = $r->nominal;
+        }
+        return $total;
     }
 }
 

@@ -45,7 +45,7 @@
                                                     <?php foreach ($bidang as $key) : ?>
                                                         <option value="<?= $key->kode_bidang; ?>"><?= $key->nama_bidang; ?></option>
                                                     <?php endforeach; ?>
-                                                    <option value="DK005">Faskes</option>
+                                                    <!-- <option value="DK005">Faskes</option> -->
                                                 </select>
                                             </div>
                                             <div class="col-lg-4">

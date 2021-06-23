@@ -49,7 +49,7 @@
                                                         <?php foreach ($bidang as $key) : ?>
                                                             <option <?= ($key->kode_bidang == $kode_bidang) ? "selected" : ""; ?> value="<?= $key->kode_bidang; ?>"><?= $key->nama_bidang; ?></option>
                                                         <?php endforeach; ?>
-                                                        <option <?= ("DK005" == $kode_bidang) ? "selected" : ""; ?> value="DK005">Faskes</option>
+                                                        <!-- <option <?= ("DK005" == $kode_bidang) ? "selected" : ""; ?> value="DK005">Faskes</option> -->
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -103,27 +103,27 @@
                                                 <?php
                                                 $no = 1;
                                                 $total_all = 0;
-                                                $b_1 = 0;
-                                                $b_2 = 0;
-                                                $b_3 = 0;
-                                                $b_4 = 0;
-                                                $b_5 = 0;
-                                                $b_6 = 0;
-                                                $b_7 = 0;
-                                                $b_8 = 0;
-                                                $b_9 = 0;
+                                                $b_01 = 0;
+                                                $b_02 = 0;
+                                                $b_03 = 0;
+                                                $b_04 = 0;
+                                                $b_05 = 0;
+                                                $b_06 = 0;
+                                                $b_07 = 0;
+                                                $b_08 = 0;
+                                                $b_09 = 0;
                                                 $b_10 = 0;
                                                 $b_11 = 0;
                                                 $b_12 = 0;
-                                                $rak_1 = 0;
-                                                $rak_2 = 0;
-                                                $rak_3 = 0;
-                                                $rak_4 = 0;
-                                                $rak_5 = 0;
-                                                $rak_6 = 0;
-                                                $rak_7 = 0;
-                                                $rak_8 = 0;
-                                                $rak_9 = 0;
+                                                $rak_01 = 0;
+                                                $rak_02 = 0;
+                                                $rak_03 = 0;
+                                                $rak_04 = 0;
+                                                $rak_05 = 0;
+                                                $rak_06 = 0;
+                                                $rak_07 = 0;
+                                                $rak_08 = 0;
+                                                $rak_09 = 0;
                                                 $rak_10 = 0;
                                                 $rak_11 = 0;
                                                 $rak_12 = 0;
@@ -166,9 +166,9 @@
                                                                     <?= $val["skpd"]; ?>
                                                                 </a>
                                                             <?php else : ?>
-                                                                <!-- <a href="#"> -->
-                                                                <?= $val["skpd"]; ?>
-                                                                <!-- </a> -->
+                                                                <a href="<?= site_url("../laporan-kinerja/detail/" . $val["kode_seksi"]); ?>">
+                                                                    <?= $val["skpd"]; ?>
+                                                                </a>
                                                             <?php endif; ?>
                                                         </td>
                                                         <td align="center">
