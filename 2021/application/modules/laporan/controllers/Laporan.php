@@ -599,6 +599,33 @@ class Laporan extends MY_Controller
         $this->template("lap_kinerja_sub_kegiatan", $data);
         // echo json_encode($data["sub_kegiatan"]);
     }
+
+    public function kinerja_bulan($bulan)
+    {
+        if ($this->session->userdata("id_user") == "") {
+            redirect("../");
+        }
+
+        $model = $this->M_laporan;
+        $data["sub_kegiatan"] = $model->get_kinerja_bulan($bulan);
+        $data["bln"] = array(
+            "01" => "Jan",
+            "02" => "Feb",
+            "03" => "Mar",
+            "04" => "Apr",
+            "05" => "Mei",
+            "06" => "Jun",
+            "07" => "Jul",
+            "08" => "Ags",
+            "09" => "Sep",
+            "10" => "Okt",
+            "11" => "Nov",
+            "12" => "Des"
+        );
+
+        $this->template("lap_kinerja_bulan", $data);
+        // echo json_encode($data["sub_kegiatan"]);
+    }
 }
 
 /* End of file Laporan.php */

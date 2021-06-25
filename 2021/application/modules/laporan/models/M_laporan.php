@@ -606,6 +606,23 @@ class M_laporan extends CI_Model
         return $hsl;
     }
 
+    public function get_kinerja_bulan($bulan)
+    {
+        $sub = $this->db->get_where("view_sub_kegiatan")->result();
+        $no = 0;
+        $hsl = array();
+        foreach ($sub as $key) {
+            $hsl[$no++] = array(
+                "nama_sub" => $key->nama_sub_kegiatan,
+                "nama" => $key->nama,
+                "realisasi" => $this->_get_real_sub($key->id_sub_kegiatan, $bulan),
+                "rak" => $this->_get_data_rak($key->id_sub_kegiatan, $bulan),
+            );
+        }
+
+        return $hsl;
+    }
+
     // CRUD
     public function simpan_realisasi_faskes($post)
     {
