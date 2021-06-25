@@ -35,15 +35,8 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 mb-3">
                                     <a href="<?= site_url("../laporan-kinerja/detail"); ?>" class="btn btn-warning text-white">Kembali</a>
-                                </div>
-                                <div class="col-lg-2">
-                                    <h4 class="ml-3">Catatan :</h4>
-                                    <ul class="ml-3">
-                                        <li>A => Anggaran RAK</li>
-                                        <li>R => Realisasi Anggaran</li>
-                                    </ul>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
@@ -53,8 +46,9 @@
                                                     <th width="2%">No</th>
                                                     <th>Sub Kegiatan</th>
                                                     <th width="20%">Seksi</th>
-                                                    <th width="3%"></th>
-                                                    <th width="10%">Jumlah</th>
+                                                    <th width="10%">RAK</th>
+                                                    <th width="10%">Realisasi</th>
+                                                    <th width="5%">Persen</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -84,15 +78,14 @@
                                                         <td>
                                                             <?= $val["nama"]; ?>
                                                         </td>
-                                                        <td align="center">
-                                                            A <br>
-                                                            R <br>
-                                                            % <br>
+                                                        <td align="right" class="<?= $color; ?>">
+                                                            <?= number_format($val["rak"], 0, ".", ","); ?>
                                                         </td>
                                                         <td align="right" class="<?= $color; ?>">
-                                                            <?= number_format($val["rak"], 0, ",", "."); ?> <br>
-                                                            <?= number_format($val["realisasi"], 0, ",", "."); ?> <br>
-                                                            <?= number_format($p_bln, 2, ",", "."); ?>% <br>
+                                                            <?= number_format($val["realisasi"], 0, ".", ","); ?>
+                                                        </td>
+                                                        <td class="<?= $color; ?>">
+                                                            <?= number_format($p_bln, 2, ".", ","); ?>%
                                                         </td>
                                                     </tr>
                                                 <?php endforeach;
@@ -100,14 +93,18 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <td align="right" colspan="4"><b>JUMLAH</b></td>
+                                                    <td align="right" colspan="3"><b>JUMLAH</b></td>
                                                     <td align="right">
-                                                        <b><?= number_format($rak_01, 0, ",", "."); ?></b> <br>
-                                                        <b><?= number_format($b_01, 0, ",", "."); ?></b> <br>
+                                                        <b><?= number_format($rak_01, 0, ".", ","); ?></b>
+                                                    </td>
+                                                    <td align="right">
+                                                        <b><?= number_format($b_01, 0, ".", ","); ?></b>
+                                                    </td>
+                                                    <td>
                                                         <?php
                                                         $persen_b_all_01 = ($rak_01 != 0) ? ($b_01 / $rak_01) * 100 : 0;
                                                         ?>
-                                                        <?= number_format($persen_b_all_01, 2, ",", "."); ?>% <br>
+                                                        <?= number_format($persen_b_all_01, 2, ".", ","); ?>% <br>
                                                     </td>
                                                 </tr>
                                             </tfoot>

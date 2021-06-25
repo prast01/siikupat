@@ -221,6 +221,7 @@
                                                             $persen_b_all_01 = ($rak_01 != 0) ? ($b_01 / $rak_01) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_01, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/01"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_02, 0, ",", "."); ?></b> <br>
@@ -229,6 +230,7 @@
                                                             $persen_b_all_02 = ($rak_02 != 0) ? ($b_02 / $rak_02) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_02, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/02"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_03, 0, ",", "."); ?></b> <br>
@@ -237,6 +239,7 @@
                                                             $persen_b_all_03 = ($rak_03 != 0) ? ($b_03 / $rak_03) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_03, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/03"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_04, 0, ",", "."); ?></b> <br>
@@ -245,6 +248,7 @@
                                                             $persen_b_all_04 = ($rak_04 != 0) ? ($b_04 / $rak_04) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_04, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/04"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_05, 0, ",", "."); ?></b> <br>
@@ -253,6 +257,7 @@
                                                             $persen_b_all_05 = ($rak_05 != 0) ? ($b_05 / $rak_05) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_05, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/05"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_06, 0, ",", "."); ?></b> <br>
@@ -261,6 +266,7 @@
                                                             $persen_b_all_06 = ($rak_06 != 0) ? ($b_06 / $rak_06) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_06, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/06"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_07, 0, ",", "."); ?></b> <br>
@@ -269,6 +275,7 @@
                                                             $persen_b_all_07 = ($rak_07 != 0) ? ($b_07 / $rak_07) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_07, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/07"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_08, 0, ",", "."); ?></b> <br>
@@ -277,6 +284,7 @@
                                                             $persen_b_all_08 = ($rak_08 != 0) ? ($b_08 / $rak_08) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_08, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/08"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_09, 0, ",", "."); ?></b> <br>
@@ -285,6 +293,7 @@
                                                             $persen_b_all_09 = ($rak_09 != 0) ? ($b_09 / $rak_09) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_09, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/09"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_10, 0, ",", "."); ?></b> <br>
@@ -293,6 +302,7 @@
                                                             $persen_b_all_10 = ($rak_10 != 0) ? ($b_10 / $rak_10) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_10, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/10"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_11, 0, ",", "."); ?></b> <br>
@@ -301,6 +311,7 @@
                                                             $persen_b_all_11 = ($rak_11 != 0) ? ($b_11 / $rak_11) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_11, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/11"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <b><?= number_format($rak_12, 0, ",", "."); ?></b> <br>
@@ -309,6 +320,7 @@
                                                             $persen_b_all_12 = ($rak_12 != 0) ? ($b_12 / $rak_12) * 100 : 0;
                                                             ?>
                                                             <?= number_format($persen_b_all_12, 2, ",", "."); ?>% <br>
+                                                            <a href="<?= site_url("../laporan-kinerja/bulan/12"); ?>" class="btn btn-primary btn-sm" target="_blank">Lihat</a>
                                                         </td>
                                                         <td align="right">
                                                             <?php
