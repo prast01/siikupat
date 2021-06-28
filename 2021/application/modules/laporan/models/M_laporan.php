@@ -612,11 +612,15 @@ class M_laporan extends CI_Model
         $no = 0;
         $hsl = array();
         foreach ($sub as $key) {
+            $real = $this->_get_real_sub($key->id_sub_kegiatan, $bulan);
+            $rak = $this->_get_data_rak($key->id_sub_kegiatan, $bulan);
+            $sisa = $rak - $real;
             $hsl[$no++] = array(
                 "nama_sub" => $key->nama_sub_kegiatan,
                 "nama" => $key->nama,
-                "realisasi" => $this->_get_real_sub($key->id_sub_kegiatan, $bulan),
-                "rak" => $this->_get_data_rak($key->id_sub_kegiatan, $bulan),
+                "realisasi" => $real,
+                "rak" => $rak,
+                "sisa" => $sisa,
             );
         }
 

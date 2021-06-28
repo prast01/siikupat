@@ -48,6 +48,7 @@
                                                     <th width="20%">Seksi</th>
                                                     <th width="10%">RAK</th>
                                                     <th width="10%">Realisasi</th>
+                                                    <th width="10%">Sisa</th>
                                                     <th width="5%">Persen</th>
                                                 </tr>
                                             </thead>
@@ -57,6 +58,7 @@
                                                 $total_all = 0;
                                                 $b_01 = 0;
                                                 $rak_01 = 0;
+                                                $sisa = 0;
                                                 ?>
                                                 <?php foreach ($sub_kegiatan as $row => $val) :
                                                 ?>
@@ -65,6 +67,7 @@
                                                     $total_samping2 = 0;
                                                     $b_01 = $b_01 + $val["realisasi"];
                                                     $rak_01 = $rak_01 + $val["rak"];
+                                                    $sisa = $sisa + $val["sisa"];
                                                     $persen_bln = ($val["rak"] != 0) ? ($val["realisasi"] / $val["rak"]) * 100 : 0;
 
                                                     $p_bln = ($val["rak"] == 0 && $val["realisasi"] != 0) ? 100 : $persen_bln;
@@ -84,6 +87,9 @@
                                                         <td align="right" class="<?= $color; ?>">
                                                             <?= number_format($val["realisasi"], 0, ".", ","); ?>
                                                         </td>
+                                                        <td align="right" class="<?= $color; ?>">
+                                                            <?= number_format($val["sisa"], 0, ".", ","); ?>
+                                                        </td>
                                                         <td class="<?= $color; ?>">
                                                             <?= number_format($p_bln, 2, ".", ","); ?>%
                                                         </td>
@@ -99,6 +105,9 @@
                                                     </td>
                                                     <td align="right">
                                                         <b><?= number_format($b_01, 0, ".", ","); ?></b>
+                                                    </td>
+                                                    <td align="right">
+                                                        <b><?= number_format($sisa, 0, ".", ","); ?></b>
                                                     </td>
                                                     <td>
                                                         <?php
